@@ -40,7 +40,7 @@ I have used the Ultimate version.
 18. Create new fish entry: POST http://localhost:8080/api/fish/create
 - todo: 19. Allow admin to set a reported problem as solved.
 
-##Setup
+## Setup
 1. Clone this repository. <br>
 2. Create the database in MySQL using: create database [YOUR DATABASE NAME HERE] <br>
 3. Change in *application.properties* the following lines of code: <br>
