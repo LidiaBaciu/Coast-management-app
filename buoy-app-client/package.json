@@ -1,0 +1,50 @@
+{
+  "name": "mate",
+  "version": "1.5.0",
+  "description": "",
+  "author": "RedQ, Inc",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "clean": "lerna clean --yes && rimraf node_modules",
+    "clean:build": "lerna exec -- rimraf \"{.next,dist,out,build,.docz,.cache, public}\"",
+    "start:mate-admin": "yarn workspace @mate/admin run start",
+    "start:mate-boilerplate": "yarn workspace @mate/boilerplate run start",
+    "start:mate-servers": "yarn workspace @mate/servers run start",
+    "build:mate-admin": "yarn workspace @mate/admin run build",
+    "build:mate-boilerplate": "yarn workspace @mate/boilerplate run build",
+    "build:mate-servers": "yarn workspace @mate/servers run build",
+    "serve:mate-admin": "yarn workspace @mate/admin run serve",
+    "serve:mate-boilerplate": "yarn workspace @mate/boilerplate run serve",
+    "serve:mate-servers": "yarn workspace @mate/servers run serve"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css,html}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ]
+  },
+  "resolutions": {
+    "react": "16.11.0",
+    "react-dom": "16.11.0"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "husky": "^3.0.9",
+    "lerna": "^3.18.3",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "serve": "^11.2.0"
+  }
+}
