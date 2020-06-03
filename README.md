@@ -3,7 +3,16 @@
 This project focuses on gathering and illustrating information about the quality of the water nerby the coasts of Norway. 
 
 ## Database
-MySQL : https://dev.mysql.com/downloads/installer/
+MySQL : https://dev.mysql.com/downloads/installer/ <br>
+I have the following entities:
+- User : id, username, email, password (Encoded) & list of the <b>Buoy</b>s he's taking care of
+- Role : id, name
+- Project : id, status, description & list of buoys for which the project was of interest
+- Buoy : id, GPS coordinates (latitude, longitude) & a set of <b>Sensor</b>s 
+- Beach : id, name, GPS coordinates, link to the photo & list of <b>Buoy</b>s that belong to this beach
+- Sensor : id, name & list of <b>Sensor value</b>s
+- Sensor value : idSensor, entryId, value, timestamp
+- Problems reported : id, <b>User<b/>, <b>Buoy</b>, description and timestamp
 
 ## Development environment 
 IntelliJ IDEA : https://www.jetbrains.com/idea/download/#section=windows <br>
