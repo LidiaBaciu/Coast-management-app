@@ -1,7 +1,11 @@
 package com.example.coastmanagement.controller;
 
 import com.example.coastmanagement.model.*;
-import com.example.coastmanagement.payload.*;
+import com.example.coastmanagement.payload.requests.PollRequest;
+import com.example.coastmanagement.payload.requests.VoteRequest;
+import com.example.coastmanagement.payload.responses.ApiResponse;
+import com.example.coastmanagement.payload.responses.PagedResponse;
+import com.example.coastmanagement.payload.responses.PollResponse;
 import com.example.coastmanagement.repository.PollRepository;
 import com.example.coastmanagement.repository.UserRepository;
 import com.example.coastmanagement.repository.VoteRepository;

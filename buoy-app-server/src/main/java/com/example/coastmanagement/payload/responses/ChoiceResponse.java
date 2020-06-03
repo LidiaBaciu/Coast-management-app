@@ -1,4 +1,4 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.responses;
 
 public class ChoiceResponse {
     private long id;

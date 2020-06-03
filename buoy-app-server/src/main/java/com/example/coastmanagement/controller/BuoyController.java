@@ -5,6 +5,7 @@ import com.example.coastmanagement.model.Beach;
 import com.example.coastmanagement.model.Buoy;
 import com.example.coastmanagement.model.User;
 import com.example.coastmanagement.payload.*;
+import com.example.coastmanagement.payload.requests.BuoyRequest;
 import com.example.coastmanagement.repository.BeachRepository;
 import com.example.coastmanagement.repository.BuoyRepository;
 import com.example.coastmanagement.repository.UserRepository;

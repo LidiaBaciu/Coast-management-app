@@ -2,10 +2,11 @@ package com.example.coastmanagement.controller;
 
 import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.Buoy;
-import com.example.coastmanagement.model.ProblemsReported;
-import com.example.coastmanagement.model.Project;
+import com.example.coastmanagement.model.ProblemReported;
 import com.example.coastmanagement.model.User;
 import com.example.coastmanagement.payload.*;
+import com.example.coastmanagement.payload.requests.ProblemRequest;
+import com.example.coastmanagement.payload.responses.ProblemResponse;
 import com.example.coastmanagement.repository.BuoyRepository;
 import com.example.coastmanagement.repository.ProblemsReportedRepository;
 import com.example.coastmanagement.repository.UserRepository;
@@ -35,11 +36,11 @@ public class ProblemsReportedController {
     private UserRepository userRepository;
 
     @GetMapping("/problems")
-    public List<ProblemsReportedResponse> getProblems(){
-        List<ProblemsReportedResponse> problemsReportedResponses = new ArrayList<>();
-        List<ProblemsReported> problemsReported = problemsReportedService.getAllProblemsReported();
-        for (ProblemsReported problem : problemsReported) {
-            ProblemsReportedResponse response = new ProblemsReportedResponse();
+    public List<ProblemResponse> getProblems(){
+        List<ProblemResponse> problemsReportedResponses = new ArrayList<>();
+        List<ProblemReported> problemsReported = problemsReportedService.getAllProblemsReported();
+        for (ProblemReported problem : problemsReported) {
+            ProblemResponse response = new ProblemResponse();
             response.setId(problem.getId());
             response.setDescription(problem.getDescription());
             response.setTimestamp(problem.getTimestamp());
@@ -66,8 +67,8 @@ public class ProblemsReportedController {
         return ResponseEntity.ok("The problem has been reported successfully!");
     }
 
-    public ProblemsReported save(ProblemRequest projectRequest){
-        ProblemsReported problem = new ProblemsReported();
+    public ProblemReported save(ProblemRequest projectRequest){
+        ProblemReported problem = new ProblemReported();
         Buoy buoy = buoyRepository.findById(projectRequest.getBuoy().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Buoy", "id", projectRequest.getBuoy().getId()));
         problem.setBuoy(buoy);
@@ -84,7 +85,7 @@ public class ProblemsReportedController {
     @PutMapping("/problem/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> setProblemSolved(@PathVariable(value = "id") Long problemId){
-        ProblemsReported problem = problemsReportedRepository.findById(problemId)
+        ProblemReported problem = problemsReportedRepository.findById(problemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Problem", "id", problemId));
         if(problem.getSolved() == null){
             problem.setSolved(false);

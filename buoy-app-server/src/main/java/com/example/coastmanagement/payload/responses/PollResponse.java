@@ -1,5 +1,6 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.responses;
 
+import com.example.coastmanagement.payload.UserSummary;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.Instant;

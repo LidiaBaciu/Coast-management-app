@@ -27,12 +27,6 @@ public class Fish {
     public Fish() {
     }
 
-    public Fish(@NotBlank @Size(max = 40) String name, float minTemperature, float maxTemperature) {
-        this.name = name;
-        this.minTemperature = minTemperature;
-        this.maxTemperature = maxTemperature;
-    }
-
     public Long getId() {
         return id;
     }

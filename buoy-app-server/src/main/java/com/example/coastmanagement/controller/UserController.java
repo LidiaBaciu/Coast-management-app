@@ -4,6 +4,8 @@ import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.RoleName;
 import com.example.coastmanagement.model.User;
 import com.example.coastmanagement.payload.*;
+import com.example.coastmanagement.payload.responses.PagedResponse;
+import com.example.coastmanagement.payload.responses.PollResponse;
 import com.example.coastmanagement.repository.PollRepository;
 import com.example.coastmanagement.repository.UserRepository;
 import com.example.coastmanagement.repository.VoteRepository;

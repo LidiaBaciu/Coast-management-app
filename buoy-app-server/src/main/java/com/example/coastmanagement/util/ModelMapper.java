@@ -1,8 +1,8 @@
 package com.example.coastmanagement.util;
 
 import com.example.coastmanagement.model.*;
-import com.example.coastmanagement.payload.ChoiceResponse;
-import com.example.coastmanagement.payload.PollResponse;
+import com.example.coastmanagement.payload.responses.ChoiceResponse;
+import com.example.coastmanagement.payload.responses.PollResponse;
 import com.example.coastmanagement.payload.UserSummary;
 
 import java.time.Instant;

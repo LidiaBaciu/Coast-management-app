@@ -1,4 +1,4 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.requests;
 
 public class BuoyRequest {
     private float latitude;

@@ -35,12 +35,6 @@ public class Project {
 
     public Project(){}
 
-    public Project(@NotBlank @Size(max = 40) String name, @NotBlank String status, @NotBlank String description) {
-        this.name = name;
-        this.status = status;
-        this.description = description;
-    }
-
     public Long getId() {
         return id;
     }

@@ -2,12 +2,8 @@ package com.example.coastmanagement.controller;
 
 
 import com.example.coastmanagement.exception.ResourceNotFoundException;
-import com.example.coastmanagement.model.Beach;
-import com.example.coastmanagement.model.Buoy;
 import com.example.coastmanagement.model.Fish;
-import com.example.coastmanagement.model.User;
-import com.example.coastmanagement.payload.BuoyRequest;
-import com.example.coastmanagement.payload.FishRequest;
+import com.example.coastmanagement.payload.requests.FishRequest;
 import com.example.coastmanagement.repository.FishRepository;
 import com.example.coastmanagement.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;

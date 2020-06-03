@@ -1,4 +1,4 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.responses;
 
 import com.example.coastmanagement.model.Beach;
 import com.example.coastmanagement.model.User;

@@ -1,4 +1,6 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.requests;
+
+import com.example.coastmanagement.payload.PollLength;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

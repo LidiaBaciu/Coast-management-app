@@ -1,4 +1,4 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.responses;
 
 /**
  * Created by rajeevkumarsingh on 19/08/17.

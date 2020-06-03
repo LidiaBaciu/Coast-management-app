@@ -21,12 +21,6 @@ public class SensorValue {
 
     public SensorValue(){}
 
-    public SensorValue(@NotBlank Long id,@NotBlank float value, @NotBlank String timestamp) {
-        this.id = id;
-        this.value = value;
-        this.timestamp = timestamp;
-    }
-
     public Long getId() {
         return id;
     }

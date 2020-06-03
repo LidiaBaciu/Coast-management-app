@@ -39,14 +39,6 @@ public class Beach {
 
     public Beach(){}
 
-    public Beach(@NotBlank @Size(max = 40) String name, @NotBlank float latitude, @NotBlank float longitude,
-                            String photoUri) {
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.photoUri = photoUri;
-    }
-
     public Long getId() {
         return id;
     }
@@ -82,6 +74,7 @@ public class Beach {
     public String getPhotoUri() {
         return photoUri;
     }
+
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
     }

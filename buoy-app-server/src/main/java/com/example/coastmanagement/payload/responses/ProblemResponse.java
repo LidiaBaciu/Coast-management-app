@@ -1,6 +1,9 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.responses;
 
-public class ProblemsReportedResponse {
+import com.example.coastmanagement.payload.BuoySummary;
+import com.example.coastmanagement.payload.UserSummary;
+
+public class ProblemResponse {
     private Long id;
     private UserSummary userSummary;
     private BuoySummary buoySummary;

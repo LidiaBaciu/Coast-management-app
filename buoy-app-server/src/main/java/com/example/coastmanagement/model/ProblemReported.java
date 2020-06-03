@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
                 "id"
         })
 })
-public class ProblemsReported {
+public class ProblemReported {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,13 +30,8 @@ public class ProblemsReported {
 
     private Boolean isSolved;
 
-    public ProblemsReported(){}
+    public ProblemReported(){}
 
-    public ProblemsReported(@NotBlank String description, String timestamp) {
-        this.description = description;
-        this.timestamp = timestamp;
-        this.isSolved = false;
-    }
 
     public Long getId() {
         return id;
