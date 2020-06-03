@@ -38,7 +38,7 @@ I have used the Ultimate version.
 16. Create a project: POST http://localhost:8080/api/project/create
 17. Report a problem: POST http://localhost:8080/api/problem/create
 18. Create new fish entry: POST http://localhost:8080/api/fish/create
-- todo: 19. Allow admin to set a reported problem as solved.
+19. Allow admin to set a reported problem as solved: PUT http://localhost:8080/api/problem/{problemId}
 
 ## Setup
 1. Clone this repository. <br>
