@@ -15,6 +15,8 @@ I have the following entities:
 - Problems reported : id, <b>User</b>, <b>Buoy</b>, description and timestamp
 - Fish : id, name, link to the photo, water temperature preferences (minim, maximum)
 
+![Screenshot](ER-Diagram.PNG)
+
 ## Development environment 
 IntelliJ IDEA : https://www.jetbrains.com/idea/download/#section=windows <br>
 I have used the Ultimate version.
