@@ -12,7 +12,7 @@ I have the following entities:
 - Beach : id, name, GPS coordinates, link to the photo & list of <b>Buoy</b>s that belong to this beach
 - Sensor : id, name & list of <b>Sensor value</b>s
 - Sensor value : idSensor, entryId, value, timestamp
-- Problems reported : id, <b>User<b/>, <b>Buoy</b>, description and timestamp
+- Problems reported : id, <b>User</b>, <b>Buoy</b>, description and timestamp
 - Fish : id, name, link to the photo, water temperature preferences (minim, maximum)
 
 ## Development environment 
