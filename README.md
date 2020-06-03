@@ -13,6 +13,7 @@ I have the following entities:
 - Sensor : id, name & list of <b>Sensor value</b>s
 - Sensor value : idSensor, entryId, value, timestamp
 - Problems reported : id, <b>User<b/>, <b>Buoy</b>, description and timestamp
+- Fish : id, name, link to the photo, water temperature preferences (minim, maximum)
 
 ## Development environment 
 IntelliJ IDEA : https://www.jetbrains.com/idea/download/#section=windows <br>
