@@ -53,6 +53,7 @@ public class ProblemsReportedController {
             userSummary.setName(problem.getUser().getName());
             userSummary.setUsername(problem.getUser().getUsername());
             response.setUserSummary(userSummary);
+            response.setSolved(problem.getSolved());
             problemsReportedResponses.add(response);
         }
         return problemsReportedResponses;
@@ -76,6 +77,23 @@ public class ProblemsReportedController {
         problem.setDescription(projectRequest.getDescription());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         problem.setTimestamp(timestamp.toString());
+        problem.setSolved(false);
         return problemsReportedRepository.save(problem);
     }
+
+    @PutMapping("/problem/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> setProblemSolved(@PathVariable(value = "id") Long problemId){
+        ProblemsReported problem = problemsReportedRepository.findById(problemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Problem", "id", problemId));
+        if(problem.getSolved() == null){
+            problem.setSolved(false);
+        }else{
+            boolean isSolved = problem.getSolved();
+            problem.setSolved(!isSolved);
+        }
+        problemsReportedRepository.save(problem);
+        return ResponseEntity.ok("The problem has been successfully flagged as solved? " + problem.getSolved());
+    }
+
 }

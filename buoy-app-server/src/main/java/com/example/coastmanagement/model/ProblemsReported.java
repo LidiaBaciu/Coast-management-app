@@ -28,11 +28,14 @@ public class ProblemsReported {
 
     private String timestamp;
 
+    private Boolean isSolved;
+
     public ProblemsReported(){}
 
     public ProblemsReported(@NotBlank String description, String timestamp) {
         this.description = description;
         this.timestamp = timestamp;
+        this.isSolved = false;
     }
 
     public Long getId() {
@@ -73,5 +76,13 @@ public class ProblemsReported {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Boolean getSolved() {
+        return isSolved;
+    }
+
+    public void setSolved(Boolean solved) {
+        isSolved = solved;
     }
 }

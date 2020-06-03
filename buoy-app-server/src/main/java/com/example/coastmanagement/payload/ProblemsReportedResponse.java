@@ -6,6 +6,7 @@ public class ProblemsReportedResponse {
     private BuoySummary buoySummary;
     private String description;
     private String timestamp;
+    private Boolean isSolved;
 
     public Long getId() {
         return id;
@@ -45,5 +46,13 @@ public class ProblemsReportedResponse {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Boolean getSolved() {
+        return isSolved;
+    }
+
+    public void setSolved(Boolean solved) {
+        isSolved = solved;
     }
 }

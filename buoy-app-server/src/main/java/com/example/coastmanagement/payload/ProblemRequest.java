@@ -9,6 +9,7 @@ public class ProblemRequest {
     private Buoy buoy;
     private String description;
     private String timestamp;
+    private Boolean isSolved;
 
     public User getUser() {
         return user;
@@ -40,5 +41,13 @@ public class ProblemRequest {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Boolean getSolved() {
+        return isSolved;
+    }
+
+    public void setSolved(Boolean solved) {
+        isSolved = solved;
     }
 }

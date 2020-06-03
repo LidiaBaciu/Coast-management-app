@@ -87,13 +87,4 @@ public class UserController {
         return pollService.getPollsVotedBy(username, currentUser, page, size);
     }
 
-    /*
-    @GetMapping("/user/{username}/projects")
-    public List<Project> getProjectsForUser(@PathVariable(value = "username") String username){
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-
-        return user.getProjects();
-    }
-     */
 }
