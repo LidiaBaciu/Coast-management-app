@@ -129,10 +129,10 @@ const SignUpStyleWrapper = styled.div`
       }
     }
     .mateSignInPageGreet {
-      padding: 30px 0;
-      padding-top: 15px;
+      padding: 15px 0;
+      padding-top: 5px;
       h1 {
-        font-size: 60px;
+        font-size: 50px;
         font-weight: 300;
         margin-bottom: 18px;
         text-transform: capitalize;
@@ -157,7 +157,7 @@ const SignUpStyleWrapper = styled.div`
       }
       .mateInputWrapper {
         margin-right: 15px;
-        width: calc(50% - 15px);
+        width: calc(80% - 15px);
         @media (max-width: 480px) {
           margin-right: 0px;
           width: 100%;

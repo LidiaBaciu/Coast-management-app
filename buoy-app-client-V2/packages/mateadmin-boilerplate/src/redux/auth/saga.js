@@ -40,6 +40,7 @@ export function* registerRequest({payload}){
 export function* loginSuccess({ payload }) {
   console.log(JSON.stringify(payload));
   yield localStorage.setItem('id_token', payload.accessToken);
+  
 }
 
 export function* loginError() {}

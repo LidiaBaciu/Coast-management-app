@@ -1,5 +1,5 @@
 const API_BASE_URL = 'http://localhost:8080'
-const ACCESS_TOKEN = 'accessToken';
+export const ACCESS_TOKEN = 'accessToken';
 
 const request = (options) => {
     const headers = new Headers({
@@ -9,7 +9,7 @@ const request = (options) => {
     if(localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
     }
-
+    
     const defaults = {headers: headers};
     options = Object.assign({}, defaults, options);
 
@@ -33,6 +33,14 @@ export function register(signupRequest) {
     });
 }
   
+export function loginRequest(signinRequest) {
+    return request({
+        url: API_BASE_URL + "/api/auth/signin",
+        method: 'POST',
+        body: JSON.stringify(signinRequest)
+    });
+}
+
 export function checkUsernameAvailability(username){
     return request({
         url: API_BASE_URL + "/api/user/checkUsernameAvailability?username=" + username,
