@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import signinImg from '../../../images/signin.svg';
+import signinImg from '../../../images/signup.jpg';
 import TextField from '../../../components/uielements/textfield';
 import Scrollbars from '../../../components/utility/customScrollBar';
 import Button from '../../../components/uielements/button';
@@ -112,8 +112,7 @@ class SignUp extends Component {
           </div>
           <Scrollbars style={{ height: '100%' }}>
             <div className="mateSignInPageGreet">
-                <center><h1>Welcome!</h1>
-                <p>Please register to become one of our members</p></center>
+                <center><p>Please register to become one of our members!</p></center>
             </div>
             <div className="mateSignInPageForm">
               <div className="mateInputWrapper">

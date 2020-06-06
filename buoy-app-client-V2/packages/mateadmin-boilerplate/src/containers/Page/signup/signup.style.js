@@ -94,7 +94,7 @@ const SignUpStyleWrapper = styled.div`
     @media (max-width: 480px) {
       padding: 20px;
     }
-    background: #f3fbff;
+    background: 	#6a959a;
     border-left: 1px solid #d9ddf6;
     .scrollbar-track {
       &.scrollbar-track-y,

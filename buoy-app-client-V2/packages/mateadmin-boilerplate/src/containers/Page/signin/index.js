@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import signinImg from '../../../images/signup.svg';
+import signinImg from '../../../images/signin.jpg';
 import Button from '../../../components/uielements/button';
 import authAction from '../../../redux/auth/actions';
 import {loginRequest, ACCESS_TOKEN} from '../../../redux/auth/apiUtils'
 import TextField from '../../../components/uielements/textfield';
 import Scrollbars from '../../../components/utility/customScrollBar';
 import SignInStyleWrapper from './signin.style';
-import { notification } from 'antd';
 
 const { login } = authAction;
 let errors = {};
@@ -51,10 +50,6 @@ class SignIn extends Component {
           }
       });
     console.log(errors);
-    //const { login } = this.props;
-    //const { usernameOrEmail, password } = this.state;
-    //login({ usernameOrEmail, password });
-    //this.props.history.push('/dashboard');
   };
 
   onChangeUsername = event => this.setState({ usernameOrEmail: event.target.value });
@@ -90,10 +85,9 @@ class SignIn extends Component {
           </div>
           <Scrollbars style={{ height: '100%' }}>
             <div className="mateSignInPageGreet">
-              <h1>Hello User,</h1>
+              <h1>Hello,</h1>
               <p>
-                Welcome to Mate Admin, Please Login with your personal account
-                information.
+                Please login in.
               </p>
             </div>
             <div className="mateSignInPageForm">

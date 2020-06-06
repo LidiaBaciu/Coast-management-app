@@ -83,7 +83,7 @@ const SignInStyleWrapper = styled.div`
     @media (max-width: 480px) {
       padding: 20px;
     }
-    background: #f3fbff;
+    background: #9ea4a9;
     border-left: 1px solid #d9ddf6;
     .scrollbar-track {
       &.scrollbar-track-y,
