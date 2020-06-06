@@ -31,9 +31,10 @@ class SignIn extends Component {
     }
   }
   handleLogin = () => {
-    const { login } = this.props;
-    const { username, password } = this.state;
-    login({ username, password });
+    console.log("handle login");
+    //const { login } = this.props;
+    //const { username, password } = this.state;
+    //login({ username, password });
     this.props.history.push('/dashboard');
   };
   onChangeUsername = event => this.setState({ username: event.target.value });
@@ -99,70 +100,7 @@ class SignIn extends Component {
                   Login
                 </Button>
               </div>
-            </div>
-            <div className="mateLoginSubmitText">
-              <span>
-                * Username: demo@gmail.com , Password: demodemo or click on any
-                button.
-              </span>
-            </div>
-            <div className="mateLoginOtherBtn">
-              <div className="mateLoginOtherBtnWrap">
-                <Button
-                  onClick={this.handleLogin}
-                  type="button"
-                  variant="contained"
-                  className="btnFacebook"
-                >
-                  <div className="mateLoginOtherIcon">
-                    <img src={fbBtnSvg} alt="facebook Btn" />
-                  </div>
-                  <IntlMessages id="page.signInFacebook" />
-                </Button>
-              </div>
-              <div className="mateLoginOtherBtnWrap">
-                <Button
-                  onClick={this.handleLogin}
-                  type="button"
-                  className="btnGooglePlus"
-                >
-                  <div className="mateLoginOtherIcon">
-                    <img src={gpBtnSvg} alt="Google Plus Btn" />
-                  </div>
-                  <IntlMessages id="page.signInGooglePlus" />
-                </Button>
-              </div>
-              <div className="mateLoginOtherBtnWrap">
-                {Auth0.isValid ? (
-                  <Button
-                    type="button"
-                    className="btnAuthZero"
-                    onClick={() => {
-                      Auth0.login(this.handleLogin);
-                    }}
-                  >
-                    <div className="mateLoginOtherIcon">
-                      <img src={authBtnSvg} alt="Authentication Btn" />
-                    </div>
-                    <IntlMessages id="page.signInAuth0" />
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    className="primary btnAuthZero"
-                    onClick={this.handleLogin}
-                  >
-                    <div className="mateLoginOtherIcon">
-                      <img src={authBtnSvg} alt="Authentication Btn" />
-                    </div>
-                    <IntlMessages id="page.signInAuth0" />
-                  </Button>
-                )}
-              </div>
-              <div className="mateLoginOtherBtnWrap">
-                {Firebase.isValid && <FirebaseLogin login={this.handleLogin} />}
-              </div>
-            </div>
+            </div>       
           </Scrollbars>
         </div>
       </SignInStyleWrapper>

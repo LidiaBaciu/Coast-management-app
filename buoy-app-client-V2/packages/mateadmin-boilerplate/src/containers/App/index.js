@@ -12,8 +12,8 @@ import appActions from '../../redux/app/actions';
 import themeActions from '../../redux/themeSwitcher/actions';
 import ThemeSwitcher from '../ThemeSwitcher';
 import ThemeSwitcherButton from '../ThemeSwitcherButton';
-// import SecondarySidebar from '../SecondarySidebar';
-// import PageBreadcrumb from '../PageBreadcrumb';
+import SecondarySidebar from '../SecondarySidebar';
+import PageBreadcrumb from '../PageBreadcrumb';
 import MUIPProvider from '../../components/uielements/materialUiPicker/momentProvider';
 import { rtl } from '../../settings/withDirection';
 import Main, { Root, AppFrame } from './style';
@@ -66,7 +66,7 @@ class App extends Component {
                   : 'notFixed'
               }
             >
-              {/* <PageBreadcrumb url={url} /> */}
+              <PageBreadcrumb url={url} />
 
               <MUIPProvider>
                 <AppRouter
@@ -75,11 +75,11 @@ class App extends Component {
                 />
               </MUIPProvider>
               <ThemeSwitcherButton />
-              {/* <SecondarySidebar
+              <SecondarySidebar
                 InnerComponent={ThemeSwitcher}
                 currentActiveKey="themeSwitcher"
                 {...propsTopbar}
-              /> */}
+              />
             </Main>
 
             {anchor === 'right' ? <Sidebar {...options} anchor={anchor} /> : ''}
