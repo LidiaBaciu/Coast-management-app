@@ -78,7 +78,7 @@ const PublicRoutes = ({ history, isLoggedIn }) => (
 
 function mapStateToProps(state) {
   return {
-    isLoggedIn: state.Auth.idToken !== null,
+    isLoggedIn: state.Auth.isLoggedIn !== null,
   };
 }
 export default connect(mapStateToProps)(PublicRoutes);

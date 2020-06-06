@@ -12,8 +12,8 @@ const { login } = authAction;
 class SignIn extends Component {
   state = {
     redirectToReferrer: false,
-    usernameOrEmail: 'demo@gmail.com',
-    password: 'demodemo',
+    usernameOrEmail: '',
+    password: '',
   };
 
   componentWillReceiveProps(nextProps) {
@@ -30,6 +30,7 @@ class SignIn extends Component {
     const { login } = this.props;
     const { usernameOrEmail, password } = this.state;
     login({ usernameOrEmail, password });
+    this.props.history.push('/dashboard');
   };
 
   onChangeUsername = event => this.setState({ usernameOrEmail: event.target.value });
@@ -105,7 +106,7 @@ class SignIn extends Component {
 }
 export default connect(
   state => ({
-    isLoggedIn: state.Auth.idToken !== null ? true : false,
+    isLoggedIn: state.Auth.user !== null ? true : false,
   }),
   { login }
 )(SignIn);

@@ -24,7 +24,7 @@ export function* loginRequest({payload}) {
   } else {
     yield put({ type: actions.LOGIN_ERROR });
   }
-  console.log(payload);
+  console.log(response.data);
 }
 
 export function* registerRequest({payload}){
@@ -38,7 +38,8 @@ export function* registerRequest({payload}){
 
 
 export function* loginSuccess({ payload }) {
-  yield localStorage.setItem('id_token', payload.token);
+  console.log(JSON.stringify(payload));
+  yield localStorage.setItem('id_token', payload.accessToken);
 }
 
 export function* loginError() {}
