@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import signinImg from '../../../images/signin.svg';
-import TextField from '../../../components/uielements/textfield';
+//import TextField from '../../../components/uielements/textfield';
 import Scrollbars from '../../../components/utility/customScrollBar';
 import Button from '../../../components/uielements/button';
 import authAction from '../../../redux/auth/actions';
-import IntlMessages from '../../../components/utility/intlMessages';
 import SignUpStyleWrapper from './signup.style';
 import {checkUsernameAvailability, checkEmailAvailability} from '../../../redux/auth/apiUtils'
 import { 
@@ -15,7 +14,7 @@ import {
   EMAIL_MAX_LENGTH,
   PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
 } from '../../../redux/auth/constants';
-import { Form, Input, notification } from 'antd';
+import { Form, Input } from 'antd';
 const FormItem = Form.Item;
 
 const { register } = authAction;

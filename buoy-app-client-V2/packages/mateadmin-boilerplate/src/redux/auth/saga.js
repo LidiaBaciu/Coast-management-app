@@ -1,30 +1,39 @@
-import { all, takeEvery, put } from 'redux-saga/effects';
+import { all, takeEvery, put, call } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { clearToken, getToken } from '../../helpers/utility';
 import actions from './actions';
-import {register} from './apiUtils';
-const fakeApiCall = "";
+import axios from 'axios';
 
-export function* loginRequest() {
-  if (fakeApiCall) {
+function loginApi(payload){
+  return axios.post('http://localhost:8080/api/auth/signin', payload);
+}
+
+function registerApi(payload){
+  return axios.post('http://localhost:8080/api/auth/signup', payload);
+}
+
+export function* loginRequest({payload}) {
+  console.log(JSON.stringify(payload));
+  const response = yield call(loginApi, payload);
+  if(response){
     yield put({
       type: actions.LOGIN_SUCCESS,
-      payload: { token: 'secret token' },
+      payload: {user: response.data},
       profile: 'Profile',
     });
   } else {
     yield put({ type: actions.LOGIN_ERROR });
   }
+  console.log(payload);
 }
 
 export function* registerRequest({payload}){
   console.log(payload);
-  register(payload)
-  .then(response => {
-      console.log("success");
-  }).catch(error => {
-    console.log(error);
-  });
+  const response = yield call(registerApi, payload);
+  console.log('response register from yield', JSON.parse(response));
+  if(response){
+    console.log("User succesfully ", response.data);
+  } 
 }
 
 
