@@ -1,6 +1,7 @@
 package com.example.coastmanagement.controller;
 
 import com.example.coastmanagement.exception.AppException;
+import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.Role;
 import com.example.coastmanagement.model.RoleName;
 import com.example.coastmanagement.model.User;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * Created by rajeevkumarsingh on 02/08/17.
@@ -64,7 +66,15 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+
+        User user = userRepository.findByUsername(loginRequest.getUsernameOrEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", loginRequest.getUsernameOrEmail()));
+        String role = user.getRoles().stream().findFirst().get().getName().toString();
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,
+                user.getId(),
+                role,
+                user.getUsername(),
+                user.getEmail()));
     }
 
     @PostMapping("/signup")
