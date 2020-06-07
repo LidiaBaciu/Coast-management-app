@@ -36,7 +36,11 @@ class TopbarUser extends Component {
       <TopbarDropdown>
         <UserInformation>
           <div className="userImage">
-          {this.props.auth.role === 'ROLE_ADMIN' ? <img src={Image} alt="user" /> : <img src={ImageUser} alt="user" />}
+            {this.props.auth.role === 'ROLE_ADMIN' ? (
+              <img src={Image} alt="user" />
+            ) : (
+              <img src={ImageUser} alt="user" />
+            )}
           </div>
 
           <div className="userDetails">
@@ -74,7 +78,11 @@ class TopbarUser extends Component {
           onClick={this.handleVisibleChange}
         >
           <div className="userImgWrapper">
-            <img src={Image} alt="#" />
+            {this.props.auth.role === 'ROLE_ADMIN' ? (
+              <img src={Image} alt="user" />
+            ) : (
+              <img src={ImageUser} alt="user" />
+            )}
           </div>
         </IconButtons>
 
