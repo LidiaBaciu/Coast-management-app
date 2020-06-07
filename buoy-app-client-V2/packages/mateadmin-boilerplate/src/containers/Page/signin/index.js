@@ -35,7 +35,9 @@ class SignIn extends Component {
     const loginRequestObj = Object.assign({}, {usernameOrEmail, password});
     loginRequest(loginRequestObj)
       .then(response => {
+        console.log("response " + JSON.stringify(response));
           localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+          localStorage.setItem('role', response.role);
           login({ usernameOrEmail, password });
           this.props.history.push('/dashboard');
       }).catch(error => {
@@ -49,7 +51,6 @@ class SignIn extends Component {
             this.setState({isError: true});                                               
           }
       });
-    console.log(errors);
   };
 
   onChangeUsername = event => this.setState({ usernameOrEmail: event.target.value });

@@ -1,3 +1,29 @@
+
+export function getCurrentUser(){
+  try {
+    const user = localStorage.getItem('user');
+    return JSON.parse(user);
+  } catch (err) {
+    clearUser();
+    return null;
+  }
+}
+
+export function clearUser() {
+  localStorage.removeItem('user');
+  localStorage.removeItem('role');
+  localStorage.removeItem('username');
+  localStorage.removeItem('token');
+  localStorage.removeItem('email');
+  localStorage.removeItem('accessToken');
+}
+
+export function getDataFromUser(userData){
+  const user = getCurrentUser();
+  console.log("user from getDataFromUser -> ", user);
+  return user.userData
+}
+
 export function clearToken() {
   localStorage.removeItem('id_token');
 }

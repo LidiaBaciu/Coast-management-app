@@ -3,14 +3,17 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './containers/App';
-import Auth0 from './helpers/auth0';
+import AppUser from './containers/AppUser';
 
-const RestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => (
+const RestrictedRoute = ({ component: Component, userComponent: UserComponent, 
+                              isLoggedIn, role, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      isLoggedIn ? (
+      isLoggedIn && role === "ROLE_ADMIN" ? (
         <Component {...props} />
+      ) : isLoggedIn && role === "ROLE_USER" ? (
+        <UserComponent {...props} />
       ) : (
         <Redirect
           to={{
@@ -23,7 +26,7 @@ const RestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => (
   />
 );
 
-const PublicRoutes = ({ history, isLoggedIn }) => (
+const PublicRoutes = ({ history, isLoggedIn, role }) => (
   <BrowserRouter>
     <>
       <Route
@@ -36,16 +39,12 @@ const PublicRoutes = ({ history, isLoggedIn }) => (
         path="/signin"
         component={lazy(() => import('./containers/Page/signin'))}
       />
-      <Route
-        path="/auth0loginCallback"
-        render={props => {
-          Auth0.handleAuthentication(props);
-        }}
-      />
       <RestrictedRoute
         path="/dashboard"
         component={App}
+        userComponent = {AppUser}
         isLoggedIn={isLoggedIn}
+        role={role}
       />
       <Route
         exact
@@ -79,6 +78,7 @@ const PublicRoutes = ({ history, isLoggedIn }) => (
 function mapStateToProps(state) {
   return {
     isLoggedIn: state.Auth.isLoggedIn !== null,
+    role: state.Auth.role
   };
 }
 export default connect(mapStateToProps)(PublicRoutes);

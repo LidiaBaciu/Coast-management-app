@@ -1,6 +1,7 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { clearToken, getToken } from '../../helpers/utility';
+import { clearUser, getCurrentUser } from '../../helpers/utility';
 import actions from './actions';
 import axios from 'axios';
 
@@ -13,7 +14,7 @@ function registerApi(payload){
 }
 
 export function* loginRequest({payload}) {
-  console.log(JSON.stringify(payload));
+  //console.log(JSON.stringify(payload));
   const response = yield call(loginApi, payload);
   if(response){
     yield put({
@@ -24,11 +25,10 @@ export function* loginRequest({payload}) {
   } else {
     yield put({ type: actions.LOGIN_ERROR });
   }
-  console.log(response.data);
+  //console.log(response.data);
 }
 
 export function* registerRequest({payload}){
-  console.log(payload);
   const response = yield call(registerApi, payload);
   console.log('response register from yield', JSON.parse(response));
   if(response){
@@ -38,23 +38,33 @@ export function* registerRequest({payload}){
 
 
 export function* loginSuccess({ payload }) {
-  console.log(JSON.stringify(payload));
-  yield localStorage.setItem('id_token', payload.accessToken);
-  
+  //console.log(JSON.stringify(payload));
+  //yield localStorage.setItem('id_token', payload.accessToken);
+  yield call(stockUserInfo, payload)
+}
+
+function stockUserInfo(payload){
+  //console.log("payload: ", payload);
+  localStorage.setItem('username', JSON.stringify(payload.user.username));
+  localStorage.setItem('role', JSON.stringify(payload.user.role));
+  localStorage.setItem('email', JSON.stringify(payload.user.email));
+  localStorage.setItem('token', JSON.stringify(payload.user.accessToken));
 }
 
 export function* loginError() {}
 
 export function* logout() {
-  clearToken();
+  clearUser();
   yield put(push('/'));
 }
 export function* checkAuthorization() {
-  const token = getToken();
-  if (token) {
+  const user = getCurrentUser();
+  console.log('user from getCurrentUser in checkAuth', user);
+  if (user) {
+    console.log('user from getCurrentUser in if', user.username);
     yield put({
       type: actions.LOGIN_SUCCESS,
-      payload: { token },
+      payload: {user: user},
       profile: 'Profile',
     });
   }
