@@ -1,13 +1,10 @@
 import actions from "./actions";
 
 const initState = {
-  user: localStorage.getItem('username') !== 'undefined' ? 
-  JSON.parse(localStorage.getItem('username')) : null,
-  role: localStorage.getItem('role') !== 'undefined' ? 
-  JSON.parse(localStorage.getItem('role')) : null, 
-  token: localStorage.getItem('token') !== 'undefined' ? 
-  JSON.parse(localStorage.getItem('token')) : null, 
-  loggedIn : false
+  user: localStorage.getItem('username') !== 'undefined' ? JSON.parse(localStorage.getItem('username')) : null,
+  role: localStorage.getItem('role') !== 'undefined' ? JSON.parse(localStorage.getItem('role')) : null, 
+  token: localStorage.getItem('token') !== 'undefined' ? JSON.parse(localStorage.getItem('token')) : null, 
+  loggedIn : false,
   };
 
 export default function authReducer(state = initState, action) {

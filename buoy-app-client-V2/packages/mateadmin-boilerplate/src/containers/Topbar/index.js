@@ -20,8 +20,10 @@ class Topbar extends Component {
       url,
       customizedTheme,
       switchActivation,
+      auth,
     } = this.props;
-    const propsTopbar = { locale, url };
+    const propsTopbar = { locale, url, auth };
+    console.log("props from topbar ", this.props);
     return (
       <AppHolder style={{ background: customizedTheme.backgroundColor }}>
         <Toolbar

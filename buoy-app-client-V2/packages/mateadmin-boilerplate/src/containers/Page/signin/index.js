@@ -36,8 +36,6 @@ class SignIn extends Component {
     loginRequest(loginRequestObj)
       .then(response => {
         console.log("response " + JSON.stringify(response));
-          localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-          localStorage.setItem('role', response.role);
           login({ usernameOrEmail, password });
           this.props.history.push('/dashboard');
       }).catch(error => {

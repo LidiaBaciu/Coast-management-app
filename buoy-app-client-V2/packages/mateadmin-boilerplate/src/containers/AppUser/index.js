@@ -35,10 +35,11 @@ class App extends Component {
       scrollHeight,
       fixedNavbar,
       view,
+      auth,
     } = this.props;
     const { url } = match;
     const propsTopbar = { locale, url };
-    const options = { url, classes, theme, locale };
+    const options = { url, classes, theme, locale, auth };
     const currentAppLocale = AppLocale[locale];
     return (
       <IntlProvider

@@ -12,7 +12,8 @@ import {
   Icon,
 } from './topbarDropdown.style';
 import authAction from '../../redux/auth/actions';
-import Image from '../../images/user.jpg';
+import Image from '../../images/admin.png';
+import ImageUser from '../../images/user.png';
 
 const { logout } = authAction;
 
@@ -35,12 +36,12 @@ class TopbarUser extends Component {
       <TopbarDropdown>
         <UserInformation>
           <div className="userImage">
-            <img src={Image} alt="user" />
+          {this.props.auth.role === 'ROLE_ADMIN' ? <img src={Image} alt="user" /> : <img src={ImageUser} alt="user" />}
           </div>
 
           <div className="userDetails">
-            <h3>John Doe</h3>
-            <p>Sr. Marketing Officer</p>
+            <h3>{this.props.auth.user}</h3>
+            <p>{this.props.auth.role}</p>
           </div>
         </UserInformation>
 
