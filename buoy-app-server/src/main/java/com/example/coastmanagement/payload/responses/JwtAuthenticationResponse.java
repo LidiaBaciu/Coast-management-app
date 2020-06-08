@@ -1,5 +1,7 @@
 package com.example.coastmanagement.payload.responses;
 
+import java.time.Instant;
+
 /**
  * Created by rajeevkumarsingh on 19/08/17.
  */
@@ -11,13 +13,19 @@ public class JwtAuthenticationResponse {
     private String role;
     private String username;
     private String email;
+    private String name;
+    private Instant createdAt;
+    private Instant updatedAt;
 
-    public JwtAuthenticationResponse(String accessToken, Long id, String role, String username, String email) {
+    public JwtAuthenticationResponse(String accessToken, Long id, String role, String username, String email, String name, Instant createdAt, Instant updatedAt) {
         this.accessToken = accessToken;
         this.id = id;
         this.role = role;
         this.username = username;
         this.email = email;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public String getAccessToken() {
@@ -66,5 +74,29 @@ public class JwtAuthenticationResponse {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
