@@ -50,7 +50,7 @@ class TopbarUser extends Component {
         </UserInformation>
 
         <SettingsList>
-          <a href="#!" className="dropdownLink">
+          <a href="dashboard/redux-forms" className="dropdownLink">
             <Icon>settings</Icon>
             <IntlMessages id="themeSwitcher.settings" />
           </a>

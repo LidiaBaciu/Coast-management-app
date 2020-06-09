@@ -5,21 +5,21 @@ import { clearUser, getCurrentUser } from '../../helpers/utility';
 import actions from './actions';
 import axios from 'axios';
 
-function loginApi(payload){
+function loginApi(payload) {
   return axios.post('http://localhost:8080/api/auth/signin', payload);
 }
 
-function registerApi(payload){
+function registerApi(payload) {
   return axios.post('http://localhost:8080/api/auth/signup', payload);
 }
 
-export function* loginRequest({payload}) {
+export function* loginRequest({ payload }) {
   //console.log(JSON.stringify(payload));
   const response = yield call(loginApi, payload);
-  if(response){
+  if (response) {
     yield put({
       type: actions.LOGIN_SUCCESS,
-      payload: {user: response.data},
+      payload: { user: response.data },
       profile: 'Profile',
     });
   } else {
@@ -28,26 +28,28 @@ export function* loginRequest({payload}) {
   //console.log(response.data);
 }
 
-export function* registerRequest({payload}){
+export function* registerRequest({ payload }) {
   const response = yield call(registerApi, payload);
   console.log('response register from yield', JSON.parse(response));
-  if(response){
-    console.log("User succesfully ", response.data);
-  } 
+  if (response) {
+    console.log('User succesfully ', response.data);
+  }
 }
-
 
 export function* loginSuccess({ payload }) {
   //console.log(JSON.stringify(payload));
   //yield localStorage.setItem('id_token', payload.accessToken);
-  yield call(stockUserInfo, payload)
+  yield call(stockUserInfo, payload);
 }
 
-function stockUserInfo(payload){
-  //console.log("payload: ", payload);
+function stockUserInfo(payload) {
+  console.log('payload: ', payload);
   localStorage.setItem('username', JSON.stringify(payload.user.username));
   localStorage.setItem('role', JSON.stringify(payload.user.role));
   localStorage.setItem('email', JSON.stringify(payload.user.email));
+  localStorage.setItem('name', JSON.stringify(payload.user.name));
+  localStorage.setItem('createdAt', JSON.stringify(payload.user.createdAt));
+  localStorage.setItem('updatedAt', JSON.stringify(payload.user.updatedAt));
   localStorage.setItem('token', JSON.stringify(payload.user.accessToken));
 }
 
@@ -64,7 +66,7 @@ export function* checkAuthorization() {
     console.log('user from getCurrentUser in if', user.username);
     yield put({
       type: actions.LOGIN_SUCCESS,
-      payload: {user: user},
+      payload: { user: user },
       profile: 'Profile',
     });
   }

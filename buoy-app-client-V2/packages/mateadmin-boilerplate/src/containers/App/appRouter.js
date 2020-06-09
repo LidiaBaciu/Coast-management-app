@@ -11,6 +11,14 @@ const routes = [
     path: 'blank-page',
     component: lazy(() => import('../BlankPage')),
   },
+  {
+    path: 'settings-page',
+    component: lazy(() => import('../SettingsPage')),
+  },
+  {
+    path: 'redux-forms',
+    component: lazy(() => import('../Forms/FormPage')),
+  },
 ];
 
 class AppRouter extends Component {
