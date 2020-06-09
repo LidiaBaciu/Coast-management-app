@@ -92,7 +92,9 @@ class TopbarNotification extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem('role') === 'ROLE_ADMIN') {
+    const role = JSON.parse(localStorage.getItem('role'));
+    console.log(role);
+    if (role === 'ROLE_ADMIN') {
       let webApiUrl = 'http://localhost:8080/api/problems';
       let tokenStr = JSON.parse(localStorage.getItem('token'));
       axios

@@ -3,17 +3,18 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './containers/App';
-import AppUser from './containers/AppUser';
 
-const RestrictedRoute = ({ component: Component, userComponent: UserComponent, 
-                              isLoggedIn, role, ...rest }) => (
+const RestrictedRoute = ({
+  component: Component, //userComponent: UserComponent,
+  isLoggedIn,
+  role,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={props =>
-      isLoggedIn && role === "ROLE_ADMIN" ? (
+      isLoggedIn ? (
         <Component {...props} />
-      ) : isLoggedIn && role === "ROLE_USER" ? (
-        <UserComponent {...props} />
       ) : (
         <Redirect
           to={{
@@ -42,7 +43,7 @@ const PublicRoutes = ({ history, isLoggedIn, role }) => (
       <RestrictedRoute
         path="/dashboard"
         component={App}
-        userComponent = {AppUser}
+        //userComponent = {AppUser}
         isLoggedIn={isLoggedIn}
         role={role}
       />
@@ -78,7 +79,7 @@ const PublicRoutes = ({ history, isLoggedIn, role }) => (
 function mapStateToProps(state) {
   return {
     isLoggedIn: state.Auth.isLoggedIn !== null,
-    role: state.Auth.role
+    role: state.Auth.role,
   };
 }
 export default connect(mapStateToProps)(PublicRoutes);

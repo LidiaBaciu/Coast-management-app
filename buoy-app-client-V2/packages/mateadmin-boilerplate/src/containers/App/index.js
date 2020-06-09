@@ -4,6 +4,7 @@ import { Debounce } from 'react-throttle';
 import WindowResizeListener from 'react-window-size-listener';
 import { IntlProvider } from 'react-intl';
 import AppRouter from './appRouter';
+import AppRouterUser from './appRouterUser';
 import Sidebar from '../Sidebar';
 import Topbar from '../Topbar';
 import AppLocale from '../../languageProvider';
@@ -35,7 +36,7 @@ class App extends Component {
       scrollHeight,
       fixedNavbar,
       view,
-      auth
+      auth,
     } = this.props;
     const { url } = match;
     const propsTopbar = { locale, url };
@@ -70,10 +71,17 @@ class App extends Component {
               <PageBreadcrumb url={url} />
 
               <MUIPProvider>
-                <AppRouter
-                  style={{ height: scrollHeight, overflowY: 'auto' }}
-                  url={url}
-                />
+                {JSON.parse(localStorage.getItem('role')) === 'ROLE_USER' ? (
+                  <AppRouterUser
+                    style={{ height: scrollHeight, overflowY: 'auto' }}
+                    url={url}
+                  />
+                ) : (
+                  <AppRouter
+                    style={{ height: scrollHeight, overflowY: 'auto' }}
+                    url={url}
+                  />
+                )}
               </MUIPProvider>
               <ThemeSwitcherButton />
               <SecondarySidebar
@@ -100,12 +108,9 @@ const mapStateToProps = state => {
     view: state.App.view,
   };
 };
-const appConect = connect(
-  mapStateToProps,
-  {
-    logout,
-    toggleAll,
-    switchActivation,
-  }
-)(App);
+const appConect = connect(mapStateToProps, {
+  logout,
+  toggleAll,
+  switchActivation,
+})(App);
 export default appConect;

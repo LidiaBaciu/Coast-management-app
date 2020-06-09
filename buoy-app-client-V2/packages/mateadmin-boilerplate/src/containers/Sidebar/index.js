@@ -7,6 +7,8 @@ import IntlMessages from '../../components/utility/intlMessages';
 import appActions from '../../redux/app/actions';
 // import Logo from '../../images/logo.png';
 import options from './options';
+import optionsUser from './optionsUser';
+
 import Drawer, {
   LogoWrapper,
   Lists,
@@ -157,8 +159,8 @@ class Sidebar extends Component {
           view !== 'TabLandView' && view !== 'DesktopView'
             ? undefined
             : fixedNavbar
-              ? 'permanent'
-              : undefined
+            ? 'permanent'
+            : undefined
         }
         open={!collapsed}
         onClose={toggleCollapsed}
@@ -174,7 +176,11 @@ class Sidebar extends Component {
             <LogoElem onLogo={this.onLogo} />
           </LogoWrapper>
           <Scrollbars style={{ height: scrollheight - 64 }}>
-            <Lists>{options.map(menuItem)}</Lists>
+            {JSON.parse(localStorage.getItem('role')) === 'ROLE_USER' ? (
+              <Lists>{optionsUser.map(menuItem)}</Lists>
+            ) : (
+              <Lists>{options.map(menuItem)}</Lists>
+            )}
           </Scrollbars>
         </div>
       </Drawer>
