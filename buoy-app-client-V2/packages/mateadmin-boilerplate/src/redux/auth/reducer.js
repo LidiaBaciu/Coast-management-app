@@ -25,6 +25,10 @@ const initState = {
     localStorage.getItem('updatedAt') !== 'undefined'
       ? JSON.parse(localStorage.getItem('updatedAt'))
       : null,
+  id:
+    localStorage.getItem('id') !== 'undefined'
+      ? JSON.parse(localStorage.getItem('id'))
+      : null,
   loggedIn: false,
 };
 

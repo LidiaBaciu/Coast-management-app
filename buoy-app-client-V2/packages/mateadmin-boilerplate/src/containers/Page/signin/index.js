@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import signinImg from '../../../images/signin.jpg';
 import Button from '../../../components/uielements/button';
 import authAction from '../../../redux/auth/actions';
-import {loginRequest, ACCESS_TOKEN} from '../../../redux/auth/apiUtils'
+import { loginRequest, ACCESS_TOKEN } from '../../../redux/auth/apiUtils';
 import TextField from '../../../components/uielements/textfield';
 import Scrollbars from '../../../components/utility/customScrollBar';
 import SignInStyleWrapper from './signin.style';
@@ -17,7 +17,7 @@ class SignIn extends Component {
     redirectToReferrer: false,
     usernameOrEmail: '',
     password: '',
-    isError: false
+    isError: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -28,30 +28,37 @@ class SignIn extends Component {
       this.setState({ redirectToReferrer: true });
     }
   }
-  
+
   handleLogin = () => {
     const { login } = this.props;
     const { usernameOrEmail, password } = this.state;
-    const loginRequestObj = Object.assign({}, {usernameOrEmail, password});
+    const loginRequestObj = Object.assign({}, { usernameOrEmail, password });
     loginRequest(loginRequestObj)
       .then(response => {
-        console.log("response " + JSON.stringify(response));
-          login({ usernameOrEmail, password });
-          this.props.history.push('/dashboard');
-      }).catch(error => {
-          if(error.status === 401) {
-            console.log('Your Username or Password is incorrect. Please try again!');   
-            errors["WrongCredentials"] = "Your Username or Password is incorrect. Please try again!";  
-            this.setState({isError: true});         
-          } else {
-            console.log('Sorry! Something went wrong. Please try again!');  
-            errors["WrongCredentials"] = "Sorry! Something went wrong. Please try again!";  
-            this.setState({isError: true});                                               
-          }
+        console.log('response ' + JSON.stringify(response));
+        login({ usernameOrEmail, password });
+        this.props.history.push('/dashboard');
+        errors['WrongCredentials'] = null;
+      })
+      .catch(error => {
+        if (error.status === 401) {
+          console.log(
+            'Your Username or Password is incorrect. Please try again!'
+          );
+          errors['WrongCredentials'] =
+            'Your Username or Password is incorrect. Please try again!';
+          this.setState({ isError: true });
+        } else {
+          console.log('Sorry! Something went wrong. Please try again!');
+          errors['WrongCredentials'] =
+            'Sorry! Something went wrong. Please try again!';
+          this.setState({ isError: true });
+        }
       });
   };
 
-  onChangeUsername = event => this.setState({ usernameOrEmail: event.target.value });
+  onChangeUsername = event =>
+    this.setState({ usernameOrEmail: event.target.value });
   onChangePassword = event => this.setState({ password: event.target.value });
 
   render() {
@@ -85,9 +92,7 @@ class SignIn extends Component {
           <Scrollbars style={{ height: '100%' }}>
             <div className="mateSignInPageGreet">
               <h1>Hello,</h1>
-              <p>
-                Please login in.
-              </p>
+              <p>Please login in.</p>
             </div>
             <div className="mateSignInPageForm">
               <div className="mateInputWrapper">
@@ -114,10 +119,10 @@ class SignIn extends Component {
                   Login
                 </Button>
               </div>
-            </div>   
+            </div>
             <div className="mateInputWrapper">
-            <span style={{color: "red"}}>{errors["WrongCredentials"]}</span>
-            </div>   
+              <span style={{ color: 'red' }}>{errors['WrongCredentials']}</span>
+            </div>
           </Scrollbars>
         </div>
       </SignInStyleWrapper>

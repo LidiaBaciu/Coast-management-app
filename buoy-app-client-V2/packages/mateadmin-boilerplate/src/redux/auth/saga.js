@@ -51,6 +51,7 @@ function stockUserInfo(payload) {
   localStorage.setItem('createdAt', JSON.stringify(payload.user.createdAt));
   localStorage.setItem('updatedAt', JSON.stringify(payload.user.updatedAt));
   localStorage.setItem('token', JSON.stringify(payload.user.accessToken));
+  localStorage.setItem('id', JSON.stringify(payload.user.id));
 }
 
 export function* loginError() {}

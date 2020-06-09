@@ -10,12 +10,11 @@ import {
   HalfColumn,
 } from '../../components/utility/rowColumn';
 import IntlMessages from '../../components/utility/intlMessages';
-import { FormsComponentWrapper, FormsMainWrapper } from './forms.style';
 import PageTitle from '../../components/utility/paperTitle';
 import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
 import Image from '../../images/admin.png';
-import { Chip, Icon, Wrapper } from './chips.style';
+import { Chip } from './chips.style';
 import Avatar from '../../components/uielements/avatars';
 
 const reducer = combineReducers({ form: reduxFormReducer });
@@ -44,9 +43,11 @@ export default class extends Component {
     this.setState({ anotherUsername: event.target.value });
   onChangeEmail = event => this.setState({ email: event.target.value });
 
-  handleClick() {
-    alert('You clicked the Chip.');
-  }
+  handleClick = () => {
+    let username = this.state.anotherUsername;
+    console.log(this.state.anotherUsername);
+    alert('You clicked the Chip.' + username);
+  };
 
   render() {
     const { result } = this.state;
@@ -93,43 +94,31 @@ export default class extends Component {
                 </Papersheet>
               </HalfColumn>
             </Row>
-
-            {/* 
-							<Row>
-								<TextField
-									label="Username"
-									placeholder="Username"
-									margin="normal"
-									onChange={this.onChangeUsername}
-								/>
-							</Row>
-							<Row>
-								<TextField
-									label="Email"
-									placeholder="Email"
-									margin="normal"
-									value={JSON.parse(this.state.email)}
-									onChange={this.onChangeEmail}
-								/>
-							</Row>
-							*/}
-
-            <FormsComponentWrapper className=" mateFormsComponent "></FormsComponentWrapper>
-            <FormsMainWrapper></FormsMainWrapper>
           </Row>
           <Row>
             <FullColumn>
               <Row>
                 <h2>Do you want to change your name?</h2>
               </Row>
-              <Row>
-                <TextField
-                  label="New name"
-                  placeholder="Please enter your new name"
-                  margin="normal"
-                  onChange={this.onChangeUsername}
-                />
-              </Row>
+
+              <Papersheet>
+                <Row>
+                  <FullColumn>
+                    <HalfColumn>
+                      <TextField
+                        label="New name"
+                        fullWidth
+                        placeholder="Please enter your new name"
+                        margin="normal"
+                        onChange={this.onChangeUsername}
+                      />
+                    </HalfColumn>
+                    <HalfColumn>
+                      <Button onClick={this.handleClick}>Save</Button>
+                    </HalfColumn>
+                  </FullColumn>
+                </Row>
+              </Papersheet>
             </FullColumn>
           </Row>
         </LayoutWrapper>

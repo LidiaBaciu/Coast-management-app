@@ -15,6 +15,10 @@ const routes = [
     path: 'redux-forms',
     component: lazy(() => import('../Forms/FormPage')),
   },
+  {
+    path: 'report-problem',
+    component: lazy(() => import('../ReportProblem/ReportProblemPage')),
+  },
 ];
 
 class AppRouter extends Component {

@@ -1,5 +1,4 @@
-
-export function getCurrentUser(){
+export function getCurrentUser() {
   try {
     const user = localStorage.getItem('user');
     return JSON.parse(user);
@@ -16,12 +15,16 @@ export function clearUser() {
   localStorage.removeItem('token');
   localStorage.removeItem('email');
   localStorage.removeItem('accessToken');
+  localStorage.removeItem('createdAt');
+  localStorage.removeItem('updatedAt');
+  localStorage.removeItem('name');
+  localStorage.removeItem('id');
 }
 
-export function getDataFromUser(userData){
+export function getDataFromUser(userData) {
   const user = getCurrentUser();
-  console.log("user from getDataFromUser -> ", user);
-  return user.userData
+  console.log('user from getDataFromUser -> ', user);
+  return user.userData;
 }
 
 export function clearToken() {

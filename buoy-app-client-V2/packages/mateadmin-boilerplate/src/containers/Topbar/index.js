@@ -6,7 +6,7 @@ import appActions from '../../redux/app/actions';
 import themeActions from '../../redux/themeSwitcher/actions';
 import { AppHolder, Toolbar, IconButtons, TopbarComponents } from './style';
 import TopbarSearch from './topbarSearch';
-// import SecondarySidebar from '../SecondarySidebar';
+import SecondarySidebar from '../SecondarySidebar';
 import TopbarNotification from './sidebarNotification';
 import TopbarUser from './topbarUser';
 const { toggleCollapsed } = appActions;
@@ -23,7 +23,7 @@ class Topbar extends Component {
       auth,
     } = this.props;
     const propsTopbar = { locale, url, auth };
-    console.log("props from topbar ", this.props);
+    console.log('props from topbar ', this.props);
     return (
       <AppHolder style={{ background: customizedTheme.backgroundColor }}>
         <Toolbar
@@ -51,22 +51,23 @@ class Topbar extends Component {
               {/* <li className="topbarNotification">
                 <TopbarNotification {...propsTopbar} />
               </li> */}
-
-              <li className="topbarNotification">
-                <div>
-                  <Icon
-                    onClick={() => switchActivation('notification')}
-                    style={{ matginTop: 5 }}
-                  >
-                    widgets
-                  </Icon>
-                  {/* <SecondarySidebar
-                    InnerComponent={TopbarNotification}
-                    currentActiveKey="notification"
-                    {...propsTopbar}
-                  /> */}
-                </div>
-              </li>
+              {this.props.auth.role === 'ROLE_ADMIN' ? (
+                <li className="topbarNotification">
+                  <div>
+                    <Icon
+                      onClick={() => switchActivation('notification')}
+                      style={{ matginTop: 5 }}
+                    >
+                      widgets
+                    </Icon>
+                    <SecondarySidebar
+                      InnerComponent={TopbarNotification}
+                      currentActiveKey="notification"
+                      {...propsTopbar}
+                    />
+                  </div>
+                </li>
+              ) : null}
 
               <li className="topbarUser">
                 <TopbarUser {...propsTopbar} />

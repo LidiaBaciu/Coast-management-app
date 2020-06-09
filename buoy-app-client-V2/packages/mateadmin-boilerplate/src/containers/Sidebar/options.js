@@ -7,7 +7,14 @@ const options = [
   // },
   {
     label: 'sidebar.blankPage',
+    leftIcon: 'blank',
     key: 'blank-page',
+  },
+  {
+    label: 'Report a problem',
+    leftIcon: 'error',
+    hideBreadCrumb: true,
+    key: 'report-problem',
   },
 ];
 const getBreadcrumbOption = () => {

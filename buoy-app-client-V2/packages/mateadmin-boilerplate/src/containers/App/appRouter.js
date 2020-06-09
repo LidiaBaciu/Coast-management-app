@@ -12,8 +12,8 @@ const routes = [
     component: lazy(() => import('../BlankPage')),
   },
   {
-    path: 'settings-page',
-    component: lazy(() => import('../SettingsPage')),
+    path: 'report-problem',
+    component: lazy(() => import('../ReportProblem/ReportProblemPage')),
   },
   {
     path: 'redux-forms',
