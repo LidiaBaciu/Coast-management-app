@@ -3,9 +3,11 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './containers/App';
+import AppUser from './containers/AppUser';
 
 const RestrictedRoute = ({
-  component: Component, //userComponent: UserComponent,
+  component: Component,
+  userComponent: UserComponent,
   isLoggedIn,
   role,
   ...rest
@@ -13,8 +15,10 @@ const RestrictedRoute = ({
   <Route
     {...rest}
     render={props =>
-      isLoggedIn ? (
+      isLoggedIn && role === 'ROLE_ADMIN' ? (
         <Component {...props} />
+      ) : isLoggedIn && role === 'ROLE_USER' ? (
+        <UserComponent {...props} />
       ) : (
         <Redirect
           to={{
@@ -43,7 +47,7 @@ const PublicRoutes = ({ history, isLoggedIn, role }) => (
       <RestrictedRoute
         path="/dashboard"
         component={App}
-        //userComponent = {AppUser}
+        userComponent={AppUser}
         isLoggedIn={isLoggedIn}
         role={role}
       />

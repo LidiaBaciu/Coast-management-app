@@ -22,12 +22,14 @@ import { createProblem } from '../../redux/auth/apiUtils';
 //);
 
 let tokenStr = JSON.parse(localStorage.getItem('token'));
-
+var hash = new Object();
 export default class SimpleSelect extends React.Component {
   state = {
     name: '',
     beaches: [],
     description: '',
+    buoys: [],
+    buoyId: '',
   };
 
   handleChange = name => event => {
@@ -88,6 +90,7 @@ export default class SimpleSelect extends React.Component {
         console.log(response.response);
       });
   };
+
   onChangeDescription = event =>
     this.setState({ description: event.target.value });
 
@@ -102,6 +105,7 @@ export default class SimpleSelect extends React.Component {
           </MenuItem>
         );
       }, this);
+
     return (
       <LayoutWrapper>
         <FullColumn>

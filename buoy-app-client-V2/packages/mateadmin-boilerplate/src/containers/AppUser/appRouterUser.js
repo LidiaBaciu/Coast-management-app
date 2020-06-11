@@ -4,7 +4,7 @@ import Loader from '../../components/utility/Loader/';
 
 const routes = [
   {
-    path: 'dashboard',
+    path: '',
     component: lazy(() => import('../Dashboard')),
   },
   {
@@ -12,12 +12,12 @@ const routes = [
     component: lazy(() => import('../BlankPage')),
   },
   {
-    path: 'report-problem',
-    component: lazy(() => import('../ReportProblem/ReportProblemPage')),
-  },
-  {
     path: 'redux-forms',
     component: lazy(() => import('../Forms/FormPage')),
+  },
+  {
+    path: 'report-problem',
+    component: lazy(() => import('../ReportProblem/ReportProblemPage')),
   },
 ];
 

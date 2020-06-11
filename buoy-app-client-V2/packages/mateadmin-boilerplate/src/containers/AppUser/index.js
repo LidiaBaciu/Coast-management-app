@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Debounce } from 'react-throttle';
 import WindowResizeListener from 'react-window-size-listener';
 import { IntlProvider } from 'react-intl';
-import AppRouter from './appRouter';
-import Sidebar from '../Sidebar';
+import AppRouterUser from './appRouterUser';
+import Sidebar from '../SidebarUser';
 import Topbar from '../Topbar';
 import AppLocale from '../../languageProvider';
 import authAction from '../../redux/auth/actions';
@@ -70,7 +70,7 @@ class App extends Component {
               <PageBreadcrumb url={url} />
 
               <MUIPProvider>
-                <AppRouter
+                <AppRouterUser
                   style={{ height: scrollHeight, overflowY: 'auto' }}
                   url={url}
                 />
