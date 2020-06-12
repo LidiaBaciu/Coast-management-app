@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -57,7 +60,10 @@ public class ProblemsReportedController {
             response.setSolved(problem.getSolved());
             problemsReportedResponses.add(response);
         }
-        return problemsReportedResponses;
+        List<ProblemResponse> sortedUsers = problemsReportedResponses.stream()
+                .sorted(Comparator.comparing(ProblemResponse::getTimestamp).reversed())
+                .collect(Collectors.toList());
+        return sortedUsers;
     }
 
     @PostMapping("/problem/create")
