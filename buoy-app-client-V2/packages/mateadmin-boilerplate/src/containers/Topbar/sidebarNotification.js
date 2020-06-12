@@ -17,22 +17,22 @@ const { switchActivation } = themeActions;
 
 const theme = createMuiTheme({
   overrides: {
-    // MuiTab: {
-    //   root: {
-    //     minWidth: 'auto !important',
-    //     color: '#ffffff',
-    //   },
-    //   wrapper: {
-    //     padding: '6px 5px !important',
-    //     fontSize: 13,
-    //   },
-    // },
-    // MuiTabs: {
-    //   root: {
-    //     backgroundColor: '#3F51B5',
-    //     // paddingTop: 18,
-    //   },
-    // },
+    MuiTab: {
+      root: {
+        minWidth: 'auto !important',
+        color: '#ffffff',
+      },
+      wrapper: {
+        padding: '6px 5px !important',
+        fontSize: 13,
+      },
+    },
+    MuiTabs: {
+      root: {
+        backgroundColor: '#3F51B5',
+        //paddingTop: 18,
+      },
+    },
   },
 });
 
@@ -63,19 +63,21 @@ class TopbarNotification extends Component {
     >
       <div className="dropdownBody">
         <Scrollbars style={{ height: '100%' }}>
-          {this.state.problemsReported.map(notification => (
-            <a href="#!" className="dropdownListItem" key={notification.id}>
-              <h5>{notification.userSummary.name}</h5>
-              <p>
-                Has reported a problem for the buoy with the id{' '}
-                {notification.buoySummary.id}
-              </p>
-              <p>
-                <b>Description: </b>
-                {notification.description}
-              </p>
-            </a>
-          ))}
+          {this.state.problemsReported.map(notification =>
+            !notification.solved ? (
+              <a href="#!" className="dropdownListItem" key={notification.id}>
+                <h5>{notification.userSummary.name}</h5>
+                <p>
+                  Has reported a problem for the buoy with the id{' '}
+                  {notification.buoySummary.id}
+                </p>
+                <p>
+                  <b>Description: </b>
+                  {notification.description}
+                </p>
+              </a>
+            ) : null
+          )}
         </Scrollbars>
       </div>
 

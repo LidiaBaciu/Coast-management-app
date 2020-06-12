@@ -11,7 +11,6 @@ import { MenuItem } from '../../components/uielements/menus';
 import { Form, Select, FormControls } from './select.style';
 import Input, { InputLabel } from '../../components/uielements/input';
 import axios from 'axios';
-import { createProblem } from '../../redux/auth/apiUtils';
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
@@ -60,7 +59,6 @@ export default class SimpleSelect extends React.Component {
 
   handleSend = () => {
     var description = this.state.description;
-    var beachId = this.state.name;
     var buoyId = this.state.buoyId;
     var userId = localStorage.getItem('id');
 
@@ -69,8 +67,6 @@ export default class SimpleSelect extends React.Component {
       buoy: { id: Number(buoyId) },
       user: { id: Number(userId) },
     };
-
-    console.log(JSON.stringify(jsonData));
 
     axios({
       method: 'post',
