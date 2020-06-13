@@ -20,7 +20,6 @@ import InvoiceAddress from '../../components/invoice/address';
 import { orderStatusOptions } from './config';
 import axios from 'axios';
 
-
 const styles = theme => ({
   root: {
     width: '100%',
@@ -35,68 +34,19 @@ const styles = theme => ({
   },
 });
 
-const updateValues = invoice => {
-  const { invoiceList } = invoice;
-  let subTotal = 0;
-  invoiceList.forEach((item, index) => {
-    const price = item.costs * item.qty;
-    invoice.invoiceList[index].price = price;
-    invoice.invoiceList[index].key = index + 1;
-    subTotal += price;
-  });
-  invoice.subTotal = subTotal;
-  invoice.vatPrice = Math.floor(invoice.vatRate * subTotal * 0.01);
-  invoice.totalCost = invoice.vatPrice + subTotal;
-  return invoice;
-};
-const checkInvoice = invoice => {
-  const emptyKeys = [
-    'number',
-    'billTo',
-    'billToAddress',
-    'billFrom',
-    'billFromAddress',
-    'currency',
-  ];
-  const emptyKeysErrors = [
-    'Invoice Number',
-    'Bill To',
-    'Bill To Address',
-    'Bill From',
-    'Bill From Address',
-    'Currency',
-  ];
-  for (let i = 0; i < emptyKeys.length; i++) {
-    if (!invoice[emptyKeys[i]]) {
-      return `Please fill in ${emptyKeysErrors[i]}`;
-    }
-  }
-  for (let i = 0; i < invoice.invoiceList.length; i++) {
-    if (!invoice.invoiceList[i].itemName) {
-      return `Please fill in item name of ${i + 1} item`;
-    }
-    if (invoice.invoiceList[i].costs === 0) {
-      return `cost of ${i + 1} item should be positive`;
-    }
-    if (invoice.invoiceList[i].qty === 0) {
-      return `quantity of ${i + 1} item should be positive`;
-    }
-  }
-  return '';
-};
 class SingleInvoiceEdit extends Component {
   onSave = () => {
-    const { editableInvoice, isNewInvoice, updateInvoice } = this.props;
-    const error = checkInvoice(editableInvoice);
-    if (error) {
-      notification('error', error);
-    } else {
-      const successMessage = isNewInvoice
-        ? 'A new Invoice added'
-        : 'Invoice Updated';
-      notification('success', successMessage);
-      updateInvoice(editableInvoice);
-    }
+    const successMessage = 'Problem marked as solved!';
+    notification('success', successMessage);
+    let webApiUrl = 'http://localhost:8080/api/problem/' + this.state.currentProblem.id;
+    let tokenStr = JSON.parse(localStorage.getItem('token'));
+    axios({
+      method: 'put', //you can set what request you want to be
+      url: 'http://localhost:8080/api/problem/' + this.state.currentProblem.id,
+      headers: {
+        Authorization: 'Bearer ' + tokenStr
+      }
+    });
   };
 
   state = {
@@ -162,14 +112,14 @@ class SingleInvoiceEdit extends Component {
                       <h3 className="Title">Invoice Info</h3>
                       <Textfield
                         label="Number"
-                        value={editableInvoice.id}
+                        value={this.state.currentProblem.id}
                         className="LeftSideContentInput"
                       />
                     </div>
                     <div className="RightSideContent">
                       <div className="RightSideStatus">
                         <span className="RightSideStatusSpan">
-                          Order Status:{' '}
+                          Problem status:{' '}
                         </span>
                         <OrderStatus
                           value={editableInvoice.orderStatus}
@@ -208,7 +158,7 @@ class SingleInvoiceEdit extends Component {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="ButtonWrapper" />
                 </div>
               </Papersheet>

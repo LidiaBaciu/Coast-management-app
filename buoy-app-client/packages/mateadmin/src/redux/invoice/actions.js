@@ -5,7 +5,9 @@ const actions = {
   SELECT_CURRENT_INVOICE: 'SELECT_CURRENT_INVOICE',
   TOGGLE_VIEW: 'INVOICE_TOGGLE_VIEW',
   UPDATE_EDIT_INVOICE: 'INVOICE_UPDATE_EDIT_INVOICE',
+  
   initData: () => ({ type: actions.GET_INVOICE }),
+
   deleteInvoice: selected => {
     return (dispatch, getState) => {
       const invoices = getState().Invoices.invoices;

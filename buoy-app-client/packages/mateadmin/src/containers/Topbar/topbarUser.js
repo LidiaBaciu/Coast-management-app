@@ -39,7 +39,7 @@ class TopbarUser extends Component {
           </div>
 
           <div className="userDetails">
-            <h3>{this.props.auth.user}</h3>
+            <h3>{this.props.auth.name}</h3>
             <p>{this.props.auth.role}</p>
           </div>
         </UserInformation>

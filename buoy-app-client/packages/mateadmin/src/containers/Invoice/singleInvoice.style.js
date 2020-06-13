@@ -3,7 +3,7 @@ import { palette } from 'styled-theme';
 import WithDirection from '../../settings/withDirection';
 import Icons from '../../components/uielements/icon';
 import Textfields from '../../components/uielements/textfield';
-
+import Selects from '../../components/uielements/select';
 const Textfield = styled(Textfields)``;
 const PrintIcon = styled(Icons)`
   font-size: 16px;
@@ -11,6 +11,10 @@ const PrintIcon = styled(Icons)`
   a {
     text-decoration: none;
   }
+`;
+
+const Select = styled(Selects)`
+  margin-top: 16px;
 `;
 
 const InvoicePageWrapper = styled.div`
@@ -511,5 +515,5 @@ const InvoicePageWrapper = styled.div`
   }
 `;
 
-export { PrintIcon, Textfield };
+export { PrintIcon, Textfield, Select };
 export default WithDirection(InvoicePageWrapper);

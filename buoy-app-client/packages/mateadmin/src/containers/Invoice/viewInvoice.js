@@ -45,7 +45,7 @@ class SingleInvoiceView extends Component {
       });
   }
   render() {
-    const { currentInvoice, toggleView, redirectPath } = this.props;
+    const { toggleView, redirectPath } = this.props;
     return (
       <LayoutWrapper>
         <Row>
@@ -83,9 +83,9 @@ class SingleInvoiceView extends Component {
                     </div>
                     <div className="RightSideContent">
                       <p>
-                        Order Status:{' '}
+                        Problem Status:{' '}
                         <span className="orderStatus">
-                          {currentInvoice.orderStatus}
+                          {this.state.currentProblem.solved ? "Solved" : "Unsolved"}
                         </span>
                       </p>
                       <p>
@@ -104,7 +104,6 @@ class SingleInvoiceView extends Component {
 
                       <InvoiceAddress
                         companyName={this.state.currentProblem.username}
-                        companyAddress={currentInvoice.billFromAddress}
                       />
                     </div>
                     <div className="RightSidclassName=ent">
@@ -112,7 +111,6 @@ class SingleInvoiceView extends Component {
 
                       <InvoiceAddress
                         companyName={this.state.currentProblem.buoyId}
-                        companyAddress={currentInvoice.billToAddress}
                       />
                     </div>
                   </div>

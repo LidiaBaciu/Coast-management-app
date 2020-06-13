@@ -81,7 +81,7 @@ public class ProblemsReportedController {
     }
 
     @PutMapping("/problem/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> setProblemSolved(@PathVariable(value = "id") Long problemId){
         ProblemReported problem = problemsReportedRepository.findById(problemId)
                 .orElseThrow(() -> new ResourceNotFoundException("Problem", "id", problemId));
