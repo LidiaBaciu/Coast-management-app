@@ -1,11 +1,15 @@
 import React, { Component, lazy, Suspense } from 'react';
 import Route from '../../components/utility/customRoute';
 import customRoutes from '../../customApp/router';
-import Loader from '../../components/utility/Loader/';
+import Loader from '../../components/utility/Loader';
 const routes = [
   {
     path: '',
     component: lazy(() => import('../Widgets')),
+  },
+  {
+    path: 'report-problem',
+    component: lazy(() => import('../ReportProblem/ReportProblemPage')),
   },
   {
     path: 'redux-forms',
@@ -21,7 +25,7 @@ const routes = [
   },
   {
     path: 'button',
-    component: lazy(() => import('../UiElements/Button/')),
+    component: lazy(() => import('../UiElements/Button')),
   },
   {
     path: 'contact',
@@ -69,7 +73,7 @@ const routes = [
   },
   {
     path: 'autocomplete',
-    component: lazy(() => import('../UiElements/Autocomplete/')),
+    component: lazy(() => import('../UiElements/Autocomplete')),
   },
   {
     path: 'picker',
@@ -121,7 +125,7 @@ const routes = [
   },
   {
     path: 'rechart',
-    component: lazy(() => import('../Charts/recharts/')),
+    component: lazy(() => import('../Charts/recharts')),
   },
   {
     path: 'notes',

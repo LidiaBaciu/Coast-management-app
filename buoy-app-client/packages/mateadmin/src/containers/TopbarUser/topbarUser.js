@@ -12,7 +12,7 @@ import {
   Icon,
 } from './topbarDropdown.style';
 import authAction from '../../redux/auth/actions';
-import Image from '../../images/admin.png';
+import ImageUser from '../../images/user.png';
 
 const { logout } = authAction;
 
@@ -35,7 +35,7 @@ class TopbarUser extends Component {
       <TopbarDropdown>
         <UserInformation>
           <div className="userImage">
-            <img src={Image} alt="user" />
+             <img src={ImageUser} alt="user" />
           </div>
 
           <div className="userDetails">
@@ -73,7 +73,7 @@ class TopbarUser extends Component {
           onClick={this.handleVisibleChange}
         >
           <div className="userImgWrapper">
-            <img src={Image} alt="user" />
+            <img src={ImageUser} alt="user" />
           </div>
         </IconButtons>
 

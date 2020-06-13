@@ -10,41 +10,88 @@ import IntlMessages from '../../components/utility/intlMessages';
 import TopbarMessage from './topbarMessage';
 import { SidebarContent, Icon, CloseButton } from './sidebarNotification.style';
 import themeActions from '../../redux/themeSwitcher/actions';
-import axios from 'axios';
-
 const { switchActivation } = themeActions;
 
 const theme = createMuiTheme({
   overrides: {
-    MuiTab: {
-      root: {
-        minWidth: 'auto !important',
-        color: '#ffffff',
-      },
-      wrapper: {
-        padding: '6px 5px !important',
-        fontSize: 13,
-      },
-    },
-    MuiTabs: {
-      root: {
-        backgroundColor: '#3F51B5',
-        //paddingTop: 18,
-      },
-    },
+    // MuiTab: {
+    //   root: {
+    //     minWidth: 'auto !important',
+    //     color: '#ffffff',
+    //   },
+    //   wrapper: {
+    //     padding: '6px 5px !important',
+    //     fontSize: 13,
+    //   },
+    // },
+    // MuiTabs: {
+    //   root: {
+    //     backgroundColor: '#3F51B5',
+    //     // paddingTop: 18,
+    //   },
+    // },
   },
 });
+
+const demoNotifications = [
+  {
+    id: 1,
+    name: 'David Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 2,
+    name: 'Navis Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 3,
+    name: 'Emanual Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 4,
+    name: 'Dowain Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 5,
+    name: 'James Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 6,
+    name: 'Levene Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 7,
+    name: 'Blake Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+  {
+    id: 8,
+    name: 'Ralph Doe',
+    notification:
+      'A National Book Award Finalist An Edgar Award Finalist A California Book Award Gold Medal Winner',
+  },
+];
 
 const TabContainer = ({ children, dir }) => {
   return <div>{children}</div>;
 };
-
 class TopbarNotification extends Component {
   state = {
     visible: false,
     anchorEl: null,
     tabValue: 0,
-    problemsReported: [],
   };
   hide = () => {
     this.setState({ visible: false });
@@ -62,21 +109,12 @@ class TopbarNotification extends Component {
     >
       <div className="dropdownBody">
         <Scrollbars style={{ height: '100%' }}>
-          {this.state.problemsReported.map(notification =>
-            !notification.solved ? (
-              <a href="#!" className="dropdownListItem" key={notification.id}>
-                <h5>{notification.userSummary.name}</h5>
-                <p>
-                  Has reported a problem for the buoy with the id{' '}
-                  {notification.buoySummary.id}
-                </p>
-                <p>
-                  <b>Description: </b>
-                  {notification.description}
-                </p>
-              </a>
-            ) : null
-          )}
+          {demoNotifications.map(notification => (
+            <a href="#!" className="dropdownListItem" key={notification.id}>
+              <h5>{notification.name}</h5>
+              <p>{notification.notification}</p>
+            </a>
+          ))}
         </Scrollbars>
       </div>
 
@@ -91,26 +129,6 @@ class TopbarNotification extends Component {
   handleChangeIndex = tabValue => {
     this.setState({ tabValue });
   };
-
-  componentDidMount() {
-    const role = JSON.parse(localStorage.getItem('role'));
-    console.log(role);
-    if (role === 'ROLE_ADMIN') {
-      let webApiUrl = 'http://localhost:8080/api/problems';
-      let tokenStr = JSON.parse(localStorage.getItem('token'));
-      axios
-        .get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } })
-        .then(res => {
-          console.log(res.data);
-          var notifs = res.data;
-          this.setState({ problemsReported: notifs });
-          //demoNotifications = res.data;
-          //this.setState({ problemsReported });
-        });
-      //console.log("state problems reported: " + JSON.stringify(this.state.problemsReported));
-    }
-  }
-
   render() {
     const { locale, url, switchActivation, height } = this.props;
     const propsTopbar = { locale, url };
@@ -131,6 +149,7 @@ class TopbarNotification extends Component {
           >
             <Tab label={<IntlMessages id="sidebar.notification" />} />
             <Tab label={<IntlMessages id="sidebar.message" />} />
+            <Tab label={<IntlMessages id="sidebar.cart" />} />
           </Tabs>
         </ThemeProvider>
 
@@ -146,6 +165,7 @@ class TopbarNotification extends Component {
           <TabContainer>
             <TopbarMessage {...propsTopbar} />
           </TabContainer>
+          
         </SwipeableViews>
       </div>
     );
