@@ -39,6 +39,7 @@ public class ProblemsReportedController {
     private UserRepository userRepository;
 
     @GetMapping("/problems")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<ProblemResponse> getProblems(){
         List<ProblemResponse> problemsReportedResponses = new ArrayList<>();
         List<ProblemReported> problemsReported = problemsReportedService.getAllProblemsReported();

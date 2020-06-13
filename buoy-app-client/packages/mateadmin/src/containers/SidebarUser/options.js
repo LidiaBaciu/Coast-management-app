@@ -3,22 +3,16 @@ import getDevSidebar from '../../customApp/sidebar';
 
 const options = [
   {
-    label: 'sidebar.problemsReported',
-    key: 'invoice',
-    leftIcon: 'select_all',
+    label: 'Report a problem',
+    leftIcon: 'error',
     hideBreadCrumb: true,
+    key: 'report-problem',
   },
   {
     label: 'sidebar.scrum-board',
     key: 'scrum-board',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
-  },
-  {
-    label: 'Report a problem',
-    leftIcon: 'error',
-    hideBreadCrumb: true,
-    key: 'report-problem',
   },
   {
     label: 'sidebar.map',
