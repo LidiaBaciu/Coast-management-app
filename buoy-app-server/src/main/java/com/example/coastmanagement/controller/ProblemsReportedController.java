@@ -47,16 +47,8 @@ public class ProblemsReportedController {
             response.setId(problem.getId());
             response.setDescription(problem.getDescription());
             response.setTimestamp(problem.getTimestamp());
-            BuoySummary buoySummary = new BuoySummary();
-            buoySummary.setId(problem.getBuoy().getId());
-            buoySummary.setLatitude(problem.getBuoy().getLatitude());
-            buoySummary.setLongitude(problem.getBuoy().getLongitude());
-            response.setBuoySummary(buoySummary);
-            UserSummary userSummary = new UserSummary();
-            userSummary.setId(problem.getUser().getId());
-            userSummary.setName(problem.getUser().getName());
-            userSummary.setUsername(problem.getUser().getUsername());
-            response.setUserSummary(userSummary);
+            response.setBuoyId(problem.getBuoy().getId());
+            response.setUsername(problem.getUser().getName());
             response.setSolved(problem.getSolved());
             problemsReportedResponses.add(response);
         }
@@ -101,6 +93,21 @@ public class ProblemsReportedController {
         }
         problemsReportedRepository.save(problem);
         return ResponseEntity.ok("The problem has been successfully flagged as solved? " + problem.getSolved());
+    }
+
+    @GetMapping("/problem/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProblemResponse getProblemBasedOnId(@PathVariable(value = "id") Long problemId){
+        ProblemReported problem = problemsReportedRepository.findById(problemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Problem", "id", problemId));
+        ProblemResponse problemResponse = new ProblemResponse();
+        problemResponse.setId(problem.getId());
+        problemResponse.setUsername(problem.getUser().getName());
+        problemResponse.setDescription(problem.getDescription());
+        problemResponse.setSolved(problem.getSolved());
+        problemResponse.setBuoyId(problem.getBuoy().getId());
+        problemResponse.setTimestamp(problem.getTimestamp());
+        return problemResponse;
     }
 
 }

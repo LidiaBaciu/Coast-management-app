@@ -8,9 +8,7 @@ import invoiceActions from '../../redux/invoice/actions';
 class SingleInvoice extends Component {
   componentDidMount() {
     const { initialInvoices, initData } = this.props;
-    if (!initialInvoices) {
-      initData();
-    }
+    initData();
     this.toggleCreatedInvoice(this.props);
   }
   componentWillReceiveProps(nextProps) {

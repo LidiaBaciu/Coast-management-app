@@ -10,6 +10,7 @@ import Papersheet from '../../components/utility/papersheet';
 import InvoiceAddress from '../../components/invoice/address';
 import Scrollbars from '../../components/utility/customScrollBar';
 import InvoicePageWrapper, { PrintIcon } from './singleInvoice.style';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -26,6 +27,23 @@ const styles = theme => ({
 });
 
 class SingleInvoiceView extends Component {
+  state = {
+    currentProblem : {},
+  };
+  componentDidMount(){
+    const currentLocation = window.location;
+    const id = String(currentLocation).split('/').pop();
+    console.log("currentLocation id" + id);
+    let webApiUrl = 'http://localhost:8080/api/problem/' + id;
+    let tokenStr = JSON.parse(localStorage.getItem('token'));
+    axios
+      .get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } })
+      .then(res => {
+        console.log(res.data);
+        var data = res.data;
+        this.setState({ currentProblem: data });
+      });
+  }
   render() {
     const { currentInvoice, toggleView, redirectPath } = this.props;
     return (
@@ -60,7 +78,7 @@ class SingleInvoiceView extends Component {
                     <div className="LeftSideContent">
                       <h3 className="Title">Invoice Info</h3>
                       <span className="InvoiceNumber">
-                        {currentInvoice.number}
+                        {this.state.currentProblem.id}
                       </span>
                     </div>
                     <div className="RightSideContent">
@@ -73,7 +91,7 @@ class SingleInvoiceView extends Component {
                       <p>
                         Order date:{' '}
                         <span className="orderDate">
-                          {moment(new Date(currentInvoice.orderDate)).format(
+                          {moment(this.state.currentProblem.timestamp).format(
                             'MMMM Do YYYY'
                           )}
                         </span>
@@ -82,43 +100,20 @@ class SingleInvoiceView extends Component {
                   </div>
                   <div className="BillingInformation">
                     <div className="LeftSideContent">
-                      <h3 className="Title">Bill From</h3>
+                      <h3 className="Title">Reported by</h3>
 
                       <InvoiceAddress
-                        companyName={currentInvoice.billFrom}
+                        companyName={this.state.currentProblem.username}
                         companyAddress={currentInvoice.billFromAddress}
                       />
                     </div>
                     <div className="RightSidclassName=ent">
-                      <h3 className="Title">Bill To</h3>
+                      <h3 className="Title">For the buoy</h3>
 
                       <InvoiceAddress
-                        companyName={currentInvoice.billTo}
+                        companyName={this.state.currentProblem.buoyId}
                         companyAddress={currentInvoice.billToAddress}
                       />
-                    </div>
-                  </div>
-
-                  <div className="InvoiceTable">
-                    <Scrollbars
-                      style={{ width: '100%' }}
-                      className="customScrollBar"
-                    >
-                      <ViewTable invoiceList={currentInvoice.invoiceList} />
-                    </Scrollbars>
-                    <div className="TotalBill">
-                      <p>
-                        Sub-total :{' '}
-                        <span>{`${currentInvoice.currency}${currentInvoice.subTotal}`}</span>
-                      </p>
-                      <p>
-                        Vat :{' '}
-                        <span>{`${currentInvoice.currency}${currentInvoice.vatPrice}`}</span>
-                      </p>
-                      <h3>
-                        <span>Grand Total : </span>
-                        <span>{`${currentInvoice.currency}${currentInvoice.totalCost}`}</span>
-                      </h3>
                     </div>
                   </div>
 

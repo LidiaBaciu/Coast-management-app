@@ -16,7 +16,10 @@ import InvoicePageWrapper, {
   PrintIcon,
   Textfield,
 } from './singleInvoice.style';
+import InvoiceAddress from '../../components/invoice/address';
 import { orderStatusOptions } from './config';
+import axios from 'axios';
+
 
 const styles = theme => ({
   root: {
@@ -95,6 +98,25 @@ class SingleInvoiceEdit extends Component {
       updateInvoice(editableInvoice);
     }
   };
+
+  state = {
+    currentProblem : {},
+  };
+
+  componentDidMount(){
+    const currentLocation = window.location;
+    const id = String(currentLocation).split('/').pop();
+    console.log("currentLocation id" + id);
+    let webApiUrl = 'http://localhost:8080/api/problem/' + id;
+    let tokenStr = JSON.parse(localStorage.getItem('token'));
+    axios
+      .get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } })
+      .then(res => {
+        console.log(res.data);
+        var data = res.data;
+        this.setState({ currentProblem: data });
+      });
+  }
   render() {
     const {
       editableInvoice,
@@ -140,11 +162,7 @@ class SingleInvoiceEdit extends Component {
                       <h3 className="Title">Invoice Info</h3>
                       <Textfield
                         label="Number"
-                        value={editableInvoice.number}
-                        onChange={event => {
-                          editableInvoice.number = event.target.value;
-                          editInvoice(editableInvoice);
-                        }}
+                        value={editableInvoice.id}
                         className="LeftSideContentInput"
                       />
                     </div>
@@ -164,132 +182,33 @@ class SingleInvoiceEdit extends Component {
                         />
                       </div>
                       <div className="RightSideDate">
-                        Order date:{' '}
-                        <DatePicker
-                          value={moment(new Date(editableInvoice.orderDate))}
-                          onChange={val => {
-                            editableInvoice.orderDate = val.toDate().getTime();
-                            editInvoice(editableInvoice);
-                          }}
-                          format="MMMM Do YYYY"
-                          animateYearScrolling={true}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="BillingInformation">
-                    <div className="LeftSideContent">
-                      <Textfield
-                        label="Bill From"
-                        value={editableInvoice.billFrom}
-                        onChange={event => {
-                          editableInvoice.billFrom = event.target.value;
-                          editInvoice(editableInvoice);
-                        }}
-                        className="BillFormTitle"
-                      />
-                      <Textfield
-                        label="Bill From Address"
-                        value={editableInvoice.billFromAddress}
-                        multiline={true}
-                        rows={5}
-                        onChange={event => {
-                          editableInvoice.billFromAddress = event.target.value;
-                          editInvoice(editableInvoice);
-                        }}
-                        className="BillFormAddress"
-                      />
-                    </div>
-                    <div className="RightSideContent">
-                      <Textfield
-                        label="Bill To"
-                        value={editableInvoice.billTo}
-                        onChange={event => {
-                          editableInvoice.billTo = event.target.value;
-                          editInvoice(editableInvoice);
-                        }}
-                        className="BillFormTitle"
-                      />
-                      <Textfield
-                        label="Bill To Address"
-                        value={editableInvoice.billToAddress}
-                        multiline={true}
-                        rows={5}
-                        onChange={event => {
-                          editableInvoice.billToAddress = event.target.value;
-                          editInvoice(editableInvoice);
-                        }}
-                        className="BillFormAddress"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="InvoiceTable editInvoiceTable">
-                    <Scrollbars
-                      style={{ width: '100%' }}
-                      className="customScrollBar"
-                    >
-                      <EditTable
-                        editableInvoice={editableInvoice}
-                        editInvoice={editInvoice}
-                        updateValues={updateValues}
-                      />
-                    </Scrollbars>
-                    <div className="InvoiceTableBtn">
-                      <Button
-                        variant="contained"
-                        onClick={() => {
-                          editableInvoice.invoiceList.push({
-                            key: editableInvoice.invoiceList + 1,
-                            itemName: '',
-                            costs: 0,
-                            qty: 0,
-                            price: 0,
-                          });
-                          editInvoice(editableInvoice);
-                        }}
-                        className="InvoiceEditAddBtn"
-                      >
-                        <span>Add Item</span>
-                      </Button>
-                    </div>
-                    <div className="TotalBill">
-                      <p>
-                        <span className="TotalBillTitle">Sub-total : </span>
-                        <span>{`${editableInvoice.currency}${editableInvoice.subTotal}`}</span>
-                      </p>
-                      <div className="vatRateCalc">
-                        <span className="vatRateCalcSpan"> Total Vat : </span>
-                        <Textfield
-                          value={editableInvoice.vatRate}
-                          onChange={event => {
-                            editableInvoice.vatRate = stringToPosetiveInt(
-                              event.target.value,
-                              editableInvoice.vatRate
-                            );
-                            editInvoice(updateValues(editableInvoice));
-                          }}
-                        />
-
-                        <span>{`${editableInvoice.currency}${editableInvoice.vatPrice}`}</span>
-                      </div>
-                      <div className="currencySignWithTotal">
-                        <span className="grandTotal">Grand Total </span>
-                        <Textfield
-                          value={editableInvoice.currency}
-                          onChange={event => {
-                            editableInvoice.currency = event.target.value;
-                            editInvoice(editableInvoice);
-                          }}
-                          className="currencySign"
-                        />
-                        <span className="currencySignSpan">
-                          {editableInvoice.totalCost}
+                        Timestamp :{' '}
+                        <span className="orderDate">
+                          {moment(this.state.currentProblem.timestamp).format(
+                            'MMMM Do YYYY'
+                          )}
                         </span>
                       </div>
                     </div>
                   </div>
+                  
+                  <div className="BillingInformation">
+                    <div className="LeftSideContent">
+                      <h3 className="Title">Reported by</h3>
 
+                      <InvoiceAddress
+                        companyName={this.state.currentProblem.username}
+                      />
+                    </div>
+                    <div className="RightSidclassName=ent">
+                      <h3 className="Title">For the buoy</h3>
+
+                      <InvoiceAddress
+                        companyName={this.state.currentProblem.buoyId}
+                      />
+                    </div>
+                  </div>
+                  
                   <div className="ButtonWrapper" />
                 </div>
               </Papersheet>

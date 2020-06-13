@@ -65,10 +65,10 @@ class TopbarNotification extends Component {
           {this.state.problemsReported.map(notification =>
             !notification.solved ? (
               <a href="#!" className="dropdownListItem" key={notification.id}>
-                <h5>{notification.userSummary.name}</h5>
+                <h5>{notification.username}</h5>
                 <p>
                   Has reported a problem for the buoy with the id{' '}
-                  {notification.buoySummary.id}
+                  {notification.buoyId}
                 </p>
                 <p>
                   <b>Description: </b>
@@ -80,7 +80,7 @@ class TopbarNotification extends Component {
         </Scrollbars>
       </div>
 
-      <a href="#!" className="viewAllBtn">
+      <a href="/dashboard/invoice" className="viewAllBtn">
         <IntlMessages id="topbar.viewAll" />
       </a>
     </SidebarContent>

@@ -1,30 +1,30 @@
 const localDataName = 'mateInvoice';
-const orderStatusOptions = ['Pending', 'Completed', 'Delivered', 'On Hold'];
+const orderStatusOptions = ['Solved', 'Unresolved'];
 const columns = [
 	{
-		title: 'Number',
-		dataIndex: 'number',
-		rowKey: 'number',
+		title: 'Id',
+		dataIndex: 'id',
+		rowKey: 'id',
 	},
 	{
-		title: 'Bill From',
-		dataIndex: 'billFrom',
-		rowKey: 'billFrom',
+		title: 'Description',
+		dataIndex: 'description',
+		rowKey: 'description',
 	},
 	{
-		title: 'Bill To',
-		dataIndex: 'billTo',
-		rowKey: 'billTo',
+		title: 'For buoy',
+		dataIndex: 'buoyId',
+		rowKey: 'buoyId',
 	},
 	{
-		title: 'Total Cost',
-		dataIndex: 'totalCost',
-		rowKey: 'totalCost',
+		title: 'Reported by',
+		dataIndex: 'username',
+		rowKey: 'username',
 	},
 	{
-		title: 'Status',
-		dataIndex: 'orderStatus',
-		rowKey: 'orderStatus',
+		title: 'Timestamp',
+		dataIndex: 'timestamp',
+		rowKey: 'timestamp',
 	},
 ];
 
@@ -147,8 +147,8 @@ const fakedata = [
 	},
 ];
 const newInvoice = {
-	orderStatus: 'Pending',
-	orderDate: new Date().getTime(),
+	orderStatus: 'Unresolved',
+	orderDate: '',
 	currency: '$',
 	billTo: '',
 	billToAddress: '',
@@ -168,6 +168,7 @@ const newInvoice = {
 	vatPrice: 0,
 	totalCost: 0,
 };
+
 const createDemoData = () => {
 	const localData = localStorage.getItem(localDataName);
 	if (localData) {
@@ -182,9 +183,7 @@ const createDemoData = () => {
 };
 
 export {
-	fakedata,
 	columns,
-	createDemoData,
 	localDataName,
 	newInvoice,
 	orderStatusOptions,

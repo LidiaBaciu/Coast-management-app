@@ -3,37 +3,7 @@ import getDevSidebar from '../../customApp/sidebar';
 
 const options = [
   {
-    label: 'sidebar.email',
-    key: 'email',
-    leftIcon: 'email',
-    hideBreadCrumb: true,
-  },
-  {
-    label: 'sidebar.ecommerce',
-    leftIcon: 'shopping_basket',
-    key: 'ecommerce',
-    children: [
-      {
-        label: 'sidebar.shop',
-        key: 'shop',
-      },
-      {
-        label: 'sidebar.cards',
-        icon: 'map',
-        key: 'savedCards',
-      },
-      {
-        label: 'sidebar.cart',
-        key: 'cart',
-      },
-      {
-        label: 'sidebar.checkout',
-        key: 'checkout',
-      },
-    ],
-  },
-  {
-    label: 'sidebar.invoice',
+    label: 'sidebar.problemsReported',
     key: 'invoice',
     leftIcon: 'select_all',
     hideBreadCrumb: true,

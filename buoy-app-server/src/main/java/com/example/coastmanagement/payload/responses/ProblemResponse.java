@@ -5,8 +5,8 @@ import com.example.coastmanagement.payload.UserSummary;
 
 public class ProblemResponse {
     private Long id;
-    private UserSummary userSummary;
-    private BuoySummary buoySummary;
+    private String username;
+    private Long buoyId;
     private String description;
     private String timestamp;
     private Boolean isSolved;
@@ -17,22 +17,6 @@ public class ProblemResponse {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public UserSummary getUserSummary() {
-        return userSummary;
-    }
-
-    public void setUserSummary(UserSummary userSummary) {
-        this.userSummary = userSummary;
-    }
-
-    public BuoySummary getBuoySummary() {
-        return buoySummary;
-    }
-
-    public void setBuoySummary(BuoySummary buoySummary) {
-        this.buoySummary = buoySummary;
     }
 
     public String getDescription() {
@@ -57,5 +41,21 @@ public class ProblemResponse {
 
     public void setSolved(Boolean solved) {
         isSolved = solved;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getBuoyId() {
+        return buoyId;
+    }
+
+    public void setBuoyId(Long buoyId) {
+        this.buoyId = buoyId;
     }
 }

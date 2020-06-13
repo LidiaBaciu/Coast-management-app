@@ -78,10 +78,8 @@ class Invoices extends Component {
     selected: [],
   };
   componentDidMount() {
-    const { initialInvoices, initData } = this.props;
-    if (!initialInvoices) {
-      initData();
-    }
+    const { initData } = this.props;
+    initData();
   }
   isSelected = id => this.state.selected.indexOf(id) !== -1;
   handleSelectAllClick = (event, checked) => {
@@ -125,7 +123,7 @@ class Invoices extends Component {
       <LayoutWrapper>
         <Row>
           <FullColumn>
-            <CardWrapper title="Invoices">
+            <CardWrapper title="Problems reported">
               {invoices.length === 0 ? (
                 <HelperText text="No Invoices" />
               ) : (

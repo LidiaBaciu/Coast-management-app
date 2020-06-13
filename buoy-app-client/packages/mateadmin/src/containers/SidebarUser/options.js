@@ -3,7 +3,7 @@ import getDevSidebar from '../../customApp/sidebar';
 
 const options = [
   {
-    label: 'sidebar.invoice',
+    label: 'sidebar.problemsReported',
     key: 'invoice',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
