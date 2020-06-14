@@ -16,6 +16,10 @@ const routes = [
     component: lazy(() => import('../Forms/ReduxForm')),
   },
   {
+    path: 'beaches-list',
+    component: lazy(() => import('../BeachesList')),
+  },
+  {
     path: 'user-details',
     component: lazy(() => import('../Forms/FormPage')),
   },
