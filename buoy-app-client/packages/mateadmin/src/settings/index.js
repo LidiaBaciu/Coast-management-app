@@ -69,7 +69,7 @@ const googleConfig = {
 const mapboxConfig = {
   tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   maxZoom: 18,
-  defaultZoom: 11,
+  defaultZoom: 2,
   center: [0, 0],
 };
 const youtubeSearchApi = '';

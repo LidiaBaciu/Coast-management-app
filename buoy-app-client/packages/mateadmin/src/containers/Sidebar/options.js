@@ -15,6 +15,12 @@ const options = [
     hideBreadCrumb: true,
   },
   {
+    label: 'sidebar.beachesList',
+    key: 'beaches-list',
+    leftIcon: 'select_all',
+    hideBreadCrumb: true,
+  },
+  {
     label: 'sidebar.map',
     key: 'googlemap',
     isNavTab: true,
