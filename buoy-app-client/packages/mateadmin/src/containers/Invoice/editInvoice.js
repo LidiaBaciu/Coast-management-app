@@ -104,12 +104,10 @@ class SingleInvoiceEdit extends Component {
                 <div className="PageContent">
                   <div className="OrderInfo">
                     <div className="LeftSideContent">
-                      <h3 className="Title">Invoice Info</h3>
-                      <Textfield
-                        label="Number"
-                        value={this.state.currentProblem.id}
-                        className="LeftSideContentInput"
-                      />
+                      <h3 className="Title">Problem Info</h3>
+                      <span className="InvoiceNumber">
+                        {this.state.currentProblem.id}
+                      </span>
                     </div>
                     <div className="RightSideContent">
                       <div className="RightSideStatus">

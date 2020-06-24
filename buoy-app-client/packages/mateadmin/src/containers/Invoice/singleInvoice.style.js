@@ -222,6 +222,18 @@ const InvoicePageWrapper = styled.div`
         }
       }
 
+      .CenteredContent{
+        width: 100%;
+        
+        @media only screen and (max-width: 767px) {
+          width: 100%;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 767px) {
+          width: 50%;
+        }
+      }
+
       @media only screen and (max-width: 767px) {
         .RightSideContent {
           margin-top: 40px;

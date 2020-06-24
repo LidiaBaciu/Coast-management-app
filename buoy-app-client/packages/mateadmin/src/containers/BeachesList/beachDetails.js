@@ -23,6 +23,7 @@ const styles = theme => ({
 class BeachDetails extends Component {
   state = {
       loadedBeach: null,
+      buoys: [],
   }
 
   componentDidMount () {
@@ -46,9 +47,9 @@ class BeachDetails extends Component {
     }
 }
   render() {
-    let beach = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
+    let beach = <p style={{ textAlign: 'center' }}>Please select a beach!</p>;
     if ( this.props.match.params.id ) {
-        beach = <p style={{ textAlign: 'center' }}>Loading...!</p>;
+        beach = <p style={{ textAlign: 'center' }}>Loading...</p>;
     }
     if ( this.state.loadedBeach ) {
         beach = (

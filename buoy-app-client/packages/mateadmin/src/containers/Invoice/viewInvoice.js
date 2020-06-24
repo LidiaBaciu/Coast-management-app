@@ -44,6 +44,11 @@ class SingleInvoiceView extends Component {
         this.setState({ currentProblem: data });
       });
   }
+
+  handlePrint = () => {
+    window.print();
+  }
+
   render() {
     const { toggleView, redirectPath } = this.props;
     return (
@@ -55,20 +60,21 @@ class SingleInvoiceView extends Component {
                 <Link to={redirectPath}>
                   <Button color="primary">
                     <PrintIcon>call_split</PrintIcon>
-                    <span>Go To Invoices</span>
+                    <span>Go To Problems</span>
                   </Button>
                 </Link>
                 <Button color="secondary" onClick={() => toggleView(true)}>
                   <PrintIcon>mode_edit</PrintIcon>
-                  <span>Edit Invoice</span>
+                  <span>Edit Problem</span>
                 </Button>
                 <Button
                   variant="contained"
                   color="primary"
                   className="mateInvoPrint"
+                  onClick={this.handlePrint}
                 >
                   <PrintIcon>print</PrintIcon>
-                  <span>Print Invoice</span>
+                  <span>Print Problem report</span>
                 </Button>
               </div>
 
@@ -76,7 +82,7 @@ class SingleInvoiceView extends Component {
                 <div className="PageContent">
                   <div className="OrderInfo">
                     <div className="LeftSideContent">
-                      <h3 className="Title">Invoice Info</h3>
+                      <h3 className="Title">Problem information</h3>
                       <span className="InvoiceNumber">
                         {this.state.currentProblem.id}
                       </span>
@@ -89,7 +95,7 @@ class SingleInvoiceView extends Component {
                         </span>
                       </p>
                       <p>
-                        Order date:{' '}
+                        Report date:{' '}
                         <span className="orderDate">
                           {moment(this.state.currentProblem.timestamp).format(
                             'MMMM Do YYYY'
@@ -115,13 +121,21 @@ class SingleInvoiceView extends Component {
                     </div>
                   </div>
 
+                  <div className="BillingInformation">
+                    <div className="CenteredContent">
+                      <h3 className="Title">Description</h3>
+                      <p>{this.state.currentProblem.description}</p>
+                    </div>
+                    
+                  </div>
+
                   <div className="ButtonWrapper">
                     <Button
                       variant="contained"
                       color="primary"
                       className="mateInvoPrint"
                     >
-                      <span>Send Invoice</span>
+                      <span>Share problem</span>
                     </Button>
                   </div>
                 </div>
