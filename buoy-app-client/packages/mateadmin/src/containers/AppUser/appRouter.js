@@ -8,6 +8,10 @@ const routes = [
     component: lazy(() => import('../Widgets')),
   },
   {
+    path: 'beaches-list/beach/:id',
+    component: lazy(() => import('../BeachesList/beachDetails')),
+  },
+  {
     path: 'report-problem',
     component: lazy(() => import('../ReportProblem/ReportProblemPage')),
   },
