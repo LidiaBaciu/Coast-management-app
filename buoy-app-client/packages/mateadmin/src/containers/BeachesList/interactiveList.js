@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import Lists, {
   ListItem,
   ListItemAvatar,
-  ListItemIcon,
-  ListItemSecondaryAction,
   ListItemText,
 } from '../../components/uielements/lists';
 import Avatar from '../../components/uielements/avatars/';
-import IconButton from '../../components/uielements/iconbutton/';
-// import { FormGroup, FormControlLabel } from './lists.style';
 import {
   FormGroup,
   FormControlLabel,
@@ -17,46 +14,22 @@ import {
 import Checkbox from '../../components/uielements/checkbox/';
 import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
-
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '../../components/uielements/dialogs';
-
 import Button from '../../components/uielements/button';
+import BeachDetails from './beachDetails';
 import { connect } from 'react-redux';
 
 class InteractiveList extends React.Component {
   state = {
     dense: false,
     secondary: false,
-    open: false,
     beaches : [],
     buoys: [],
     selectedBeach: null,
   };
   
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleRequestClose = () => {
-    this.setState({ open: false });
-  };
-
-  onItemClick (item, e) {  
-    const { beaches } = this.props;
-    console.log(item);
-    this.setState({ open: true });
-    this.setState({selectedBeach : item});
-    beaches.forEach(element => {
-      if (element.id === JSON.parse(item.id)) {
-        this.setState({ buoys: element.buoys });
-      }
-    });
-  }
+  beachSelectedHandler = ( id ) => {
+    this.props.history.push({pathname: '/dashboard/beaches-list/beach/' + id});
+}
 
   componentDidMount() {
     const { getBeaches } = this.props;
@@ -64,18 +37,16 @@ class InteractiveList extends React.Component {
   }
 
   render() {
-    const { beaches, classes } = this.props;
-    const { dense, secondary, buoys } = this.state;
-
+    const { beaches, classes , match} = this.props;
+    const { dense, secondary } = this.state;
+    
     let beachesList =
       beaches.length > 0 &&
       beaches.map((beach, i) => {
-        let boundItemClick = this.onItemClick.bind(this, beach);
         return (
-          <ListItem button key={i} onClick={boundItemClick}>
+          <ListItem key={i} button onClick={() => this.beachSelectedHandler( beach.id )}>
             <ListItemAvatar>
               <Avatar>
-                {/*<Icon>folder</Icon>*/}
                 <img src={beach.photoUri}/>
               </Avatar>
             </ListItemAvatar>
@@ -88,15 +59,6 @@ class InteractiveList extends React.Component {
         );
       }, this);
       
-    let buoysList = buoys.length > 0 && buoys.map((buoy, i) => {
-      return(
-        <ListItem button key={i}>
-            <ListItemText
-              primary={buoy.id}
-            />
-          </ListItem>
-      );
-    })
     return (
       <div>
         <FormGroup row>
@@ -123,6 +85,7 @@ class InteractiveList extends React.Component {
             label="Enable secondary text"
           />
         </FormGroup>
+
         <Grids container>
           <Grids item xs={12} md={6}>
             <Typography variant="h6" className={classes.title}>
@@ -134,26 +97,6 @@ class InteractiveList extends React.Component {
               </Lists>
             </div>
           </Grids>
-          {
-          <Dialog
-              open={this.state.open}
-              onClose={this.handleRequestClose}
-            >
-              <DialogTitle>{"More details about the selected beach:"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                    <p>{this.state.selectedBeach === null ? 'Name is null' : this.state.selectedBeach.name}</p>
-                    <p>This beach has the following buoys: </p>
-                    {buoysList}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleRequestClose} color="primary">
-                  Close
-                </Button>
-              </DialogActions>
-            </Dialog>
-          }
         </Grids>
       </div>
     );
