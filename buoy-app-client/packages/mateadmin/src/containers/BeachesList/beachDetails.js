@@ -54,9 +54,8 @@ class BeachDetails extends Component {
         beach = (
             <LayoutWrapper>
             <FullColumn>
-            <Papersheet title={<IntlMessages id="sidebar.blankPage" />}>
-                <h1>{this.state.loadedBeach.id}</h1>
-                <p>{this.state.loadedBeach.name}</p>
+            <Papersheet title={this.state.loadedBeach.name}>
+                <center><img width = '80%' src={this.state.loadedBeach.photoUri}/></center>
             </Papersheet>
             </FullColumn>
             </LayoutWrapper>

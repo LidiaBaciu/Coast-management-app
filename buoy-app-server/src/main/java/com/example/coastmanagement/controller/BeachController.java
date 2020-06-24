@@ -62,7 +62,7 @@ public class BeachController {
     }
 
     @PostMapping("/beach/create")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addBeach(@RequestBody BeachRequest beachRequest){
         save(beachRequest);
         return ResponseEntity.ok("Beach has been created successfully!");

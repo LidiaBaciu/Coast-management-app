@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 import Lists, {
   ListItem,
   ListItemAvatar,
@@ -15,8 +14,9 @@ import Checkbox from '../../components/uielements/checkbox/';
 import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
 import Button from '../../components/uielements/button';
-import BeachDetails from './beachDetails';
 import { connect } from 'react-redux';
+import FormDialog from './formDialog';
+
 
 class InteractiveList extends React.Component {
   state = {
@@ -39,7 +39,12 @@ class InteractiveList extends React.Component {
   render() {
     const { beaches, classes , match} = this.props;
     const { dense, secondary } = this.state;
-    
+    let button = null;
+    let role = JSON.parse(localStorage.getItem('role'));
+    if(role === 'ROLE_ADMIN'){
+      button = <FormDialog />;
+    }
+
     let beachesList =
       beaches.length > 0 &&
       beaches.map((beach, i) => {
@@ -97,7 +102,9 @@ class InteractiveList extends React.Component {
               </Lists>
             </div>
           </Grids>
+         
         </Grids>
+        {button}
       </div>
     );
   }
