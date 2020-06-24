@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { EditTable } from '../../components/invoice/invoiceTable';
 import OrderStatus from '../../components/invoice/orderStatus';
 import notification from '../../components/notification';
 import Button from '../../components/uielements/button';
-import { DatePicker } from '../../components/uielements/materialUiPicker';
 import { Row, FullColumn } from '../../components/utility/rowColumn.js';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import Papersheet from '../../components/utility/papersheet';
-import { stringToPosetiveInt } from '../../helpers/utility';
-import Scrollbars from '../../components/utility/customScrollBar';
 import InvoicePageWrapper, {
   PrintIcon,
   Textfield,
@@ -38,7 +34,6 @@ class SingleInvoiceEdit extends Component {
   onSave = () => {
     const successMessage = 'Problem marked as solved!';
     notification('success', successMessage);
-    let webApiUrl = 'http://localhost:8080/api/problem/' + this.state.currentProblem.id;
     let tokenStr = JSON.parse(localStorage.getItem('token'));
     axios({
       method: 'put', //you can set what request you want to be

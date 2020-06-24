@@ -38,6 +38,7 @@ export default function authReducer(state = initState, action) {
       return {
         loggedIn: true,
         user: action.payload.user.username,
+        name: action.payload.user.name,
         role: action.payload.user.role,
         token: action.payload.user.token,
       };

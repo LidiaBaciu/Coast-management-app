@@ -17,8 +17,6 @@ import {
 import Checkbox from '../../components/uielements/checkbox/';
 import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
-import Icon from '../../components/uielements/icon/index.js';
-import axios from 'axios';
 
 import Dialog, {
   DialogActions,
@@ -61,14 +59,14 @@ class InteractiveList extends React.Component {
   }
 
   componentDidMount() {
-     this.props.getBeaches();
+    const { getBeaches } = this.props;
+    getBeaches();
   }
 
   render() {
-    const { beaches } = this.props;
-    const { classes } = this.props;
-    const { dense, secondary } = this.state;
-    const { buoys } = this.state;
+    const { beaches, classes } = this.props;
+    const { dense, secondary, buoys } = this.state;
+
     let beachesList =
       beaches.length > 0 &&
       beaches.map((beach, i) => {
@@ -144,11 +142,9 @@ class InteractiveList extends React.Component {
               <DialogTitle>{"More details about the selected beach:"}</DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  <div>
                     <p>{this.state.selectedBeach === null ? 'Name is null' : this.state.selectedBeach.name}</p>
                     <p>This beach has the following buoys: </p>
                     {buoysList}
-                  </div>
                 </DialogContentText>
               </DialogContent>
               <DialogActions>

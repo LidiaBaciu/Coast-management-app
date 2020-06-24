@@ -1,6 +1,5 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { clearToken, getToken } from '../../helpers/utility';
 import { clearUser, getCurrentUser } from '../../helpers/utility';
 import actions from './actions';
 import axios from 'axios';

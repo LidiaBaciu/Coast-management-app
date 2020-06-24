@@ -7,7 +7,7 @@ import invoiceActions from '../../redux/invoice/actions';
 
 class SingleInvoice extends Component {
   componentDidMount() {
-    const { initialInvoices, initData } = this.props;
+    const { initData } = this.props;
     initData();
     this.toggleCreatedInvoice(this.props);
   }

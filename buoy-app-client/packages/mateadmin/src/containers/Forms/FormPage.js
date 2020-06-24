@@ -9,11 +9,9 @@ import {
   FullColumn,
   HalfColumn,
 } from '../../components/utility/rowColumn';
-import IntlMessages from '../../components/utility/intlMessages';
 import PageTitle from '../../components/utility/paperTitle';
 import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
-import Image from '../../images/admin.png';
 import { Chip } from './chips.style';
 import Avatar from '../../components/uielements/avatars';
 
@@ -50,7 +48,7 @@ export default class extends Component {
   };
 
   render() {
-    const { result } = this.state;
+    //const { result } = this.state;
     return (
       <Provider store={store}>
         <LayoutWrapper>

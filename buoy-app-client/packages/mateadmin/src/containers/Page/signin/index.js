@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import signinImg from '../../../images/signin.jpg';
 import Button from '../../../components/uielements/button';
 import authAction from '../../../redux/auth/actions';
-import { loginRequest, ACCESS_TOKEN } from '../../../redux/auth/apiUtils';
+import { loginRequest } from '../../../redux/auth/apiUtils';
 import TextField from '../../../components/uielements/textfield';
 import Scrollbars from '../../../components/utility/customScrollBar';
 import SignInStyleWrapper from './signin.style';
@@ -20,7 +20,7 @@ class SignIn extends Component {
     isError: false,
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (
       this.props.isLoggedIn !== nextProps.isLoggedIn &&
       nextProps.isLoggedIn === true

@@ -37,6 +37,7 @@ const styles = theme => ({
     minWidth: 700,
   },
 });
+/*
 const EnhancedTableToolbar = ({ numSelected, deleteInvoice }) => (
   <Toolbar>
     {numSelected > 0 ? (
@@ -53,18 +54,18 @@ const EnhancedTableToolbar = ({ numSelected, deleteInvoice }) => (
     )}
   </Toolbar>
 );
-
+*/
 const EnhancedTableHead = ({ onSelectAllClick, numSelected, rowCount }) => (
   <TableHead>
     <TableRow>
-      <TableCell padding="checkbox">
+      {/*<TableCell padding="checkbox">
         <Checkbox
           indeterminate={numSelected > 0 && numSelected < rowCount}
           checked={numSelected === rowCount}
           onChange={onSelectAllClick}
           color="primary"
         />
-      </TableCell>
+      </TableCell>*/}
       {columns.map(column => (
         <TableCell key={column.rowKey}>{column.title}</TableCell>
       ))}
@@ -80,8 +81,9 @@ class Invoices extends Component {
   componentDidMount() {
     const { initData } = this.props;
     initData();
-  }
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  }/*
+  is
+  Selected = id => this.state.selected.indexOf(id) !== -1;
   handleSelectAllClick = (event, checked) => {
     if (checked) {
       this.setState({
@@ -91,6 +93,7 @@ class Invoices extends Component {
     }
     this.setState({ selected: [] });
   };
+  
   handleCheck = (event, id) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
@@ -115,6 +118,7 @@ class Invoices extends Component {
     this.props.deleteInvoice(selected);
     this.setState({ selected: [] });
   };
+  */
   getnewInvoiceId = () => new Date().getTime();
   render() {
     const { selected } = this.state;
@@ -128,28 +132,28 @@ class Invoices extends Component {
                 <HelperText text="No Invoices" />
               ) : (
                 <div className={classes.root}>
-                  <EnhancedTableToolbar
+                  {/*<EnhancedTableToolbar
                     numSelected={selected.length}
                     deleteInvoice={this.deleteInvoice}
-                  />
+                  />*/}
 
                   <Scrollbars style={{ width: '100%' }}>
                     <Table className={classes.table}>
                       <EnhancedTableHead
-                        numSelected={selected.length}
-                        onSelectAllClick={this.handleSelectAllClick}
+                        //numSelected={selected.length}
+                        //onSelectAllClick={this.handleSelectAllClick}
                         rowCount={invoices.length}
                       />
                       <TableBody>
                         {invoices.map(invoice => {
-                          const isSelected = this.isSelected(invoice.id);
+                          //const isSelected = this.isSelected(invoice.id);
                           return (
                             <TableRow
                               key={invoice.id}
-                              aria-checked={isSelected}
-                              selected={isSelected}
+                              //aria-checked={isSelected}
+                              //selected={isSelected}
                             >
-                              <TableCell padding="checkbox">
+                             {/* <TableCell padding="checkbox">
                                 <Checkbox
                                   checked={isSelected}
                                   onClick={event =>
@@ -157,7 +161,7 @@ class Invoices extends Component {
                                   }
                                   color="primary"
                                 />
-                              </TableCell>
+                                </TableCell> */}
                               {columns.map(column => (
                                 <TableCell
                                   key={`${invoice.id}${column.rowKey}`}
@@ -174,6 +178,7 @@ class Invoices extends Component {
                                     View
                                   </Button>
                                 </Link>
+                                {/*
                                 <IconButton
                                   className="mateInvoiceDlt"
                                   onClick={() => {
@@ -184,6 +189,7 @@ class Invoices extends Component {
                                 >
                                   <DeleteIcon>delete</DeleteIcon>
                                 </IconButton>
+                                */}
                               </TableCell>
                             </TableRow>
                           );
@@ -194,13 +200,13 @@ class Invoices extends Component {
                 </div>
               )}
 
-              <ActionButtons>
+              {/*<ActionButtons>
                 <Link to={`${match.path}/${this.getnewInvoiceId()}`}>
                   <Fab color="primary" className="mateAddInvoiceBtn">
                     <Icon>add</Icon>
                   </Fab>
                 </Link>
-              </ActionButtons>
+              </ActionButtons>*/}
             </CardWrapper>
           </FullColumn>
         </Row>

@@ -64,7 +64,7 @@ class TopbarNotification extends Component {
         <Scrollbars style={{ height: '100%' }}>
           {this.state.problemsReported.map(notification =>
             !notification.solved ? (
-              <a href="#!" className="dropdownListItem" key={notification.id}>
+              <a href={"/dashboard/invoice/" + notification.id}className="dropdownListItem" key={notification.id}>
                 <h5>{notification.username}</h5>
                 <p>
                   Has reported a problem for the buoy with the id{' '}
@@ -93,21 +93,17 @@ class TopbarNotification extends Component {
   };
 
   componentDidMount() {
-    const role = JSON.parse(localStorage.getItem('role'));
-    console.log(role);
+    const role = this.props.auth.role;
+    console.log(this.props.auth.role);
     if (role === 'ROLE_ADMIN') {
       let webApiUrl = 'http://localhost:8080/api/problems';
-      let tokenStr = JSON.parse(localStorage.getItem('token'));
       axios
-        .get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } })
+        .get(webApiUrl, { headers: { Authorization: `Bearer ${this.props.auth.token}` } })
         .then(res => {
           console.log(res.data);
           var notifs = res.data;
           this.setState({ problemsReported: notifs });
-          //demoNotifications = res.data;
-          //this.setState({ problemsReported });
         });
-      //console.log("state problems reported: " + JSON.stringify(this.state.problemsReported));
     }
   }
 
@@ -140,9 +136,7 @@ class TopbarNotification extends Component {
           onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer>{this.notificationContent(height)}</TabContainer>
-          {/* <TabContainer>
-                  <TopbarMail {...propsTopbar} />
-                </TabContainer> */}
+          
           <TabContainer>
             <TopbarMessage {...propsTopbar} />
           </TabContainer>

@@ -1,5 +1,4 @@
 import clone from 'clone';
-import { newInvoice } from '../../containers/Invoice/config';
 import actions from './actions';
 
 const initState = {
@@ -34,8 +33,7 @@ export default function cardReducer(state = initState, { type, ...action }) {
         ? {
             id: action.id,
             number: `#${action.id}`,
-            key: action.id,
-            ...newInvoice
+            key: action.id
           }
         : invoices[index];
       const enableEditView = isNewInvoice;

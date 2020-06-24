@@ -8,7 +8,7 @@ import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
 import Box from '../../components/utility/papersheet';
 import { MenuItem } from '../../components/uielements/menus';
-import { Form, Select, FormControls } from './select.style';
+import { Select } from './select.style';
 import Input, { InputLabel } from '../../components/uielements/input';
 import axios from 'axios';
 
