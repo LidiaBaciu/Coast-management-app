@@ -5,6 +5,7 @@ import LayoutWrapper from "../../components/utility/layoutWrapper";
 import Papersheet from "../../components/utility/papersheet";
 import { FullColumn } from "../../components/utility/rowColumn";
 import IntlMessages from "../../components/utility/intlMessages";
+import Loader from '../../components/utility/Loader/';
 
 const styles = theme => ({
   root: {

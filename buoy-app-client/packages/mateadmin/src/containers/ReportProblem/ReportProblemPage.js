@@ -14,7 +14,7 @@ import axios from 'axios';
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
-    load={import('./maps/mapWithMarkerCluster.js')}
+    load={import('../Map/mapWithMarkerCluster.js')}
     componentProps={props}
     componentArguement={'leafletMap'}
   />
