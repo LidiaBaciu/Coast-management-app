@@ -7,6 +7,7 @@ import invoicesSagas from './invoice/saga';
 import instagramWidgetSagas from './instagramWidget/sagas';
 import scrumBoardSagas from './scrumBoard/saga';
 import customAppSagas from '../customApp/redux/sagas';
+import beachList from './beachList/saga'
 
 export default function* rootSaga(getState) {
   yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga(getState) {
     instagramWidgetSagas(),
     customAppSagas(),
     scrumBoardSagas(),
+    beachList(),
   ]);
 }

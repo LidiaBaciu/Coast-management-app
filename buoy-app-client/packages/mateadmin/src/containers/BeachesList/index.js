@@ -10,6 +10,7 @@ import {
   FullColumn,
 } from '../../components/utility/rowColumn';
 import InteractiveList from './interactiveList';
+import Async from '../../helpers/asyncComponent';
 
 const styles = theme => ({
   root: {
@@ -35,122 +36,35 @@ const styles = theme => ({
   },
 });
 
+const LeafletMapWithMarkerCluster = props => (
+  <Async
+    load={import('./maps/mapWithMarkerCluster.js')}
+    componentProps={props}
+    componentArguement={'leafletMap'}
+  />
+);
+
 class ListExamples extends Component {
   render() {
     const { props } = this;
     return (
       <LayoutWrapper>
-        {/*
         <Row>
           <HalfColumn>
-            <Papersheet
-              title="Simple List"
-              codeBlock="UiElements/Lists/simpleList.js"
-              stretched
-            >
-              <DemoWrapper>
-                <SimpleList {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-
-          <HalfColumn>
-            <Papersheet
-              title="Folder List"
-              codeBlock="UiElements/Lists/folderList.js"
-              stretched
-            >
-              <DemoWrapper>
-                <FolderList {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-        </Row>
-        <Row>
-          <HalfColumn>
-            <Papersheet
-              title="Inset List"
-              codeBlock="UiElements/Lists/insetList.js"
-              stretched
-            >
-              <DemoWrapper>
-                <InsetList {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-
-          <HalfColumn>
-            <Papersheet
-              title="Nested List"
-              codeBlock="UiElements/Lists/nestedList.js"
-              stretched
-            >
-              <DemoWrapper>
-                <NestedList {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-        </Row>
-        <Row>
-          <HalfColumn>
-            <Papersheet
-              title="Pinned Subheader List"
-              codeBlock="UiElements/Lists/pinnedSubheaderList.js"
-              stretched
-            >
-              <DemoWrapper>
-                <PinnedSubheaderList {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-
-          <HalfColumn>
-            <Papersheet
-              title="Checkbox List"
-              codeBlock="UiElements/Lists/checkboxLists.js"
-              stretched
-            >
-              <DemoWrapper>
-                <CheckboxLists {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-        </Row>
-        <Row>
-          <HalfColumn>
-            <Papersheet
-              title="Secondary Checkbox List"
-              codeBlock="UiElements/Lists/checkboxListSecondary.js"
-              stretched
-            >
-              <DemoWrapper>
-                <CheckboxListSecondary {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-
-          <HalfColumn>
-            <Papersheet
-              title="Switch Checkbox List"
-              codeBlock="UiElements/Lists/switchListSecondary.js"
-              stretched
-            >
-              <DemoWrapper>
-                <SwitchListSecondary {...props} />
-              </DemoWrapper>
-            </Papersheet>
-          </HalfColumn>
-        </Row>
-        */}
-        <Row>
-          <FullColumn>
             <Papersheet
               title="Beaches list"
               codeBlock="BeachesList/interactiveList.js"
             >
               <InteractiveList {...props} />
             </Papersheet>
-          </FullColumn>
+          </HalfColumn>
+          <HalfColumn>
+            <Papersheet
+                title="Map"
+              >
+                <LeafletMapWithMarkerCluster/>
+              </Papersheet>
+          </HalfColumn>
         </Row>
       </LayoutWrapper>
     );

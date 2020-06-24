@@ -39,8 +39,10 @@ class TopbarUser extends Component {
           </div>
 
           <div className="userDetails">
-            <h3>{this.props.auth.name}</h3>
-            <p>{this.props.auth.role}</p>
+             {/*<h3>{this.props.auth.name}</h3>
+            <p>{this.props.auth.role}</p>*/}
+            <h3>{JSON.parse(localStorage.getItem('name'))}</h3>
+            <p>{JSON.parse(localStorage.getItem('role'))}</p>
           </div>
         </UserInformation>
 

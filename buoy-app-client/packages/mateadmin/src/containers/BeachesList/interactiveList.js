@@ -19,67 +19,86 @@ import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
 import Icon from '../../components/uielements/icon/index.js';
 import axios from 'axios';
-import Async from '../../helpers/asyncComponent';
 
-const LeafletMapWithMarkerCluster = props => (
-  <Async
-    load={import('./maps/mapWithMarkerCluster.js')}
-    componentProps={props}
-    componentArguement={'leafletMap'}
-  />
-);
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '../../components/uielements/dialogs';
 
-function generate(element) {
-  return [0, 1, 2].map(value =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
-let tokenStr = JSON.parse(localStorage.getItem('token'));
+import Button from '../../components/uielements/button';
+import { connect } from 'react-redux';
 
 class InteractiveList extends React.Component {
   state = {
     dense: false,
     secondary: false,
+    open: false,
     beaches : [],
+    buoys: [],
+    selectedBeach: null,
+  };
+  
+  handleClickOpen = () => {
+    this.setState({ open: true });
   };
 
+  handleRequestClose = () => {
+    this.setState({ open: false });
+  };
+
+  onItemClick (item, e) {  
+    const { beaches } = this.props;
+    console.log(item);
+    this.setState({ open: true });
+    this.setState({selectedBeach : item});
+    beaches.forEach(element => {
+      if (element.id === JSON.parse(item.id)) {
+        this.setState({ buoys: element.buoys });
+      }
+    });
+  }
+
   componentDidMount() {
-    let webApiUrl = 'http://localhost:8080/api/beaches';
-    axios
-      .get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } })
-      .then(response => {
-        var json = response.data;
-        console.log(json);
-        this.setState({ beaches: json });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+     this.props.getBeaches();
   }
 
   render() {
+    const { beaches } = this.props;
     const { classes } = this.props;
     const { dense, secondary } = this.state;
-    const { beaches } = this.state;
+    const { buoys } = this.state;
     let beachesList =
       beaches.length > 0 &&
       beaches.map((beach, i) => {
+        let boundItemClick = this.onItemClick.bind(this, beach);
         return (
-          <ListItem button>
+          <ListItem button key={i} onClick={boundItemClick}>
             <ListItemAvatar>
               <Avatar>
-                <Icon>folder</Icon>
+                {/*<Icon>folder</Icon>*/}
+                <img src={beach.photoUri}/>
               </Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={beach.name}
-              secondary={secondary ? 'Secondary text' : null}
+              secondary={secondary ? 
+                beach.id : null}
             />
           </ListItem>
         );
       }, this);
+      
+    let buoysList = buoys.length > 0 && buoys.map((buoy, i) => {
+      return(
+        <ListItem button key={i}>
+            <ListItemText
+              primary={buoy.id}
+            />
+          </ListItem>
+      );
+    })
     return (
       <div>
         <FormGroup row>
@@ -117,84 +136,28 @@ class InteractiveList extends React.Component {
               </Lists>
             </div>
           </Grids>
-          <Grids item xs={12} md={6}>
-            <Typography variant="h6" className={classes.title}>
-              Map
-            </Typography>
-            <div className={classes.demo}>
-              <LeafletMapWithMarkerCluster/>
-            </div>
-          </Grids>
-          {/** 
-        <Grids container>
-          <Grids item xs={12} md={6}>
-            <Typography variant="h6" className={classes.title}>
-              Text only
-            </Typography>
-            <div className={classes.demo}>
-              <Lists dense={dense}>
-                {generate(
-                  <ListItem button>
-                    <ListItemText
-                      primary="Single-line item"
-                      secondary={secondary ? 'Secondary text' : null}
-                    />
-                  </ListItem>
-                )}
-              </Lists>
-            </div>
-          </Grids>
-          <Grids item xs={12} md={6}>
-            <Typography variant="h6" className={classes.title}>
-              Icon with text
-            </Typography>
-            <div className={classes.demo}>
-              <Lists dense={dense}>
-                {generate(
-                  <ListItem button>
-                    <ListItemIcon>
-                      <Icon>folder</Icon>
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Single-line item"
-                      secondary={secondary ? 'Secondary text' : null}
-                    />
-                  </ListItem>
-                )}
-              </Lists>
-            </div>
-          </Grids>
-        </Grids>
-        */}
-          {/**
-          <Grids item xs={12} md={6}>
-            <Typography variant="h6" className={classes.title}>
-              Avatar with text and icon
-            </Typography>
-            <div className={classes.demo}>
-              <Lists dense={dense}>
-                {generate(
-                  <ListItem button>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <Icon>folder</Icon>
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="Single-line item"
-                      secondary={secondary ? 'Secondary text' : null}
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton aria-label="Delete">
-                        <Icon>delete</Icon>
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                )}
-              </Lists>
-            </div>
-          </Grids>
-           */}
+          {
+          <Dialog
+              open={this.state.open}
+              onClose={this.handleRequestClose}
+            >
+              <DialogTitle>{"More details about the selected beach:"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  <div>
+                    <p>{this.state.selectedBeach === null ? 'Name is null' : this.state.selectedBeach.name}</p>
+                    <p>This beach has the following buoys: </p>
+                    {buoysList}
+                  </div>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleRequestClose} color="primary">
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+          }
         </Grids>
       </div>
     );
@@ -205,4 +168,16 @@ InteractiveList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default InteractiveList;
+const mapStateToProps = state => {
+  return {
+    beaches: state.BeachList.beaches
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getBeaches: () => dispatch({type: 'GET_BEACHES'})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InteractiveList);
