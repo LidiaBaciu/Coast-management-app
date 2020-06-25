@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
-import Papersheet, {
-  DemoWrapper,
-} from '../../components/utility/papersheet';
+import Papersheet from '../../components/utility/papersheet';
 import {
   Row,
   HalfColumn,
-  FullColumn,
+  //FullColumn,
 } from '../../components/utility/rowColumn';
 import InteractiveList from './interactiveList';
 import Async from '../../helpers/asyncComponent';

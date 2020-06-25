@@ -61,7 +61,6 @@ export function* logout() {
 }
 export function* checkAuthorization() {
   const user = getCurrentUser();
-  console.log('user from getCurrentUser in checkAuth', user);
   if (user) {
     console.log('user from getCurrentUser in if', user.username);
     yield put({

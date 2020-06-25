@@ -1,11 +1,17 @@
-import { put, takeLatest, all, call } from 'redux-saga/effects';
+import { put, takeLatest, all, call, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import actions from './actions';
 
+let tokenStr = JSON.parse(localStorage.getItem('token'));
+
 function getBeaches() {
-    let tokenStr = JSON.parse(localStorage.getItem('token'));
     let webApiUrl = 'http://localhost:8080/api/beaches';
     return axios.get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } });
+}
+
+function addBeach(payload){
+  let webApiUrl = 'http://localhost:8080/api/beach/create';
+  return axios.post(webApiUrl, payload, { headers: { Authorization: `Bearer ${tokenStr}` } });
 }
 
 function* fetchBeaches() {
@@ -21,12 +27,22 @@ function* fetchBeaches() {
     }
 }
 
-function* actionWatcher() {
-  yield takeLatest('GET_BEACHES', fetchBeaches)
+function* addBeachRequest( {payload} ){
+  console.log("in addBeachRequest");
+  console.log(payload);
+  const response = yield call(addBeach, payload);
+  console.log('response from addBeachRequest: ', response);
+  if (response) {
+    console.log('Beach added succesfully ', response.data);
+
+  } 
+
 }
+
 
 export default function* rootSaga() {
   yield all([
-    actionWatcher(),
+    yield takeLatest(actions.GET_BEACHES, fetchBeaches),
+    yield takeEvery(actions.ADD_BEACH_REQUEST, addBeachRequest),
   ]);
 }

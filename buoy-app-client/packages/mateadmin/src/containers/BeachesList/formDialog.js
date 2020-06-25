@@ -1,5 +1,5 @@
 import React from 'react';
-import { DemoWrapper } from '../../components/utility/papersheet';
+import { connect } from 'react-redux';
 import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
 import Dialog, {
@@ -8,9 +8,11 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from '../../components/uielements/dialogs';
-import axios from 'axios';
+import beachesAction from '../../redux/beachList/actions';
 
-export default class FormDialog extends React.Component {
+const {addBeach} = beachesAction;
+
+class FormDialog extends React.Component {
   state = {
     name: '',
     latitude: 0,
@@ -24,7 +26,6 @@ export default class FormDialog extends React.Component {
   };
 
   handleRequestClose = () => {
-    let tokenStr = JSON.parse(localStorage.getItem('token'));
     this.setState({ open: false });
     const {name, latitude, longitude, photoURI} = this.state;
     const request = {
@@ -33,25 +34,8 @@ export default class FormDialog extends React.Component {
       longitude : Number(longitude),
       photoUri : photoURI
     }
-    console.log(request);
-    axios({
-      method: 'post',
-      url: 'http://localhost:8080/api/beach/create',
-      data: request,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenStr}`,
-        'Access-Control-Allow-Origin': '*',
-      },
-    })
-      .then(function(response) {
-        //handle success
-        console.log(response);
-      })
-      .catch(function(response) {
-        //handle error
-        console.log(response.response);
-      });
+    const { addBeach } = this.props;
+    addBeach(request);
   };
 
   render() {
@@ -115,3 +99,6 @@ export default class FormDialog extends React.Component {
     );
   }
 }
+
+
+export default connect(null, { addBeach } )(FormDialog);

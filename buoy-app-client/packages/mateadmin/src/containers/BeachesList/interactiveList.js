@@ -13,7 +13,6 @@ import {
 import Checkbox from '../../components/uielements/checkbox/';
 import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
-import Button from '../../components/uielements/button';
 import { connect } from 'react-redux';
 import FormDialog from './formDialog';
 
@@ -37,7 +36,7 @@ class InteractiveList extends React.Component {
   }
 
   render() {
-    const { beaches, classes , match} = this.props;
+    const { beaches, classes } = this.props;
     const { dense, secondary } = this.state;
     let button = null;
     let role = JSON.parse(localStorage.getItem('role'));
@@ -52,7 +51,7 @@ class InteractiveList extends React.Component {
           <ListItem key={i} button onClick={() => this.beachSelectedHandler( beach.id )}>
             <ListItemAvatar>
               <Avatar>
-                <img src={beach.photoUri}/>
+                <img src={beach.photoUri} alt="Beach"/>
               </Avatar>
             </ListItemAvatar>
             <ListItemText

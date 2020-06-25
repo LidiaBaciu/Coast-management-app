@@ -4,8 +4,8 @@ import axios from 'axios';
 import LayoutWrapper from "../../components/utility/layoutWrapper";
 import Papersheet from "../../components/utility/papersheet";
 import { FullColumn } from "../../components/utility/rowColumn";
-import IntlMessages from "../../components/utility/intlMessages";
-import Loader from '../../components/utility/Loader/';
+//import IntlMessages from "../../components/utility/intlMessages";
+//import Loader from '../../components/utility/Loader/';
 
 const styles = theme => ({
   root: {
@@ -57,7 +57,7 @@ class BeachDetails extends Component {
             <LayoutWrapper>
             <FullColumn>
             <Papersheet title={this.state.loadedBeach.name}>
-                <center><img width = '80%' src={this.state.loadedBeach.photoUri}/></center>
+                <center><img width = '80%' src={this.state.loadedBeach.photoUri} alt="Beach"/></center>
             </Papersheet>
             </FullColumn>
             </LayoutWrapper>

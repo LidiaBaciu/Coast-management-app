@@ -8,10 +8,7 @@ import Button from '../../components/uielements/button';
 import { Row, FullColumn } from '../../components/utility/rowColumn.js';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import Papersheet from '../../components/utility/papersheet';
-import InvoicePageWrapper, {
-  PrintIcon,
-  Textfield,
-} from './singleInvoice.style';
+import InvoicePageWrapper, { PrintIcon } from './singleInvoice.style';
 import InvoiceAddress from '../../components/invoice/address';
 import { orderStatusOptions } from './config';
 import axios from 'axios';

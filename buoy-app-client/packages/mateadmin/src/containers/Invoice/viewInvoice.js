@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
-import { ViewTable } from '../../components/invoice/invoiceTable';
 import { Row, FullColumn } from '../../components/utility/rowColumn.js';
 import Button from '../../components/uielements/button';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import Papersheet from '../../components/utility/papersheet';
 import InvoiceAddress from '../../components/invoice/address';
-import Scrollbars from '../../components/utility/customScrollBar';
 import InvoicePageWrapper, { PrintIcon } from './singleInvoice.style';
 import axios from 'axios';
 

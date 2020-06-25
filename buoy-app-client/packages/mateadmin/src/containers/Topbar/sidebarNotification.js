@@ -94,13 +94,11 @@ class TopbarNotification extends Component {
 
   componentDidMount() {
     const role = this.props.auth.role;
-    console.log(this.props.auth.role);
     if (role === 'ROLE_ADMIN') {
       let webApiUrl = 'http://localhost:8080/api/problems';
       axios
         .get(webApiUrl, { headers: { Authorization: `Bearer ${this.props.auth.token}` } })
         .then(res => {
-          console.log(res.data);
           var notifs = res.data;
           this.setState({ problemsReported: notifs });
         });

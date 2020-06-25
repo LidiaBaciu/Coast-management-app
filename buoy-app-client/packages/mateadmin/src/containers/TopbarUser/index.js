@@ -6,8 +6,6 @@ import appActions from '../../redux/app/actions';
 import themeActions from '../../redux/themeSwitcher/actions';
 import { AppHolder, Toolbar, IconButtons, TopbarComponents } from './style';
 import TopbarSearch from './topbarSearch';
-import SecondarySidebar from '../SecondarySidebar';
-import TopbarNotification from './sidebarNotification';
 import TopbarUser from './topbarUser';
 const { toggleCollapsed } = appActions;
 const { switchActivation } = themeActions;
@@ -19,7 +17,7 @@ class Topbar extends Component {
       locale,
       url,
       customizedTheme,
-      switchActivation,
+      //switchActivation,
       auth,
     } = this.props;
     const propsTopbar = { locale, url, auth };

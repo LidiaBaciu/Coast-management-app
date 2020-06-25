@@ -1,5 +1,5 @@
 import { all, takeEvery, put, call} from 'redux-saga/effects';
-import { localDataName, createDemoData } from '../../containers/Invoice/config';
+import { localDataName } from '../../containers/Invoice/config';
 import actions from './actions';
 import axios from 'axios';
 

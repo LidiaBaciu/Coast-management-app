@@ -8,24 +8,13 @@ import {
   TableHead,
   TableRow,
 } from '../../components/uielements/table/';
-import Typography from '../../components/uielements/typography';
-import notification from '../../components/notification';
 import HelperText from '../../components/utility/helper-text';
-import Tooltip from '../../components/uielements/tooltip';
-import Checkbox from '../../components/uielements/checkbox';
-import IconButton from '../../components/uielements/iconbutton';
 import Scrollbars from '../../components/utility/customScrollBar';
 import { Row, FullColumn } from '../../components/utility/rowColumn';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import invoiceActions from '../../redux/invoice/actions';
-import Button, { Fab } from '../../components/uielements/button';
-import CardWrapper, {
-  Table,
-  DeleteIcon,
-  Toolbar,
-  Icon,
-  ActionButtons,
-} from './invoice.style';
+import Button from '../../components/uielements/button';
+import CardWrapper, { Table } from './invoice.style';
 import { columns } from './config';
 
 const styles = theme => ({
@@ -121,8 +110,9 @@ class Invoices extends Component {
   */
   getnewInvoiceId = () => new Date().getTime();
   render() {
-    const { selected } = this.state;
-    const { match, deleteInvoice, classes, invoices } = this.props;
+    //const { selected } = this.state;
+    //const { match, deleteInvoice, classes, invoices } = this.props;
+    const { match, classes, invoices } = this.props;
     return (
       <LayoutWrapper>
         <Row>
