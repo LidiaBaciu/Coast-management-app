@@ -43,6 +43,7 @@ class SingleInvoiceEdit extends Component {
 
   state = {
     currentProblem : {},
+    solvedStatus: '',
   };
 
   componentDidMount(){
@@ -59,13 +60,12 @@ class SingleInvoiceEdit extends Component {
         this.setState({ currentProblem: data });
       });
   }
+
   render() {
     const {
-      editableInvoice,
       isNewInvoice,
       redirectPath,
       toggleView,
-      editInvoice,
     } = this.props;
     return (
       <LayoutWrapper>
@@ -112,10 +112,9 @@ class SingleInvoiceEdit extends Component {
                           Problem status:{' '}
                         </span>
                         <OrderStatus
-                          value={editableInvoice.orderStatus}
-                          onChange={orderStatus => {
-                            editableInvoice.orderStatus = orderStatus;
-                            editInvoice(editableInvoice);
+                          value = {!this.state.solvedStatus ? 'SOLVED' : 'UNRESOLVED'}
+                          onChange={orderStatus => { console.log(orderStatus);
+                            this.setState({solvedStatus : orderStatus});
                           }}
                           orderStatusOptions={orderStatusOptions}
                           className="RightStatusDropdown"

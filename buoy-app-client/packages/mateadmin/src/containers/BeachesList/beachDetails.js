@@ -6,6 +6,7 @@ import Papersheet from "../../components/utility/papersheet";
 import { FullColumn } from "../../components/utility/rowColumn";
 //import IntlMessages from "../../components/utility/intlMessages";
 //import Loader from '../../components/utility/Loader/';
+import FishesGrid from '../Fishes';
 
 const styles = theme => ({
   root: {
@@ -46,7 +47,7 @@ class BeachDetails extends Component {
                 } );
         }
     }
-}
+  }
   render() {
     let beach = <p style={{ textAlign: 'center' }}>Please select a beach!</p>;
     if ( this.props.match.params.id ) {
@@ -55,11 +56,14 @@ class BeachDetails extends Component {
     if ( this.state.loadedBeach ) {
         beach = (
             <LayoutWrapper>
-            <FullColumn>
-            <Papersheet title={this.state.loadedBeach.name}>
-                <center><img width = '80%' src={this.state.loadedBeach.photoUri} alt="Beach"/></center>
-            </Papersheet>
-            </FullColumn>
+              <FullColumn>
+                <Papersheet title={this.state.loadedBeach.name}>
+                    <center><img width = '80%' src={this.state.loadedBeach.photoUri} alt="Beach"/></center>
+                    <h3>There is a high chance you catch the following:</h3>
+                    <FishesGrid/>
+                </Papersheet>
+                
+              </FullColumn>
             </LayoutWrapper>
         );
     }
