@@ -5,6 +5,7 @@ public class FishRequest {
     private String name;
     private float minTemperature;
     private float maxTemperature;
+    private String photoUri;
 
     public String getName() {
         return name;
@@ -28,5 +29,13 @@ public class FishRequest {
 
     public void setMaxTemperature(float maxTemperature) {
         this.maxTemperature = maxTemperature;
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 }

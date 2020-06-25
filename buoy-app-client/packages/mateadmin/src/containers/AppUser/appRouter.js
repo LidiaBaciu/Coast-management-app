@@ -12,6 +12,10 @@ const routes = [
     component: lazy(() => import('../BeachesList/beachDetails')),
   },
   {
+    path: 'fishes',
+    component: lazy(() => import('../Fishes')),
+  },
+  {
     path: 'report-problem',
     component: lazy(() => import('../ReportProblem/ReportProblemPage')),
   },

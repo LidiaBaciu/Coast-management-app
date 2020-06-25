@@ -36,7 +36,7 @@ public class FishController {
     }
 
     @PostMapping("/fish/create")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addFish(@RequestBody FishRequest fishRequest){
         save(fishRequest);
         return ResponseEntity.ok("Fish has been created successfully!");
@@ -47,6 +47,7 @@ public class FishController {
         fish.setName(fishRequest.getName());
         fish.setMinTemperature(fishRequest.getMinTemperature());
         fish.setMaxTemperature(fishRequest.getMaxTemperature());
+        fish.setPhotoUri(fishRequest.getPhotoUri());
         return fishRepository.save(fish);
     }
 }

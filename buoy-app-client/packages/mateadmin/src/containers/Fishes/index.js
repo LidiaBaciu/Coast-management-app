@@ -7,6 +7,7 @@ import Toggle from './Toggle.js';
 import IntlMessages from '../../components/utility/intlMessages';
 import SingleCard from './singleCard';
 import { SortableCardWrapper } from './shuffle.style';
+import FormDialog from './formDialog';
 import axios from 'axios';
 
 class Shuffle extends Component {
@@ -146,6 +147,8 @@ class Shuffle extends Component {
 					</div>
 
 					<div className="controlBtnGroup">
+						{JSON.parse(localStorage.getItem('role')) === 'ROLE_ADMIN' ? 
+							<FormDialog /> : null }
 						<Toggle
 							clickHandler={this.toggleSort}
 							text={

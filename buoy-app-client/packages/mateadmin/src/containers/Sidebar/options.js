@@ -21,6 +21,12 @@ const options = [
     hideBreadCrumb: true,
   },
   {
+    label: 'Fishes',
+    key: 'fishes',
+    leftIcon: 'select_all',
+    hideBreadCrumb: true,
+  },
+  {
     label: 'sidebar.map',
     key: 'googlemap',
     isNavTab: true,

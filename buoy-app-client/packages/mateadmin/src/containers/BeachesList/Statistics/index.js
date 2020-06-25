@@ -17,8 +17,6 @@ export default class Transaction extends Component {
       title,
       duration,
       amount,
-      upward,
-      downward,
       currency,
       style,
       data,
