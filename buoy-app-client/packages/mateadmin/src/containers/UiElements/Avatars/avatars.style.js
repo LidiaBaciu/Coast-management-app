@@ -25,6 +25,11 @@ const Avatar = styled(Avatars)`
     background-color: ${palette('green', 5)};
   }
 
+  &.blueAvatar {
+    color: #fffffff;
+    background-color: ${palette('blue', 5)};
+  }
+
   &.bigAvatar {
     width: 60px;
     height: 60px;

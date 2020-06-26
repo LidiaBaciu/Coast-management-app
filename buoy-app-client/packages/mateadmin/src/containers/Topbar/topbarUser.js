@@ -45,10 +45,10 @@ class TopbarUser extends Component {
         </UserInformation>
 
         <SettingsList>
-          <a href="dashboard/user-details" className="dropdownLink">
+         <Link to="dashboard/user-details" className="dropdownLink">
             <Icon>details</Icon>
             <IntlMessages id="themeSwitcher.settings" />
-          </a>
+          </Link>
           <a href="#!" className="dropdownLink">
             <Icon>help</Icon>
             <IntlMessages id="sidebar.feedback" />

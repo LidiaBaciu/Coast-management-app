@@ -81,6 +81,7 @@ const FormsComponentWrapper = styled.div`
         }
       }
     }
+    
     .mateFormsFooter {
       display: flex;
       flex-direction: column;

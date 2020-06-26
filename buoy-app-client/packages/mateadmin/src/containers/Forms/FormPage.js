@@ -13,7 +13,9 @@ import PageTitle from '../../components/utility/paperTitle';
 import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
 import { Chip } from './chips.style';
-import Avatar from '../../components/uielements/avatars';
+//import Avatar from '../../components/uielements/avatars';
+import Avatar from '../UiElements/Avatars/avatars.style'
+import Image from '../../images/cover.jpg';
 
 const reducer = combineReducers({ form: reduxFormReducer });
 const store = createStore(reducer);
@@ -51,17 +53,13 @@ export default class extends Component {
     //const { result } = this.state;
     return (
       <Provider store={store}>
+        <img src={Image} style={{height : '70%', width : '100%'}} alt="user" />
+        <center>
+          {<Avatar className="blueAvatar">{JSON.parse(this.state.name).charAt(0)}</Avatar>}
+          <h2>{JSON.parse(this.state.name)}</h2>
+        </center>
         <LayoutWrapper>
           <Row style={{ marginBottom: '5px' }}>
-            <FullColumn>
-              <Row>
-                <PageTitle title="Your information" data-single />
-              </Row>
-              <center>
-                {<Avatar>{JSON.parse(this.state.name).charAt(0)}</Avatar>}
-                <h2>{JSON.parse(this.state.name)}</h2>
-              </center>
-            </FullColumn>
             <Row>
               <HalfColumn>
                 <Papersheet>

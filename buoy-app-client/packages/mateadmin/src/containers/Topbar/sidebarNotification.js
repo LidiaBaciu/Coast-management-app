@@ -62,7 +62,7 @@ class TopbarNotification extends Component {
     >
       <div className="dropdownBody">
         <Scrollbars style={{ height: '100%' }}>
-          {this.state.problemsReported.map(notification =>
+          {this.state.problemsReported.slice(0,5).map(notification =>
             !notification.solved ? (
               <a href={"/dashboard/invoice/" + notification.id}className="dropdownListItem" key={notification.id}>
                 <h5>{notification.username}</h5>

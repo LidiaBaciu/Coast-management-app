@@ -24,13 +24,13 @@ const topbarTheme = {
     {
       themeName: 'themedefault',
       buttonColor: '#ffffff',
-      backgroundColor: '#3949AB',
+      backgroundColor: '#0C2D48',
       textColor: '#323332',
     },
     {
       themeName: 'theme1',
-      buttonColor: '#E53935',
-      backgroundColor: '#E53935',
+      buttonColor: '#145DA0',
+      backgroundColor: '#145DA0',
       textColor: '#ffffff',
     },
     {
@@ -79,7 +79,7 @@ const sidebarTheme = {
     {
       themeName: 'themedefault',
       buttonColor: '#2B2B2B',
-      backgroundColor: '#2B2B2B',
+      backgroundColor: '#0C2D48',
       textColor: '#ffffff',
     },
     {
@@ -164,7 +164,7 @@ const breadCrumbTheme = {
   options: [
     {
       themeName: 'themedefault',
-      backgroundColor: '#5C6BC0',
+      backgroundColor: '#5885AF',
       textColor: '#ffffff',
     },
     {

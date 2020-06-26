@@ -25,7 +25,7 @@ const options = [
     key: 'fishes',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
-  },
+  },/*
   {
     label: 'sidebar.map',
     key: 'googlemap',
@@ -43,34 +43,12 @@ const options = [
       },
     ],
   },
-
+*/
   {
     label: 'sidebar.contact',
     key: 'contact',
     leftIcon: 'contacts',
     hideBreadCrumb: true,
-  },
-
-  {
-    label: 'sidebar.chat',
-    key: 'chat',
-    leftIcon: 'forum',
-    hideBreadCrumb: true,
-  },
-  {
-    label: 'sidebar.advancedSearch',
-    leftIcon: 'search',
-    key: 'advancedSearch',
-    children: [
-      {
-        label: 'sidebar.githubSearch',
-        key: 'github-search',
-      },
-      {
-        label: 'sidebar.youtubeSearch',
-        key: 'youtube-search',
-      },
-    ],
   },
   {
     label: 'sidebar.calendar',
@@ -257,6 +235,7 @@ const options = [
       },
     ],
   },
+  /*
   {
     label: 'sidebar.forms',
     key: 'forms',
@@ -273,6 +252,7 @@ const options = [
       },
     ],
   },
+  */
   {
     label: 'sidebar.notes',
     key: 'notes',
