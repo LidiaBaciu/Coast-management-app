@@ -1,23 +1,22 @@
-package com.example.coastmanagement.payload;
+package com.example.coastmanagement.payload.responses;
 
-public class BeachSummary {
+import com.example.coastmanagement.model.Beach;
+import com.example.coastmanagement.model.Buoy;
+import com.example.coastmanagement.model.User;
+
+import java.util.Set;
+
+public class BeachResponse {
     private Long id;
     private String name;
-    private float longitude;
     private float latitude;
+    private float longitude;
     private String photoUri;
+    private Set<Buoy> buoys;
     private float todaysAvgTemperature;
     private float yesterdaysAvgTemperature;
     private float todaysAvgpH;
     private float yesterdaysAvgpH;
-
-    public BeachSummary(Long id, String name, float longitude, float latitude, String photoUri) {
-        this.id = id;
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.photoUri = photoUri;
-    }
 
     public Long getId() {
         return id;
@@ -35,20 +34,20 @@ public class BeachSummary {
         this.name = name;
     }
 
-    public float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
-
     public float getLatitude() {
         return latitude;
     }
 
     public void setLatitude(float latitude) {
         this.latitude = latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
     public String getPhotoUri() {
@@ -89,5 +88,13 @@ public class BeachSummary {
 
     public void setYesterdaysAvgpH(float yesterdaysAvgpH) {
         this.yesterdaysAvgpH = yesterdaysAvgpH;
+    }
+
+    public Set<Buoy> getBuoys() {
+        return buoys;
+    }
+
+    public void setBuoys(Set<Buoy> buoys) {
+        this.buoys = buoys;
     }
 }

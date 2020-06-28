@@ -70,41 +70,31 @@ class BeachDetails extends Component {
             axios.get( 'http://localhost:8080/api/beaches/' + this.props.match.params.id, { headers: { Authorization: `Bearer ${tokenStr}` } }  )
                 .then( response => {
                     this.setState( { loadedBeach: response.data } );
-                } );
-            axios.get( 'http://localhost:8080/api/beach/' + this.props.match.params.id + '/stats/today', 
-                { headers: { Authorization: `Bearer ${tokenStr}` } }  )
-                .then( response => {
-                    this.setState( { todaysData: response.data } );
-                } );
-                axios.get( 'http://localhost:8080/api/beach/' + this.props.match.params.id + '/stats/yesterday', 
-                        { headers: { Authorization: `Bearer ${tokenStr}` } }  )
-                .then( response => {
-                  this.setState( { yesterdaysData: response.data } );
+                    this.state.dataTemperature.datasets[0].data.unshift(this.state.loadedBeach.todaysAvgTemperature, this.state.loadedBeach.yesterdaysAvgTemperature);
+                    this.state.datapH.datasets[0].data.unshift(this.state.loadedBeach.todaysAvgpH, this.state.loadedBeach.yesterdaysAvgpH);
                 } );
         }
     }
   }
   render() {
-    //data.datasets[0].data.unshift(this.state.todaysData.temperature, this.state.yesterdaysData.temperature);
-    //data3.datasets[0].data.unshift(this.state.todaysData.pH, this.state.yesterdaysData.pH);
-    this.state.dataTemperature.datasets[0].data.unshift(this.state.todaysData.temperature, this.state.yesterdaysData.temperature);
-    this.state.datapH.datasets[0].data.unshift(this.state.todaysData.ph, this.state.yesterdaysData.ph);
 
     let beach = <p style={{ textAlign: 'center' }}>Please select a beach!</p>;
     if ( this.props.match.params.id ) {
         beach = <p style={{ textAlign: 'center' }}>Loading...</p>;
     }
-    const deltaTemperature = Number(this.state.todaysData.temperature) - Number(this.state.yesterdaysData.temperature);
-    const deltaph = Number(this.state.todaysData.ph) - Number(this.state.yesterdaysData.ph);
-    let temperatureDirection = 'downward';
-    let phDirection = 'downward';
-    if(deltaTemperature > 0){
-      temperatureDirection = 'upward';
-    }
-    if(deltaph > 0){
-      phDirection = 'upward';
-    }
+    
     if ( this.state.loadedBeach ) {
+     const deltaTemperature = Number(this.state.loadedBeach.todaysAvgTemperature) - Number(this.state.loadedBeach.yesterdaysAvgTemperature);
+      const deltaph = Number(this.state.loadedBeach.todaysAvgpH) - Number(this.state.loadedBeach.yesterdaysAvgpH);
+      let temperatureDirection = 'downward';
+      let phDirection = 'downward';
+      if(deltaTemperature > 0){
+        temperatureDirection = 'upward';
+      }
+      if(deltaph > 0){
+        phDirection = 'upward';
+      }
+      console.log(this.state.loadedBeach);
         beach = (
             <LayoutWrapper>
               <FullColumn>
