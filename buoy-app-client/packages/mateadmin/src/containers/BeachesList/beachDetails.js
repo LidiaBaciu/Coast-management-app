@@ -135,7 +135,7 @@ class BeachDetails extends Component {
                     </HalfColumn>
                     </Row>
                     <h3>There is a high chance you catch the following:</h3>
-                    <FishesGrid/>
+                    <FishesGrid beachId={this.state.loadedBeach.id}/>
                 </Papersheet>
                 
               </FullColumn>

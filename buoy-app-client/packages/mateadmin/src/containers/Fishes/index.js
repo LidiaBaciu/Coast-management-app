@@ -30,11 +30,19 @@ class Shuffle extends Component {
 	}
 
 	componentDidMount () {
+		const beachId = this.props.beachId;
 		let tokenStr = JSON.parse(localStorage.getItem('token'));
-		axios.get( 'http://localhost:8080/api/fishes/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
+		if(beachId == null){
+			axios.get( 'http://localhost:8080/api/fishes/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
 			.then( response => {
 				this.setState( { articles: response.data } );
 			} );
+		}else{
+			axios.get( 'http://localhost:8080/api/fishes/atBeach/' + beachId , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
+				.then( response => {
+					this.setState( { articles: response.data } );
+				} );
+			}
 	  } 
 	
 	toggleList() {

@@ -86,4 +86,5 @@ public class Beach {
     public void setBuoys(Set<Buoy> buoys) {
         this.buoys = buoys;
     }
+
 }
