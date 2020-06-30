@@ -7,6 +7,25 @@ import Lists, {
   } from '../../components/uielements/lists';
   import Icon from '../../components/uielements/icon/index.js';
   import Collapse from '@material-ui/core/Collapse';
+  import blue from '@material-ui/core/colors/blue';
+  import FullScreenDialog from './fullScreenDialog';
+  import { withStyles } from '@material-ui/core/styles';
+
+  const styles = theme => ({
+    dialog: {
+      margin: `0 ${theme.spacing(2)}px`,
+    },
+    avatar: {
+      background: blue[100],
+      color: blue[600],
+    },
+    appBar: {
+      position: 'relative',
+    },
+    flex: {
+      flex: 1,
+    },
+  });
 
 class BuoyItem extends React.Component {
     state = {
@@ -15,22 +34,21 @@ class BuoyItem extends React.Component {
     handleClick = () => {
         this.setState({ open: !this.state.open });
       };
+
+    handleSensorClick = ( id ) => {
+        console.log("clicked " + id);
+    };
+
     render () {
-      const {
-        props: {
-          buoy,
-          classes
-        },
-        state: {
-            open
-        }
-      } = this
+        const { buoy, classes} = this.props;
+        const {props} = this;
+        const {open} = this.state;
       
       return (
         <div>
         <ListItem button onClick={this.handleClick} key={buoy.id}> 
             <ListItemText primary={`Buoy ${buoy.id}`} />
-                {this.state.open ? (
+                {open ? (
                 <Icon>expand_less</Icon>
             ) : (
                 <Icon>expand_more</Icon>
@@ -38,14 +56,15 @@ class BuoyItem extends React.Component {
         </ListItem>
         <Collapse
             component="li"
-            in={this.state.open}
+            in={open}
             transitionduration="auto"
             unmountOnExit
           >
             <Lists disablePadding>
                 {buoy.sensors.map(sensor => (
-                    <ListItem button className={classes.nested}>
+                    <ListItem key={sensor.id} button onClick={() => this.handleSensorClick( buoy.id )} className={classes.nested}>
                     <ListItemText primary={sensor.name} />
+                    <FullScreenDialog {...props}/>
                     </ListItem>
                 ))
                 }
@@ -56,4 +75,4 @@ class BuoyItem extends React.Component {
     }
   }
 
-  export default BuoyItem;
+  export default withStyles(styles)(BuoyItem);
