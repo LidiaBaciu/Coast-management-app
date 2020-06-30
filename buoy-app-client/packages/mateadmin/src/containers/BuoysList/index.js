@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import Papersheet from '../../components/utility/papersheet';
 import {
@@ -7,8 +6,10 @@ import {
   HalfColumn,
   FullColumn,
 } from '../../components/utility/rowColumn';
+import { Fab } from '../../components/uielements/button';
 import NestedList from './nestedList';
 import Async from '../../helpers/asyncComponent';
+import FormDialog from './formDialog';
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
@@ -18,9 +19,15 @@ const LeafletMapWithMarkerCluster = props => (
   />
 );
 
+
+
 class ListExamples extends Component {
   render() {
-    const { props } = this;
+    let button = null;
+    let role = JSON.parse(localStorage.getItem('role'));
+    if(role === 'ROLE_ADMIN'){
+      button = <FormDialog />;
+    }
     return (
       <LayoutWrapper>
         <Row>
@@ -34,6 +41,7 @@ class ListExamples extends Component {
                         title="List with the buoys"
                     >
                         <NestedList />
+                        {button}
                     </Papersheet>
                 </HalfColumn>
                 <HalfColumn>
