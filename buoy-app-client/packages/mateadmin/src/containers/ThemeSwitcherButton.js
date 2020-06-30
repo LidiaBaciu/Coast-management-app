@@ -12,7 +12,7 @@ const ThemeSwitcherButton = ({ isActivated, switchActivation }) => {
   return (
     <Button
       variant="contained"
-      color="primary"
+      color="default"
       onClick={toggleView}
       className={openThemeSwitcher ? "active" : ""}
     >

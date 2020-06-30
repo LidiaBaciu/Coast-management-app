@@ -28,7 +28,7 @@ const theme = createMuiTheme({
     },
     MuiTabs: {
       root: {
-        backgroundColor: '#3F51B5',
+        backgroundColor: '#C3E0E5',
         //paddingTop: 18,
       },
     },
@@ -121,7 +121,7 @@ class TopbarNotification extends Component {
             indicatorColor="secondary"
             textColor="inherit"
             variant="fullWidth"
-            style={{ backgroundColor: '#3F51B5' }}
+            style={{ backgroundColor: '#145DA0' }}
           >
             <Tab label={<IntlMessages id="sidebar.notification" />} />
             <Tab label={<IntlMessages id="sidebar.message" />} />

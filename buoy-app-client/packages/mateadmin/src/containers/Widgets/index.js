@@ -17,10 +17,26 @@ import SaleChart from './SaleCharts';
 import TableWidget from './TableWidget';
 import CircularWidget from './CircularWidgets';
 import Visitors from './Visitors';
+import Async from '../../helpers/asyncComponent';
 import { data, data2, data3 } from './Transactions/config';
+import * as configs from '../Charts/googleChart/config';
+
+const GoogleChart = props => (
+  <Async
+    load={import(/* webpackChunkName: "googleChart" */ 'react-google-charts')}
+    componentProps={props}
+    componentArguement={'googleChart'}
+  />
+);
 
 class Widget extends Component {
   render() {
+    const chartEvents = [
+      {
+        eventName: 'select',
+        callback(Chart) {},
+      },
+    ];
     return (
       <LayoutWrapper>
         <Row>
@@ -33,6 +49,14 @@ class Widget extends Component {
           </HalfColumn>
         </Row>
 
+        <Row>
+          <HalfColumn>
+           <GoogleChart {...configs.BarChart} chartEvents={chartEvents} />
+          </HalfColumn>
+          <HalfColumn>
+           <GoogleChart {...configs.lineChart} />
+          </HalfColumn>
+        </Row>
         <Row>
           <HalfColumn md={12}>
             <Visitors title="Visitors" stretched />
@@ -123,12 +147,13 @@ class Widget extends Component {
             />
           </OneThirdColumn>
         </Row>
-
+        {/*
         <Row>
           <FullColumn>
             <TableWidget title="Employees Data" />
           </FullColumn>
         </Row>
+
         <Row>
           <OneThirdColumn sm={6} md={6}>
             <InstagramFeed stretched />
@@ -142,6 +167,7 @@ class Widget extends Component {
             <SaleChart title="Yearly Sales Data" stretched />
           </OneThirdColumn>
         </Row>
+         */}
       </LayoutWrapper>
     );
   }
