@@ -21,19 +21,6 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-});
 
 class FullScreenDialog extends React.Component {
   state = {
@@ -49,20 +36,21 @@ class FullScreenDialog extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, sensor } = this.props;
+    console.log(sensor);
     return (
       <div>
-        <Button sizeSmall onClick={this.handleClickOpen}>View details</Button>
+        <Button onClick={this.handleClickOpen}>View details</Button>
         <FullScreenDialogs
           fullScreen
           open={this.state.open}
           onClose={this.handleRequestClose}
-          transition={Transition}
+          
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton
-                color="contrast"
+                color="secondary"
                 onClick={this.handleRequestClose}
                 aria-label="Close"
               >
@@ -84,4 +72,4 @@ FullScreenDialog.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(FullScreenDialog);
+export default FullScreenDialog;

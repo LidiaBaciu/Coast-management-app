@@ -22,23 +22,16 @@ import IconButton from '../../components/uielements/iconbutton';
 import Icon from '../../components/uielements/icon/index.js';
 import Tooltip from '../../components/uielements/tooltip';
 
-let counter = 0;
-function createData(name, calories, fat, carbs, protein) {
-  counter += 1;
-  return { id: counter, name, calories, fat, carbs, protein };
-}
 
 const columnData = [
   {
-    id: 'name',
-    numeric: false,
+    id: 'id',
+    numeric: true,
     disablePadding: true,
-    label: 'Name',
+    label: 'Id',
   },
-  { id: 'calories', numeric: false, disablePadding: false, label: 'Position' },
-  { id: 'fat', numeric: false, disablePadding: false, label: 'Office' },
-  { id: 'carbs', numeric: false, disablePadding: false, label: 'Joining Date' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Salary ($)' },
+  { id: 'timestamp', numeric: false, disablePadding: false, label: 'Timestamp' },
+  { id: 'value', numeric: true, disablePadding: false, label: 'Value' },
 ];
 
 class EnhancedTableHead extends Component {
@@ -163,99 +156,7 @@ export default class EnhancedTable extends Component {
       order: 'asc',
       orderBy: 'calories',
       selected: [],
-      data: [
-        createData(
-          'John A. Smith',
-          'Accountant',
-          'Tokyo',
-          '28th Nov 08',
-          162700
-        ),
-        createData(
-          'Bob C. Uncle',
-          'Chief Executive Officer (CEO)',
-          'London',
-          '9th Oct 09',
-          1200000
-        ),
-        createData(
-          'John D. Smith',
-          'Software Engineer',
-          'San Francisco	',
-          '12th Jan 09',
-          86000
-        ),
-        createData(
-          'Angelica Vance',
-          'Software Engineer',
-          'London	',
-          '12th Jan 08',
-          239000
-        ),
-        createData(
-          'Ashton Nash',
-          'Integration Specialist	',
-          'Tokyo	',
-          '2nd Dec 12',
-          206850
-        ),
-        createData(
-          'Brenden Greer',
-          'Software Engineer',
-          'London	',
-          '3rd May 11',
-          163500
-        ),
-        createData(
-          'Bruno Wagner',
-          'Pre-Sales Support',
-          'New York	',
-          '12th Dec 11',
-          106450
-        ),
-        createData(
-          'Bradley Wilder',
-          'Senior Javascript Developer',
-          'Edinburgh	',
-          '12th Jan 08',
-          433060
-        ),
-        createData(
-          'Colleen Green',
-          'Software Engineer',
-          'London	',
-          '12th Jan 08',
-          132000
-        ),
-        createData(
-          'Finn Marshall',
-          'Software Engineer',
-          'London	',
-          '22th Jan 12',
-          136000
-        ),
-        createData(
-          'Dai Snider',
-          'Senior Software Engineer',
-          'Germany	',
-          '23rd Mar 18',
-          635500
-        ),
-        createData(
-          'Garrett Joyce',
-          'UI Engineer',
-          'London	',
-          '10th Oct 09',
-          333000
-        ),
-        createData(
-          'Gavin Rios',
-          'Senior UX Designer',
-          'Arizona	',
-          '3rd Jan 12',
-          532000
-        ),
-      ].sort((a, b) => (a.calories < b.calories ? -1 : 1)),
+      data: props.sensor.sensorValues.sort((a, b) => (a.value < b.value ? -1 : 1)),
       page: 0,
       rowsPerPage: 5,
     };
@@ -343,26 +244,24 @@ export default class EnhancedTable extends Component {
               {data
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                  const isSelected = this.isSelected(n.entryId);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
-                      onKeyDown={event => this.handleKeyDown(event, n.id)}
+                      onClick={event => this.handleClick(event, n.entryId)}
+                      onKeyDown={event => this.handleKeyDown(event, n.entryId)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={n.id}
+                      key={n.entryId}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
                       </TableCell>
-                      <TableCell padding="none">{n.name}</TableCell>
-                      <TableCell>{n.calories}</TableCell>
-                      <TableCell>{n.fat}</TableCell>
-                      <TableCell>{n.carbs}</TableCell>
-                      <TableCell numeric>{n.protein}</TableCell>
+                      <TableCell padding="none">{n.entryId}</TableCell>
+                      <TableCell>{n.timestamp}</TableCell>
+                      <TableCell numeric>{n.value}</TableCell>
                     </TableRow>
                   );
                 })}

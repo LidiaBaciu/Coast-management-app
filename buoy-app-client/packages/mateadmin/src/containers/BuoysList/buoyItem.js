@@ -25,6 +25,17 @@ import Lists, {
     flex: {
       flex: 1,
     },
+    root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto',
+    },
+    table: {
+    minWidth: 700,
+    },
+    tableWrapper: {
+    overflowX: 'auto',
+    },
   });
 
 class BuoyItem extends React.Component {
@@ -40,10 +51,10 @@ class BuoyItem extends React.Component {
     };
 
     render () {
-        const { buoy, classes} = this.props;
+        const { buoy } = this.props;
         const {props} = this;
         const {open} = this.state;
-      
+    
       return (
         <div>
         <ListItem button onClick={this.handleClick} key={buoy.id}> 
@@ -62,9 +73,9 @@ class BuoyItem extends React.Component {
           >
             <Lists disablePadding>
                 {buoy.sensors.map(sensor => (
-                    <ListItem key={sensor.id} button onClick={() => this.handleSensorClick( buoy.id )} className={classes.nested}>
+                    <ListItem key={sensor.id} button onClick={() => this.handleSensorClick( buoy.id )} style={{paddingLeft: '35px'}}>
                     <ListItemText primary={sensor.name} />
-                    <FullScreenDialog {...props}/>
+                    <FullScreenDialog sensor = {sensor} {...props}/>
                     </ListItem>
                 ))
                 }

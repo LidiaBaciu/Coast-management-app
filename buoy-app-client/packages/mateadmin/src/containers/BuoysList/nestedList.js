@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Lists, { ListSubheader } from '../../components/uielements/lists';
 import { Root } from './lists.style';
 import BuoyItem from './buoyItem';
+import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+
 
 class NestedList extends React.Component {
   state = { 
@@ -20,15 +22,15 @@ class NestedList extends React.Component {
   }
   
   render() {
-    const { classes } = this.props;
     const { beaches } = this.state;
+
     let beachesList = 
       beaches.length > 0 && beaches.map((beach, i) => {
         return(
-        <div key={beach.id} className={classes.listSection}>
+        <div key={beach.id} style={{ background: 'inherit' }}>
           <ListSubheader>{beach.name}</ListSubheader>
           {beach.buoys.map(buoy => (
-            <BuoyItem key={buoy.id} buoy={buoy} classes = {classes}/>
+            <BuoyItem key={buoy.id} buoy={buoy} {...this.props}/>
           ))}
         </div>
         );
@@ -44,8 +46,5 @@ class NestedList extends React.Component {
   }
 }
 
-NestedList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default NestedList;

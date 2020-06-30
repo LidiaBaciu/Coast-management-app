@@ -10,30 +10,6 @@ import {
 import NestedList from './nestedList';
 import Async from '../../helpers/asyncComponent';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    background: theme.palette.background.paper,
-    position: 'relative',
-    overflow: 'auto',
-    maxHeight: 300,
-    flexGrow: 1,
-    maxWidth: 752,
-  },
-  demo: {
-    background: theme.palette.background.paper,
-  },
-  title: {
-    margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
-  },
-  listSection: {
-    background: 'inherit',
-  },
-});
-
 const LeafletMapWithMarkerCluster = props => (
   <Async
     load={import('../Map/mapWithMarkerCluster.js')}
@@ -57,7 +33,7 @@ class ListExamples extends Component {
                     <Papersheet
                         title="List with the buoys"
                     >
-                        <NestedList {...props}/>
+                        <NestedList />
                     </Papersheet>
                 </HalfColumn>
                 <HalfColumn>
@@ -76,4 +52,4 @@ class ListExamples extends Component {
     );
   }
 }
-export default withStyles(styles)(ListExamples);
+export default ListExamples;
