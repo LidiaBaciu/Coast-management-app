@@ -1,7 +1,6 @@
-import fakeData from '../../containers/Contact/fakeData';
+
 import actions, { ascendingSort } from './actions';
 
-const contacts = new fakeData(100).getAll();
 
 const initState = {
 	searchText: '',
@@ -18,6 +17,7 @@ const filterContacts = (contacts, searchText) => {
 	const newContacts = [];
 	contacts.forEach(contact => {
 		if (contact.name && contact.name.toLowerCase().indexOf(searchText) > -1) {
+			console.log(contact);
 			newContacts.push(contact);
 		}
 	});
@@ -28,8 +28,8 @@ export default function contactReducer(state = initState, action) {
 	switch (action.type) {
 		case actions.CONTACTS_RECEIVED:
 			return { 
-				contacts: action.payload.contacts,
-				filteredContacts: action.payload.contact,
+				contacts: action.payload.contacts.sort(ascendingSort),
+				filteredContacts: action.payload.contacts.sort(ascendingSort),
 			};
 		case actions.CONTACT_SET_SELECTED:
 			return {
@@ -55,5 +55,3 @@ export default function contactReducer(state = initState, action) {
 			return state;
 	}
 }
-
-export { contacts };

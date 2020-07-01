@@ -38,6 +38,7 @@ class Contacts extends Component {
       seletedContact,
       searchText,
       setSelectedContact,
+      filteredContacts,
       updateContacts,
       setSearch,
       height,
@@ -46,13 +47,13 @@ class Contacts extends Component {
       stretched,
     } = this.props;
     const editOptions = {
+      contacts,
       seletedContact,
       otherAttributes,
       setSelectedContact,
       updateContacts,
     };
-    console.log(contacts);
-    contactGroup = contactGrouping(contacts);
+    contactGroup = contactGrouping(filteredContacts);
     const scrollHeight = widgetHeight || height - 280;
     return (
       <Contactbox stretched={stretched}>
@@ -64,7 +65,7 @@ class Contacts extends Component {
               id="contactSearch"
               alwaysDefaultValue
               onChange={setSearch}
-              defaultValue={searchText}
+              defaultValue={searchText || ''}
             />
           </FormControl>
 
@@ -89,7 +90,6 @@ const contactGrouping = contacts => {
     const contactGroup = {};
     const Unnamed = [];
     contacts.forEach(contact => {
-      console.log(contact);
       if (contact.name) {
         const fLetter = contact.name[0].toUpperCase();
         if (!contactGroup[fLetter]) {
@@ -118,6 +118,7 @@ function mapStateToProps(state) {
     height: state.App.height,
     contacts,
     searchText,
+    filteredContacts,
     contactGroup: contactGrouping(filteredContacts),
     seletedContact,
   };
