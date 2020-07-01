@@ -5,8 +5,8 @@ const contacts = new fakeData(100).getAll();
 
 const initState = {
 	searchText: '',
-	contacts: contacts.sort(ascendingSort),
-	filteredContacts: contacts.sort(ascendingSort),
+	contacts: [],
+	filteredContacts: [],
 	seletedContact: null,
 };
 
@@ -23,8 +23,14 @@ const filterContacts = (contacts, searchText) => {
 	});
 	return newContacts;
 };
+
 export default function contactReducer(state = initState, action) {
 	switch (action.type) {
+		case actions.CONTACTS_RECEIVED:
+			return { 
+				contacts: action.payload.contacts,
+				filteredContacts: action.payload.contact,
+			};
 		case actions.CONTACT_SET_SELECTED:
 			return {
 				...state,

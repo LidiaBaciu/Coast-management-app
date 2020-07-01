@@ -15,7 +15,7 @@ import {
   Icon,
 } from './contactBox.style';
 
-const { setSelectedContact, updateContacts, setSearch } = actions;
+const {getContacts, setSelectedContact, updateContacts, setSearch } = actions;
 
 class Contacts extends Component {
   addContact = () => {
@@ -26,10 +26,15 @@ class Contacts extends Component {
     });
   };
 
+  componentDidMount(){
+    const { getContacts } = this.props;
+    getContacts();
+  }
+
   render() {
+    let { contactGroup } = this.props;
     const {
       contacts,
-      contactGroup,
       seletedContact,
       searchText,
       setSelectedContact,
@@ -41,12 +46,13 @@ class Contacts extends Component {
       stretched,
     } = this.props;
     const editOptions = {
-      contacts,
       seletedContact,
       otherAttributes,
       setSelectedContact,
       updateContacts,
     };
+    console.log(contacts);
+    contactGroup = contactGrouping(contacts);
     const scrollHeight = widgetHeight || height - 280;
     return (
       <Contactbox stretched={stretched}>
@@ -79,10 +85,11 @@ class Contacts extends Component {
 }
 
 const contactGrouping = contacts => {
-  if (contacts.length > 0) {
+  if (contacts && contacts.length > 0) {
     const contactGroup = {};
     const Unnamed = [];
     contacts.forEach(contact => {
+      console.log(contact);
       if (contact.name) {
         const fLetter = contact.name[0].toUpperCase();
         if (!contactGroup[fLetter]) {
@@ -99,6 +106,7 @@ const contactGrouping = contacts => {
     return contactGroup;
   }
 };
+
 function mapStateToProps(state) {
   const {
     contacts,
@@ -114,9 +122,12 @@ function mapStateToProps(state) {
     seletedContact,
   };
 }
+
+
 export default connect(
   mapStateToProps,
   {
+    getContacts,
     setSelectedContact,
     updateContacts,
     setSearch,

@@ -4,6 +4,7 @@ import HelperText from '../utility/helper-text';
 import { ContactGroupItem, ContactGroupViews } from './contact.style';
 
 export default function({ contactGroup, setSelectedContact }) {
+  console.log(contactGroup);
   const ContactGroupView = ({ contacts, initChar }) => (
     <ContactGroupViews>
       <h1 className="alphabet">{initChar}</h1>

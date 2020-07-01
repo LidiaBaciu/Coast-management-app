@@ -5,9 +5,16 @@ export function ascendingSort(contact1, contact2) {
 }
 
 const actions = {
+  GET_CONTACTS: 'GET_CONTACTS',
+  CONTACTS_RECEIVED: 'CONTACTS_RECEIVED',
   CONTACT_SET_SELECTED: 'CONTACT_SET_SELECTED',
   UPDATE_CONATCTS: 'UPDATE_CONATCTS',
   SEARCH_CONTACT: 'SEARCH_CONTACT',
+
+  getContacts : () => ({
+    type: actions.GET_CONTACTS
+}),
+
   setSelectedContact: seletedContact => ({
     type: actions.CONTACT_SET_SELECTED,
     seletedContact
