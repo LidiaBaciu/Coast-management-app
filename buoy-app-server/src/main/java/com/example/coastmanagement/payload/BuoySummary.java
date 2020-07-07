@@ -9,6 +9,7 @@ public class BuoySummary {
     private float longitude;
     private float latitude;
     private Set<Sensor> sensors;
+    private float latestTemperature;
 
     public BuoySummary(){}
 
@@ -50,5 +51,13 @@ public class BuoySummary {
 
     public void setSensors(Set<Sensor> sensors) {
         this.sensors = sensors;
+    }
+
+    public float getLatestTemperature() {
+        return latestTemperature;
+    }
+
+    public void setLatestTemperature(float latestTemperature) {
+        this.latestTemperature = latestTemperature;
     }
 }

@@ -4,6 +4,7 @@ import { settings } from "./config";
 import WidgetBox from '../WidgetBox';
 
 export default class SalesStats extends Component {
+  
   render() {
     const { title, description, stretched, data } = this.props;
     return (

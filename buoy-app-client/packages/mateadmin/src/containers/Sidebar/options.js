@@ -8,12 +8,12 @@ const options = [
     leftIcon: 'select_all',
     hideBreadCrumb: true,
   },
-  {
+  /* {
     label: 'sidebar.scrum-board',
     key: 'scrum-board',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
-  },
+  },*/
   {
     label: 'sidebar.beachesList',
     key: 'beaches-list',
@@ -56,6 +56,7 @@ const options = [
     leftIcon: 'contacts',
     hideBreadCrumb: true,
   },
+  /*
   {
     label: 'sidebar.calendar',
     key: 'calendar',
@@ -80,6 +81,7 @@ const options = [
     leftIcon: 'shuffle',
     hideBreadCrumb: true,
   },
+  */
   {
     label: 'sidebar.chart',
     leftIcon: 'pie_chart',
@@ -107,6 +109,7 @@ const options = [
       },
     ],
   },
+  /*
   {
     label: 'sidebar.tables',
     leftIcon: 'view_headline',
@@ -258,13 +261,13 @@ const options = [
       },
     ],
   },
-  */
+  
   {
     label: 'sidebar.notes',
     key: 'notes',
     leftIcon: 'note',
   },
-
+*/
   {
     label: 'sidebar.pages',
     leftIcon: 'public',

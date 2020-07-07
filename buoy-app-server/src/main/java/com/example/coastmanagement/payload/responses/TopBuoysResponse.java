@@ -5,22 +5,22 @@ import java.util.List;
 import java.util.Set;
 
 public class TopBuoysResponse {
-    private Set<String> labels;
-    private Collection values;
+    private Long label;
+    private Integer numberOfProblems;
 
-    public Set<String> getLabels() {
-        return labels;
+    public Long getLabel() {
+        return label;
     }
 
-    public void setLabels(Set<String> labels) {
-        this.labels = labels;
+    public void setLabel(Long label) {
+        this.label = label;
     }
 
-    public Collection getValues() {
-        return values;
+    public Integer getNumberOfProblems() {
+        return numberOfProblems;
     }
 
-    public void setValues(Collection values) {
-        this.values = values;
+    public void setNumberOfProblems(Integer numberOfProblems) {
+        this.numberOfProblems = numberOfProblems;
     }
 }

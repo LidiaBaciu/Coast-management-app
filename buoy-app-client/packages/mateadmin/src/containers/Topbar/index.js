@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import Badge from './badge.style';
 import Icon from '../../components/uielements/icon';
 import appActions from '../../redux/app/actions';
 import themeActions from '../../redux/themeSwitcher/actions';
@@ -11,6 +11,7 @@ import TopbarNotification from './sidebarNotification';
 import TopbarUser from './topbarUser';
 const { toggleCollapsed } = appActions;
 const { switchActivation } = themeActions;
+
 
 class Topbar extends Component {
   render() {
@@ -43,22 +44,21 @@ class Topbar extends Component {
 
           <TopbarComponents>
             <ul className="topbarItems">
-              <li className="topbarSearch">
+              {/* <li className="topbarSearch">
                 <TopbarSearch {...propsTopbar} />
               </li>
 
-              {/* <li className="topbarNotification">
+              <li className="topbarNotification">
                 <TopbarNotification {...propsTopbar} />
               </li> */}
 
               <li className="topbarNotification">
                 <div>
-                  <Icon
-                    onClick={() => switchActivation('notification')}
-                    style={{ matginTop: 5 }}
-                  >
-                    widgets
-                  </Icon>
+                <Badge onClick={() => switchActivation('notification')}
+                    style={{ matginTop: 5 }} badgeContent={'*'} color="primary">
+                  <Icon>mail</Icon>
+                </Badge>
+                  
                   <SecondarySidebar
                     InnerComponent={TopbarNotification}
                     currentActiveKey="notification"

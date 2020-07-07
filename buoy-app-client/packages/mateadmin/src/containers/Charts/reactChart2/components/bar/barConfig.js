@@ -15,6 +15,7 @@ const data = {
 
 const barSettings = {
   height: 350,
+  width: 350,
 };
 
 export { data, barSettings };

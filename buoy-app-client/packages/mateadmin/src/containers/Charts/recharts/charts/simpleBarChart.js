@@ -10,8 +10,10 @@ import {
 } from "recharts";
 
 export default class extends Component {
+  
   render() {
     const { datas, width, height, colors } = this.props;
+    console.log(datas);
     return (
       <BarChart
         width={width}
@@ -19,13 +21,12 @@ export default class extends Component {
         data={datas}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
-        <XAxis dataKey="name" stroke={colors[3]} />
+        <XAxis dataKey="label" stroke={colors[3]} />
         <YAxis stroke={colors[3]} />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip />
         <Legend />
-        <Bar dataKey="pv" fill={colors[0]} />
-        <Bar dataKey="uv" fill={colors[1]} />
+        <Bar dataKey="numberOfProblems" fill={colors[0]} />
       </BarChart>
     );
   }

@@ -9,7 +9,7 @@ public class AuxiliaryResponse {
     private int totalProblemsReported;
     private int newlyProblemsReported;
     private int problemsSolved;
-    private TopBuoysResponse topBuoysResponse;
+    private List<TopBuoysResponse> topBuoysResponse;
     private List<StatisticsResponse> statisticsResponse;
     //private HashMap<Long, Integer> topBuoys;
 
@@ -53,27 +53,19 @@ public class AuxiliaryResponse {
         this.problemsSolved = problemsSolved;
     }
 
-    public TopBuoysResponse getTopBuoys() {
-        return topBuoysResponse;
-    }
-
-    public void setTopBuoys(TopBuoysResponse topBuoys) {
-        this.topBuoysResponse = topBuoys;
-    }
-
-    public TopBuoysResponse getTopBuoysResponse() {
-        return topBuoysResponse;
-    }
-
-    public void setTopBuoysResponse(TopBuoysResponse topBuoysResponse) {
-        this.topBuoysResponse = topBuoysResponse;
-    }
-
     public List<StatisticsResponse> getStatisticsResponse() {
         return statisticsResponse;
     }
 
     public void setStatisticsResponse(List<StatisticsResponse> statisticsResponse) {
         this.statisticsResponse = statisticsResponse;
+    }
+
+    public List<TopBuoysResponse> getTopBuoysResponse() {
+        return topBuoysResponse;
+    }
+
+    public void setTopBuoysResponse(List<TopBuoysResponse> topBuoysResponse) {
+        this.topBuoysResponse = topBuoysResponse;
     }
 }

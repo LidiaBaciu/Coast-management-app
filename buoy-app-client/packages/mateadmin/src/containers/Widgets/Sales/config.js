@@ -1,5 +1,3 @@
-
-
 const settings = {
   cutoutPercentage: 70,
   legend: {

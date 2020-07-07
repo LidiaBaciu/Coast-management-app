@@ -49,7 +49,8 @@ class LMap extends Component {
           position.push(element.longitude);
           var popupText = `
         <div >
-          <center><h3>Id of the buoy is: ${element.id}</h3></center>
+          <center><h3>Id of the buoy is: ${element.id}</h3>
+          <p>Latest temperature is: ${element.latestTemperature}</p></center>
         </div>`;
           var customIcon = L.icon({
             iconUrl: customBuoyIcon,

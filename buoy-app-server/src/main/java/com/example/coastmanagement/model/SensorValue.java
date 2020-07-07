@@ -52,4 +52,14 @@ public class SensorValue {
     public void setEntryId(Long entryId) {
         this.entryId = entryId;
     }
+
+    @Override
+    public String toString() {
+        return "SensorValue{" +
+                "entryId=" + entryId +
+                ", id=" + id +
+                ", value=" + value +
+                ", timestamp='" + timestamp + '\'' +
+                '}';
+    }
 }

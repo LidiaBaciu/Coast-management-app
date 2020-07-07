@@ -46,6 +46,7 @@ public class AuxiliaryController {
         HashMap<String, Float> temperatureStatistics = new HashMap<>();
         HashMap<String, Float> phStatistics = new HashMap<>();
         List<StatisticsResponse> statisticsResponseList = new ArrayList<>();
+        List<TopBuoysResponse> topBuoysResponseList = new ArrayList<>();
 
         for(User user : userRepository.findAll()){
             LocalDateTime datetime = LocalDateTime.ofInstant(user.getCreatedAt(), ZoneOffset.UTC);
@@ -100,7 +101,7 @@ public class AuxiliaryController {
         auxiliaryResponse.setNewlyProblemsReported(newProblems);
         auxiliaryResponse.setTotalProblemsReported(problemsReportedRepository.findAll().size());
         auxiliaryResponse.setProblemsSolved(problemsSolved);
-        TopBuoysResponse topBuoysResponse = new TopBuoysResponse();
+
 
         for (Map.Entry<String, Float> entry : temperatureStatistics.entrySet()) {
             StatisticsResponse statisticsResponse = new StatisticsResponse();
@@ -113,14 +114,23 @@ public class AuxiliaryController {
             }
             statisticsResponseList.add(statisticsResponse);
         }
-        topBuoysResponse.setLabels(sortByValues(topBuoys).keySet());
-        topBuoysResponse.setValues(sortByValues(topBuoys).values());
+        for (Map.Entry<Long, Integer> entry : topBuoys.entrySet()) {
+            TopBuoysResponse topBuoysResponse = new TopBuoysResponse();
+            Long key = entry.getKey();
+            Integer value = entry.getValue();
+            topBuoysResponse.setLabel(key);
+            topBuoysResponse.setNumberOfProblems(value);
+            topBuoysResponseList.add(topBuoysResponse);
+        }
+
+        //topBuoysResponse.setLabels(sortByValues(topBuoys).keySet());
+        //topBuoysResponse.setValues(sortByValues(topBuoys).values());
 //        statisticsResponse.setTemperatureLabels(temperatureStatistics.keySet());
 //        statisticsResponse.setPhLabels(phStatistics.keySet());
 //        statisticsResponse.setTemperatureValues(temperatureStatistics.values());
 //        statisticsResponse.setPhValues(phStatistics.values());
         auxiliaryResponse.setStatisticsResponse(statisticsResponseList);
-        auxiliaryResponse.setTopBuoys(topBuoysResponse);
+        auxiliaryResponse.setTopBuoysResponse(topBuoysResponseList);
         return auxiliaryResponse;
     }
 

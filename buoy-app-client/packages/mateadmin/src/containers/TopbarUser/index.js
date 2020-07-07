@@ -41,11 +41,11 @@ class Topbar extends Component {
 
           <TopbarComponents>
             <ul className="topbarItems">
-              <li className="topbarSearch">
+               {/*<li className="topbarSearch">
                 <TopbarSearch {...propsTopbar} />
               </li>
 
-              {/* <li className="topbarNotification">
+              <li className="topbarNotification">
                 <TopbarNotification {...propsTopbar} />
               </li> */}
 

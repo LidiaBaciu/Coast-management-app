@@ -7,13 +7,13 @@ const options = [
     leftIcon: 'error',
     hideBreadCrumb: true,
     key: 'report-problem',
-  },
+  },/*
   {
     label: 'sidebar.scrum-board',
     key: 'scrum-board',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
-  },
+  },*/
   {
     label: 'sidebar.beachesList',
     key: 'beaches-list',
@@ -26,6 +26,7 @@ const options = [
     leftIcon: 'select_all',
     hideBreadCrumb: true,
   },
+  /*
   {
     label: 'sidebar.map',
     key: 'googlemap',
@@ -43,7 +44,8 @@ const options = [
       },
     ],
   },
-  ...getDevSidebar,
+  */
+ // ...getDevSidebar,
 ];
 const getBreadcrumbOption = () => {
   const preKeys = getDefaultPath();

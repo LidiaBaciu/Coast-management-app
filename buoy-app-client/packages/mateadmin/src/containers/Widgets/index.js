@@ -19,25 +19,9 @@ import TableWidget from './TableWidget';
 import CircularWidget from './CircularWidgets';
 import Visitors from './Visitors';
 import Async from '../../helpers/asyncComponent';
-import { data, data2, data3 } from './Transactions/config';
-import * as configs from '../Charts/googleChart/config';
 import SimpleLineCharts from '../Charts/recharts/charts/simpleLineCharts'
+import SimpleBarChart from '../Charts/recharts/charts/simpleBarChart';
 import axios from 'axios';
-
-const GoogleChart = props => (
-  <Async
-    load={import(/* webpackChunkName: "googleChart" */ 'react-google-charts')}
-    componentProps={props}
-    componentArguement={'googleChart'}
-  />
-);
-
-const Bar = props => (
-  <Async
-    load={import(/* webpackChunkName: "ReactChart2-bar" */ '../Charts/reactChart2/components/bar/bar')}
-    componentProps={props}
-  />
-);
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
@@ -47,57 +31,42 @@ const LeafletMapWithMarkerCluster = props => (
   />
 );
 
+let dataGraph = {
+  labels: ["New users", "Total users"],
+  datasets: [
+    {
+      data: [5, 50],
+      backgroundColor: ["#ff6384", "#48A6F2" ],
+      hoverBackgroundColor: ["#FF6384", "#48A6F2"]
+    }
+  ]
+};
+
+let dataProblems = {
+  labels: ["New problems", "Total problems"],
+  datasets: [
+    {
+      data: [5, 50],
+      borderWidth: 1,
+      borderColor: ["#ffffff", "#ffffff", "#ffffff"],
+      backgroundColor: [
+        "rgb(255, 99, 132)",
+        "rgb(54, 162, 235)",
+      ],
+      hoverBackgroundColor: [
+        "rgb(255, 99, 132)",
+        "rgb(54, 162, 235)",
+      ],
+      hoverBorderColor: ["#ffffff", "#ffffff", "#ffffff"]
+    }
+  ]
+};
+
 class Widget extends Component {
 
   state = {
-    homeDetails: null,
-    newlyProblemsReported: 0,
-    newlyRegisteredUsers: 0,
-    problemsSolved: 0,
-    totalProblemsReported: 0,
-    totalRegisteredUsers: 0,
-    topBuoys: [],
-    temperatureStatistics: [],
-    dataGraph : {
-      labels: ["New users", "Total users"],
-      datasets: [
-        {
-          data: [],
-          borderWidth: 1,
-          borderColor: ["#ffffff", "#ffffff", "#ffffff"],
-          backgroundColor: [
-            "rgb(153, 102, 255)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 99, 132)"
-          ],
-          hoverBackgroundColor: [
-            "rgb(153, 102, 255)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 99, 132)"
-          ],
-          hoverBorderColor: ["#ffffff", "#ffffff", "#ffffff"]
-        }
-      ]
-    },
-    dataProblems : {
-      labels: ["New problems", "Total problems"],
-      datasets: [
-        {
-          data: [],
-          borderWidth: 1,
-          borderColor: ["#ffffff", "#ffffff", "#ffffff"],
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-          ],
-          hoverBackgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-          ],
-          hoverBorderColor: ["#ffffff", "#ffffff", "#ffffff"]
-        }
-      ]
-    },
+    homeDetails: [],
+    /*
     dataLineChart : {
       labels: [],
       datasets: [
@@ -111,65 +80,53 @@ class Widget extends Component {
           data: [],
         },
       ],
-    },
+    },*/
   };
 
   componentDidMount(){
     let tokenStr = JSON.parse(localStorage.getItem('token'));
 		axios.get( 'http://localhost:8080/api/home/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
 			.then( response => {
-        this.setState( {newlyProblemsReported : response.data.newlyProblemsReported});
-        this.setState( { newlyRegisteredUsers: response.data.newlyRegisteredUsers } );
-        this.setState( { problemsSolved: response.data.problemsSolved } );
-        this.setState( { totalProblemsReported: response.data.totalProblemsReported } );
-        this.setState( { totalRegisteredUsers: response.data.totalRegisteredUsers } );
-        this.setState( { topBuoys: response.data.topBuoys } );
-        this.setState( {temperatureStatistics: response.data.statisticsResponse});
-        this.state.dataGraph.datasets[0].data.unshift(this.state.newlyRegisteredUsers, this.state.totalRegisteredUsers);
-        this.state.dataProblems.datasets[0].data.unshift(this.state.newlyProblemsReported, this.state.totalProblemsReported);
-        this.state.topBuoys.labels.forEach(item => this.state.dataLineChart.labels.push("id: " + item));
-        this.state.topBuoys.values.forEach(item => this.state.dataLineChart.datasets[0].data.push(item));
-        console.log(this.state);
+        this.setState( {homeDetails : response.data});
+        const dataNew = [];
+        dataNew.unshift(this.state.homeDetails.newlyRegisteredUsers, this.state.homeDetails.totalRegisteredUsers);
+        dataGraph.datasets[0].data = dataNew;
+        const dataNewProblems = [];
+        dataNewProblems.unshift(this.state.homeDetails.newlyProblemsReported, this.state.homeDetails.totalProblemsReported);
+        dataProblems.datasets[0].data= dataNewProblems;
       });
   }
 
   render() {
-    const chartEvents = [
-      {
-        eventName: 'select',
-        callback(Chart) {},
-      },
-    ];
-    const width = 350;
-    const height = 350;
+    
+    const width = 450;
+    const height = 400;
     const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
+
     return (
       <LayoutWrapper>
         <Row>
           <HalfColumn>
-            <SalesStats title="User registered statistics" stretched data={this.state.dataGraph}/>
+            <SalesStats title="User registered statistics" stretched data={dataGraph}/>
           </HalfColumn>
 
           <HalfColumn>
-            <SalesStats title="Problems Reported statistics" stretched data={this.state.dataProblems}/>
+            <SalesStats title="Problems Reported statistics" stretched data={dataProblems}/>
           </HalfColumn>
 
-          {/*<HalfColumn>
-            <Statistics title="Statistics" stretched />
-          </HalfColumn>*/}
         </Row>
 
         <Row>
           <HalfColumn>
            {/*<GoogleChart {...configs.BarChart} chartEvents={chartEvents} />*/}
            <Box title="Buoys with problems" stretched>
-              <Bar data= {this.state.dataLineChart} />
+              <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
             </Box>
           </HalfColumn>
           <HalfColumn>
            {/*<GoogleChart {...configs.lineChart} />*/}
            <Box title="Statistics" >
-             <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.temperatureStatistics} />
+             <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.homeDetails.statisticsResponse} />
             </Box>
            
           </HalfColumn>
@@ -236,7 +193,7 @@ class Widget extends Component {
         <Row>
           {/*<TwoThirdColumn sm={12} md={6}>
             <Contacts title="Member" widgetHeight={410} stretched />
-      </TwoThirdColumn>*/}
+      </TwoThirdColumn>
           <FullColumn>
             <Contacts title="Member" widgetHeight={410} stretched />
           </FullColumn>

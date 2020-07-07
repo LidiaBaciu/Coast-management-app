@@ -1,11 +1,10 @@
 package com.example.coastmanagement.controller;
 
 import com.example.coastmanagement.exception.ResourceNotFoundException;
-import com.example.coastmanagement.model.Beach;
-import com.example.coastmanagement.model.Buoy;
-import com.example.coastmanagement.model.User;
+import com.example.coastmanagement.model.*;
 import com.example.coastmanagement.payload.*;
 import com.example.coastmanagement.payload.requests.BuoyRequest;
+import com.example.coastmanagement.payload.responses.ProblemResponse;
 import com.example.coastmanagement.repository.BeachRepository;
 import com.example.coastmanagement.repository.BuoyRepository;
 import com.example.coastmanagement.repository.UserRepository;
@@ -17,7 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -46,8 +48,24 @@ public class BuoyController {
     }
 
     @GetMapping("/buoys")
-    public List<Buoy> getBuoys() {
-        return buoyService.getAllBuoys();
+    public List<BuoySummary> getBuoys() {
+        List<BuoySummary> buoySummaries = new ArrayList<>();
+
+        for(Buoy buoy : buoyService.getAllBuoys()){
+            for(Sensor sensor : buoy.getSensors()){
+                if(sensor.getName().equals("temperature")){
+                    List<SensorValue> sortedValues = sensor.getSensorValues().stream()
+                            .sorted(Comparator.comparing(SensorValue::getTimestamp).reversed())
+                            .collect(Collectors.toList());
+                    System.out.println(sortedValues.toString());
+                    BuoySummary buoySummary = new BuoySummary(buoy.getId(), buoy.getLongitude(), buoy.getLatitude(), buoy.getSensors());
+                    buoySummary.setLatestTemperature(sortedValues.get(0).getValue());
+                    buoySummaries.add(buoySummary);
+                    break;
+                }
+            }
+        }
+        return buoySummaries;
     }
 
     @PostMapping("/buoy/create")
