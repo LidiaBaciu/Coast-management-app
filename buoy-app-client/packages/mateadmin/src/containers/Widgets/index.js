@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
+import Box from '../../components/utility/papersheet';
 import {
   Row,
   OneThirdColumn,
@@ -20,6 +21,8 @@ import Visitors from './Visitors';
 import Async from '../../helpers/asyncComponent';
 import { data, data2, data3 } from './Transactions/config';
 import * as configs from '../Charts/googleChart/config';
+import SimpleLineCharts from '../Charts/recharts/charts/simpleLineCharts'
+import axios from 'axios';
 
 const GoogleChart = props => (
   <Async
@@ -29,35 +32,141 @@ const GoogleChart = props => (
   />
 );
 
+const Bar = props => (
+  <Async
+    load={import(/* webpackChunkName: "ReactChart2-bar" */ '../Charts/reactChart2/components/bar/bar')}
+    componentProps={props}
+  />
+);
+
 class Widget extends Component {
+
+  state = {
+    homeDetails: null,
+    newlyProblemsReported: 0,
+    newlyRegisteredUsers: 0,
+    problemsSolved: 0,
+    totalProblemsReported: 0,
+    totalRegisteredUsers: 0,
+    topBuoys: [],
+    temperatureStatistics: [],
+    dataGraph : {
+      labels: ["New users", "Total users"],
+      datasets: [
+        {
+          data: [],
+          borderWidth: 1,
+          borderColor: ["#ffffff", "#ffffff", "#ffffff"],
+          backgroundColor: [
+            "rgb(153, 102, 255)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 99, 132)"
+          ],
+          hoverBackgroundColor: [
+            "rgb(153, 102, 255)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 99, 132)"
+          ],
+          hoverBorderColor: ["#ffffff", "#ffffff", "#ffffff"]
+        }
+      ]
+    },
+    dataProblems : {
+      labels: ["New problems", "Total problems"],
+      datasets: [
+        {
+          data: [],
+          borderWidth: 1,
+          borderColor: ["#ffffff", "#ffffff", "#ffffff"],
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(54, 162, 235)",
+          ],
+          hoverBackgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(54, 162, 235)",
+          ],
+          hoverBorderColor: ["#ffffff", "#ffffff", "#ffffff"]
+        }
+      ]
+    },
+    dataLineChart : {
+      labels: [],
+      datasets: [
+        {
+          label: 'Problems reported for buoys',
+          backgroundColor: 'rgba(255,99,132,0.2)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: [],
+        },
+      ],
+    },
+  };
+
+  componentDidMount(){
+    let tokenStr = JSON.parse(localStorage.getItem('token'));
+		axios.get( 'http://localhost:8080/api/home/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
+			.then( response => {
+        this.setState( {newlyProblemsReported : response.data.newlyProblemsReported});
+        this.setState( { newlyRegisteredUsers: response.data.newlyRegisteredUsers } );
+        this.setState( { problemsSolved: response.data.problemsSolved } );
+        this.setState( { totalProblemsReported: response.data.totalProblemsReported } );
+        this.setState( { totalRegisteredUsers: response.data.totalRegisteredUsers } );
+        this.setState( { topBuoys: response.data.topBuoys } );
+        this.setState( {temperatureStatistics: response.data.statisticsResponse});
+        this.state.dataGraph.datasets[0].data.unshift(this.state.newlyRegisteredUsers, this.state.totalRegisteredUsers);
+        this.state.dataProblems.datasets[0].data.unshift(this.state.newlyProblemsReported, this.state.totalProblemsReported);
+        this.state.topBuoys.labels.forEach(item => this.state.dataLineChart.labels.push("id: " + item));
+        this.state.topBuoys.values.forEach(item => this.state.dataLineChart.datasets[0].data.push(item));
+      });
+  }
+
   render() {
+    console.log(this.state.totalRegisteredUsers);
     const chartEvents = [
       {
         eventName: 'select',
         callback(Chart) {},
       },
     ];
+    const width = 350;
+    const height = 350;
+    const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
     return (
       <LayoutWrapper>
         <Row>
           <HalfColumn>
-            <SalesStats title="Monthly Sale Analytics" stretched />
+            <SalesStats title="User registered statistics" stretched data={this.state.dataGraph}/>
           </HalfColumn>
 
           <HalfColumn>
+            <SalesStats title="Problems Reported statistics" stretched data={this.state.dataProblems}/>
+          </HalfColumn>
+
+          {/*<HalfColumn>
             <Statistics title="Statistics" stretched />
-          </HalfColumn>
+          </HalfColumn>*/}
         </Row>
 
         <Row>
           <HalfColumn>
-           <GoogleChart {...configs.BarChart} chartEvents={chartEvents} />
+           {/*<GoogleChart {...configs.BarChart} chartEvents={chartEvents} />*/}
+           <Box title="Buoys with problems" stretched>
+              <Bar data= {this.state.dataLineChart} />
+            </Box>
           </HalfColumn>
           <HalfColumn>
-           <GoogleChart {...configs.lineChart} />
+           {/*<GoogleChart {...configs.lineChart} />*/}
+           <Box title="Statistics" >
+             <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.temperatureStatistics} />
+            </Box>
+           
           </HalfColumn>
         </Row>
-        <Row>
+        {/*<Row>
           <HalfColumn md={12}>
             <Visitors title="Visitors" stretched />
           </HalfColumn>
@@ -110,13 +219,16 @@ class Widget extends Component {
             </Row>
           </HalfColumn>
         </Row>
-
+        */}
         <Row>
-          <TwoThirdColumn sm={12} md={6}>
+          {/*<TwoThirdColumn sm={12} md={6}>
             <Contacts title="Member" widgetHeight={410} stretched />
-          </TwoThirdColumn>
+      </TwoThirdColumn>*/}
+          <FullColumn>
+            <Contacts title="Member" widgetHeight={410} stretched />
+          </FullColumn>
 
-          <OneThirdColumn sm={12} md={6}>
+          {/*<OneThirdColumn sm={12} md={6}>
             <Transaction
               title="Transactions"
               duration="Jun 24 - Jul 23"
@@ -145,7 +257,7 @@ class Widget extends Component {
               data={data3}
               upward
             />
-          </OneThirdColumn>
+      </OneThirdColumn>*/}
         </Row>
         {/*
         <Row>

@@ -1,9 +1,11 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { data, barSettings } from "./barConfig";
+import { barSettings } from "./barConfig";
 
 class BarChart extends React.Component {
   render() {
+    const {data} = this.props;
+
     return (
       <div>
         <Bar
