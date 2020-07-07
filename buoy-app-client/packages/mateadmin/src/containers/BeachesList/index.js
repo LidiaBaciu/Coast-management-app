@@ -5,7 +5,7 @@ import Papersheet from '../../components/utility/papersheet';
 import {
   Row,
   HalfColumn,
-  //FullColumn,
+  FullColumn,
 } from '../../components/utility/rowColumn';
 import InteractiveList from './interactiveList';
 import Async from '../../helpers/asyncComponent';
@@ -48,21 +48,25 @@ class ListExamples extends Component {
     return (
       <LayoutWrapper>
         <Row>
-          <HalfColumn>
+          <FullColumn>
             <Papersheet
               title="Beaches list"
+            >
+                <Row>
+                <HalfColumn>
+            <Papersheet
               codeBlock="BeachesList/interactiveList.js"
             >
               <InteractiveList {...props} />
             </Papersheet>
           </HalfColumn>
           <HalfColumn>
-            <Papersheet
-                title="Map"
-              >
-                <LeafletMapWithMarkerCluster/>
-              </Papersheet>
+              <LeafletMapWithMarkerCluster/>
           </HalfColumn>
+                </Row>
+            </Papersheet>
+          </FullColumn>
+          
         </Row>
       </LayoutWrapper>
     );

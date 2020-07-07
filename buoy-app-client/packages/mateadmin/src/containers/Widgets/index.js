@@ -39,6 +39,14 @@ const Bar = props => (
   />
 );
 
+const LeafletMapWithMarkerCluster = props => (
+  <Async
+    load={import('../Map/mapWithMarkerCluster.js')}
+    componentProps={props}
+    componentArguement={'leafletMap'}
+  />
+);
+
 class Widget extends Component {
 
   state = {
@@ -121,11 +129,11 @@ class Widget extends Component {
         this.state.dataProblems.datasets[0].data.unshift(this.state.newlyProblemsReported, this.state.totalProblemsReported);
         this.state.topBuoys.labels.forEach(item => this.state.dataLineChart.labels.push("id: " + item));
         this.state.topBuoys.values.forEach(item => this.state.dataLineChart.datasets[0].data.push(item));
+        console.log(this.state);
       });
   }
 
   render() {
-    console.log(this.state.totalRegisteredUsers);
     const chartEvents = [
       {
         eventName: 'select',
@@ -165,6 +173,11 @@ class Widget extends Component {
             </Box>
            
           </HalfColumn>
+        </Row>
+        <Row>
+          <FullColumn>
+            <LeafletMapWithMarkerCluster />
+          </FullColumn>
         </Row>
         {/*<Row>
           <HalfColumn md={12}>

@@ -4,8 +4,9 @@ import Lists, {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  ListItemIcon,
 } from '../../components/uielements/lists';
-import Avatar from '../../components/uielements/avatars/';
+//import Avatar from '../../components/uielements/avatars/';
 import {
   FormGroup,
   FormControlLabel,
@@ -15,7 +16,8 @@ import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
 import { connect } from 'react-redux';
 import FormDialog from './formDialog';
-
+import Avatar from '@material-ui/core/Avatar';
+import { Root } from './lists.style';
 
 class InteractiveList extends React.Component {
   state = {
@@ -50,9 +52,7 @@ class InteractiveList extends React.Component {
         return (
           <ListItem key={i} button onClick={() => this.beachSelectedHandler( beach.id )}>
             <ListItemAvatar>
-              <Avatar>
-                <img src={beach.photoUri} alt="Beach"/>
-              </Avatar>
+              <Avatar src={beach.photoUri} alt="Beach"/>
             </ListItemAvatar>
             <ListItemText
               primary={beach.name}
@@ -90,19 +90,15 @@ class InteractiveList extends React.Component {
           />
         </FormGroup>
 
-        <Grids container>
-          <Grids item xs={12} md={6}>
             <Typography variant="h6" className={classes.title}>
               List
             </Typography>
-            <div className={classes.demo}>
+            <Root>
               <Lists dense={dense}>
                 {beachesList}
               </Lists>
-            </div>
-          </Grids>
-         
-        </Grids>
+            </Root>
+            
         {button}
       </div>
     );

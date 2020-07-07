@@ -37,19 +37,13 @@ class ListExamples extends Component {
             >
                 <Row>
                 <HalfColumn>
-                    <Papersheet
-                        title="List with the buoys"
-                    >
+                    <Papersheet>
                         <NestedList />
                         {button}
                     </Papersheet>
                 </HalfColumn>
                 <HalfColumn>
-                    <Papersheet
-                        title="Map"
-                    >
-                        <LeafletMapWithMarkerCluster/>
-                    </Papersheet>
+                    <LeafletMapWithMarkerCluster/>
                 </HalfColumn>
                 </Row>
             </Papersheet>
