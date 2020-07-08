@@ -11,7 +11,6 @@ public class AuxiliaryResponse {
     private int problemsSolved;
     private List<TopBuoysResponse> topBuoysResponse;
     private List<StatisticsResponse> statisticsResponse;
-    //private HashMap<Long, Integer> topBuoys;
 
     public int getTotalRegisteredUsers() {
         return totalRegisteredUsers;

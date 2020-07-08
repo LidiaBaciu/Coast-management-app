@@ -15,10 +15,6 @@ class LMap extends Component {
     this.mountMap = this.mountMap.bind(this);
   }
 
-  handleOnClick(id) {
-    console.log('the id is:', id);
-  }
-
   mountMap(element) {
     if (!element) return;
     const { L } = window;
@@ -36,14 +32,12 @@ class LMap extends Component {
 
     let markers = L.markerClusterGroup();
 
-    let webApiUrl = 'http://localhost:8080/api/buoys';
-    let tokenStr = JSON.parse(localStorage.getItem('token'));
-    axios
-      .get(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } })
+    let webApiUrl = 'http://localhost:8080/api/home/map';
+    axios.get(webApiUrl)
       .then(response => {
         var json = response.data;
-        console.log(json);
-        json.forEach((element, index, array) => {
+
+        json.buoySummaryList.forEach((element, index, array) => {
           var position = [];
           position.push(element.latitude);
           position.push(element.longitude);
@@ -63,24 +57,18 @@ class LMap extends Component {
               .openPopup()
           );
         });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-
-    let webApiUrlBeaches = 'http://localhost:8080/api/beaches';
-    axios
-      .get(webApiUrlBeaches, { headers: { Authorization: `Bearer ${tokenStr}` } })
-      .then(response => {
-        var json = response.data;
-        console.log(json);
-        json.forEach((element, index, array) => {
+    
+        json.beachSummaryList.forEach((element, index, array) => {
           var position = [];
           position.push(element.latitude);
           position.push(element.longitude);
           var popupText = `
-          <div >
-            <center><h3>Id of the beach is: ${element.id}</h3></center>
+          <div className="infoWindowImage">
+            <img src=${element.photoUri} alt="" height="60" width="60"/>
+          </div>
+          <div className="infoWindowDetails">
+            <h3>${element.name}</h3>
+            <a href="http://localhost:3000/dashboard/beaches-list/beach/${element.id}">See more details</a>
           </div>`;
           var customIcon = L.icon({
             iconUrl: customBeachIcon,
@@ -93,11 +81,7 @@ class LMap extends Component {
               .openPopup()
           );
         });
-      })
-      .catch(function(error) {
-        console.log(error);
       });
-
     map.addLayer(markers);
   }
 

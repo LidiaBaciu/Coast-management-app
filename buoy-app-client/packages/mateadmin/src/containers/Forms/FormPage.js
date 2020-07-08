@@ -53,12 +53,12 @@ export default class extends Component {
     //const { result } = this.state;
     return (
       <Provider store={store}>
-        <img src={Image} style={{height : '70%', width : '100%'}} alt="user" />
+        <LayoutWrapper style={{backgroundColor: '#0C2D48'}}>
+        {/*<img src={Image} style={{height : '70%', width : '100%'}} alt="user" />*/}
         <center>
           {<Avatar className="blueAvatar">{JSON.parse(this.state.name).charAt(0)}</Avatar>}
           <h2>{JSON.parse(this.state.name)}</h2>
         </center>
-        <LayoutWrapper>
           <Row style={{ marginBottom: '5px' }}>
             <Row>
               <HalfColumn>

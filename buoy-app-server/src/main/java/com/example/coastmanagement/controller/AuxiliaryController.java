@@ -1,14 +1,16 @@
 package com.example.coastmanagement.controller;
 
-import com.example.coastmanagement.model.ProblemReported;
-import com.example.coastmanagement.model.Sensor;
-import com.example.coastmanagement.model.SensorValue;
-import com.example.coastmanagement.model.User;
+import com.example.coastmanagement.exception.ResourceNotFoundException;
+import com.example.coastmanagement.model.*;
+import com.example.coastmanagement.payload.BeachSummary;
+import com.example.coastmanagement.payload.BuoySummary;
 import com.example.coastmanagement.payload.responses.AuxiliaryResponse;
+import com.example.coastmanagement.payload.responses.MapResponse;
 import com.example.coastmanagement.payload.responses.StatisticsResponse;
 import com.example.coastmanagement.payload.responses.TopBuoysResponse;
 import com.example.coastmanagement.repository.*;
 import com.example.coastmanagement.service.BeachService;
+import com.example.coastmanagement.service.BuoyService;
 import com.example.coastmanagement.service.ProblemsReportedService;
 import com.example.coastmanagement.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -34,6 +37,12 @@ public class AuxiliaryController {
 
     @Autowired
     private SensorService sensorService;
+
+    @Autowired
+    private BuoyService buoyService;
+
+    @Autowired
+    private BeachService beachService;
 
     @GetMapping("/home")
     public AuxiliaryResponse getDetails() {
@@ -153,5 +162,41 @@ public class AuxiliaryController {
         }
         return sortedHashMap;
     }
+
+    @GetMapping("/home/map")
+    public MapResponse getMapDetails() {
+        MapResponse mapResponse = new MapResponse();
+        List<BuoySummary> buoySummaries = new ArrayList<>();
+        List<BeachSummary> beachSummaries = new ArrayList<>();
+
+        for(Buoy buoy : buoyService.getAllBuoys()){
+            for(Sensor sensor : buoy.getSensors()){
+                if(sensor.getName().equals("temperature")){
+                    List<SensorValue> sortedValues = sensor.getSensorValues().stream()
+                            .sorted(Comparator.comparing(SensorValue::getTimestamp).reversed())
+                            .collect(Collectors.toList());
+                    System.out.println(sortedValues.toString());
+                    BuoySummary buoySummary = new BuoySummary();
+                    buoySummary.setId(buoy.getId());
+                    buoySummary.setLatitude(buoy.getLatitude());
+                    buoySummary.setLongitude(buoy.getLongitude());
+                    buoySummary.setLatestTemperature(sortedValues.get(0).getValue());
+                    buoySummaries.add(buoySummary);
+                    break;
+                }
+            }
+        }
+
+        for(Beach beach : beachService.getAllBeaches()){
+            BeachSummary beachSummary = new BeachSummary(beach.getId(), beach.getName(),
+                    beach.getLongitude(), beach.getLatitude(),
+                    beach.getPhotoUri());
+            beachSummaries.add(beachSummary);
+        }
+        mapResponse.setBuoySummaryList(buoySummaries);
+        mapResponse.setBeachSummaryList(beachSummaries);
+        return mapResponse;
+    }
+
 
 }

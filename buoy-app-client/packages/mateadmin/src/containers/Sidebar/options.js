@@ -21,13 +21,13 @@ const options = [
     hideBreadCrumb: true,
   },
   {
-    label: 'Buoys List',
+    label: 'sidebar.buoysList',
     key: 'buoys-list',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
   },
   {
-    label: 'Fishes',
+    label: 'sidebar.fishes',
     key: 'fishes',
     leftIcon: 'select_all',
     hideBreadCrumb: true,

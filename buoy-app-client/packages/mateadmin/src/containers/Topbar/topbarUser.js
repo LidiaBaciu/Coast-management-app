@@ -46,7 +46,7 @@ class TopbarUser extends Component {
 
         <SettingsList>
          <Link to="dashboard/user-details" className="dropdownLink">
-            <Icon>details</Icon>
+            <Icon>settings</Icon>
             <IntlMessages id="themeSwitcher.settings" />
           </Link>
           <a href="#!" className="dropdownLink">
