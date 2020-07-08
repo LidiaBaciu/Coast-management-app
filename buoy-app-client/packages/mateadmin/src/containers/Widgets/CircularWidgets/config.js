@@ -1,7 +1,7 @@
 export default {
-  value: 95.25,
-  min: 25.57,
-  max: 155.567,
-  title: 'Steps',
+  value: 45,
+  min: 10,
+  max: 150,
+  title: 'Entries',
   text: 'Today',
 };

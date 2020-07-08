@@ -2,6 +2,11 @@ const localDataName = 'mateInvoice';
 const orderStatusOptions = ['Solved', 'Unresolved'];
 const columns = [
 	{
+		title: 'Solved status',
+		dataIndex: 'solved',
+		rowKey: 'solved',
+	},
+	{
 		title: 'Id',
 		dataIndex: 'id',
 		rowKey: 'id',

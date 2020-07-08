@@ -53,16 +53,16 @@ export default class extends Component {
     //const { result } = this.state;
     return (
       <Provider store={store}>
-        <LayoutWrapper style={{backgroundColor: '#0C2D48'}}>
-        {/*<img src={Image} style={{height : '70%', width : '100%'}} alt="user" />*/}
-        <center>
-          {<Avatar className="blueAvatar">{JSON.parse(this.state.name).charAt(0)}</Avatar>}
+         <center>
+          {<Avatar className="blueAvatar" style={{marginTop: '50px'}}>{JSON.parse(this.state.name).charAt(0)}</Avatar>}
           <h2>{JSON.parse(this.state.name)}</h2>
         </center>
+        <LayoutWrapper >
+        {/*<img src={Image} style={{height : '70%', width : '100%'}} alt="user" />*/}
           <Row style={{ marginBottom: '5px' }}>
             <Row>
               <HalfColumn>
-                <Papersheet>
+                <Papersheet style={{backgroundColor: '#E5ECF1'}}>
                   <Row>
                     <h3> Username: </h3>
                     <Chip label={JSON.parse(this.state.username)} />
@@ -78,7 +78,7 @@ export default class extends Component {
                 </Papersheet>
               </HalfColumn>
               <HalfColumn>
-                <Papersheet>
+                <Papersheet style={{backgroundColor: '#E5ECF1'}}>
                   <Row style={{ marginBottom: '5px' }}>
                     <h3> Created at: </h3>
                     <Chip label={JSON.parse(this.state.createdAt)} />
@@ -93,27 +93,15 @@ export default class extends Component {
           </Row>
           <Row>
             <FullColumn>
-              <Row>
-                <h2>Do you want to change your name?</h2>
-              </Row>
-
-              <Papersheet>
-                <Row>
-                  <FullColumn>
-                    <HalfColumn>
-                      <TextField
-                        label="New name"
-                        fullWidth
-                        placeholder="Please enter your new name"
-                        margin="normal"
-                        onChange={this.onChangeUsername}
-                      />
-                    </HalfColumn>
-                    <HalfColumn>
-                      <Button onClick={this.handleClick}>Save</Button>
-                    </HalfColumn>
-                  </FullColumn>
-                </Row>
+              <Papersheet title="Do you want to change some profile details?" style={{backgroundColor: '#E5ECF1'}}>
+                <TextField
+                  label="New name"
+                  fullWidth
+                  placeholder="Please enter your new name"
+                  margin="normal"
+                  onChange={this.onChangeUsername}
+                />
+                <Button onClick={this.handleClick}>Save</Button>
               </Papersheet>
             </FullColumn>
           </Row>

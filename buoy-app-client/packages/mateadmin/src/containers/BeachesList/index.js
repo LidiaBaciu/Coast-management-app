@@ -36,7 +36,7 @@ const styles = theme => ({
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
-    load={import('../Map/mapWithMarkerCluster.js')}
+    load={import('../Map/mapWithCustomIconMarker.js')}
     componentProps={props}
     componentArguement={'leafletMap'}
   />

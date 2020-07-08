@@ -3,7 +3,7 @@ import getDevSidebar from '../../customApp/sidebar';
 
 const options = [
   {
-    label: 'Report a problem',
+    label: 'sidebar.reportProblem',
     leftIcon: 'error',
     hideBreadCrumb: true,
     key: 'report-problem',
@@ -21,7 +21,7 @@ const options = [
     hideBreadCrumb: true,
   },
   {
-    label: 'Fishes',
+    label: 'sidebar.fishes',
     key: 'fishes',
     leftIcon: 'select_all',
     hideBreadCrumb: true,

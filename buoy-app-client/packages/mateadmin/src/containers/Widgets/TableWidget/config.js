@@ -1,22 +1,13 @@
 export default {
-  head: ['Name', 'Position', 'Office', 'Joining Date', 'Salary ($)'],
+  head: ['Name', 'Since when', 'No. of beaches watched', 'By how many buoys'],
   body: [
-    ['John A. Smith', 'Accountant', 'Tokyo', '28th Nov 08', '162700'],
-    [
-      'Bob C. Uncle',
-      'Chief Executive Officer (CEO)',
-      'London',
-      '9th Oct 09',
-      '1200000',
-    ],
-    [
-      'John D. Smith',
-      'Software Engineer',
-      'San Francisco	',
-      '12th Jan 09',
-      '86000',
-    ],
-    ['Angelica Vance', 'Software Engineer', 'London	', '12th Jan 08', '239000'],
-    ['Ashton Nash', 'Integration Specialist	', 'Tokyo	', '2nd Dec 12', '206850'],
+    ['Skagerrak', '12/08/2019', '3', '5'],
+    ['North Sea', '15/09/2019', '2', '3'],
+    ['Norwegian Sea', '12/08/2019', '2', '6'],
+    ['Barents Sea', '-', '-	', '-'],
+    ['Lindesnes', '12/08/2019', '2	', '4'],
+    ['Lista', '-', '-', '-'],
+    ['Jæren', '-', '-', '-'],
+    ['Folda', '-', '-	', '-'],
   ],
 };

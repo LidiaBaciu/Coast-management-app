@@ -170,21 +170,21 @@ public class AuxiliaryController {
         List<BeachSummary> beachSummaries = new ArrayList<>();
 
         for(Buoy buoy : buoyService.getAllBuoys()){
+            BuoySummary buoySummary = new BuoySummary();
+            buoySummary.setId(buoy.getId());
+            buoySummary.setLatitude(buoy.getLatitude());
+            buoySummary.setLongitude(buoy.getLongitude());
             for(Sensor sensor : buoy.getSensors()){
                 if(sensor.getName().equals("temperature")){
                     List<SensorValue> sortedValues = sensor.getSensorValues().stream()
                             .sorted(Comparator.comparing(SensorValue::getTimestamp).reversed())
                             .collect(Collectors.toList());
                     System.out.println(sortedValues.toString());
-                    BuoySummary buoySummary = new BuoySummary();
-                    buoySummary.setId(buoy.getId());
-                    buoySummary.setLatitude(buoy.getLatitude());
-                    buoySummary.setLongitude(buoy.getLongitude());
                     buoySummary.setLatestTemperature(sortedValues.get(0).getValue());
-                    buoySummaries.add(buoySummary);
                     break;
                 }
             }
+            buoySummaries.add(buoySummary);
         }
 
         for(Beach beach : beachService.getAllBeaches()){

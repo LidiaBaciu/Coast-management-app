@@ -3,8 +3,13 @@ import { palette } from 'styled-theme';
 import Icons from '../../components/uielements/icon';
 import {
   FormGroup as FormGroups,
+  FormControl as FormControls,
   FormControlLabel as FormControlLabels,
 } from '../../components/uielements/form/';
+import Inputs, {
+  InputLabel as InputLabels,
+  InputAdornment as InputAdornments,
+} from '../../components/uielements/input';
 
 const Icon = styled(Icons)`
   font-size: 23px;
@@ -21,8 +26,33 @@ const Root = styled.div`
   max-width: 752px;
 `;
 
+const InputLabel = styled(InputLabels)`
+  &.inputLabelFocused {
+    color: ${palette('purple', 5)};
+    border-color: ${palette('purple', 5)};
+  }
+`;
+
+const Input = styled(Inputs)`
+  margin: 8px;
+`;
+
+const FormControl = styled(FormControls)`
+  margin: 8px;
+
+  .withoutLabel {
+    margin-top: 24px;
+  }
+
+  .inputInkbar {
+    &:after {
+      background-color: ${palette('purple', 5)};
+    }
+  }
+`;
+
 const FormControlLabel = styled(FormControlLabels)``;
 
 const FormGroup = styled(FormGroups)`padding: 30px;`;
 
-export { Root, Icon, FormGroup, FormControlLabel };
+export { Root, Icon, FormGroup, FormControlLabel, InputLabel, Input, FormControl };

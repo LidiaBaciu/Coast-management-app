@@ -22,6 +22,9 @@ import Async from '../../helpers/asyncComponent';
 import SimpleLineCharts from '../Charts/recharts/charts/simpleLineCharts'
 import SimpleBarChart from '../Charts/recharts/charts/simpleBarChart';
 import axios from 'axios';
+import SiteAdminImage from '../../images/avatars/lidia.jpg'
+import SiteAdminImage2 from '../../images/avatars/lidia2.jpg'
+import SiteAdminImage3 from '../../images/avatars/organization.jpg'
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
@@ -66,21 +69,6 @@ class Widget extends Component {
 
   state = {
     homeDetails: [],
-    /*
-    dataLineChart : {
-      labels: [],
-      datasets: [
-        {
-          label: 'Problems reported for buoys',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
-          data: [],
-        },
-      ],
-    },*/
   };
 
   componentDidMount(){
@@ -106,6 +94,35 @@ class Widget extends Component {
     return (
       <LayoutWrapper>
         <Row>
+          <OneThirdColumn>
+              <SalesProgress
+                  title="Buoys installed"
+                  amount="18"
+                  progress="49"
+                  color="#533B4D"
+                  upward
+                />
+          </OneThirdColumn>
+          <OneThirdColumn>
+              <SalesProgress
+                  title="Beaches monitorized"
+                  amount="9"
+                  progress="15"
+                  color="#C1ABA6"
+                  upward
+                />
+          </OneThirdColumn>
+          <OneThirdColumn>
+              <SalesProgress
+                  title="Seas coverage"
+                  amount="4"
+                  progress="25"
+                  color="#388697"
+                  upward
+                />
+          </OneThirdColumn>
+        </Row>
+        <Row>
           <HalfColumn>
             <SalesStats title="User registered statistics" stretched data={dataGraph}/>
           </HalfColumn>
@@ -115,7 +132,11 @@ class Widget extends Component {
           </HalfColumn>
 
         </Row>
-
+        <Row>
+          <FullColumn>
+            <TableWidget title="Which coasts are watched by us" />
+          </FullColumn>
+        </Row>
         <Row>
           <HalfColumn>
            {/*<GoogleChart {...configs.BarChart} chartEvents={chartEvents} />*/}
@@ -228,6 +249,19 @@ class Widget extends Component {
               upward
             />
       </OneThirdColumn>*/}
+        </Row>
+        <Row>
+          <TwoThirdColumn>
+            <Box title="About us">
+                <p>Hello and welcome back!</p>
+                <p>We are an organization that takes care of your health and confort when it comes to swimming and fishing.</p>
+                <center><img src={SiteAdminImage2}/>
+                <img src={SiteAdminImage3}/></center>
+            </Box>
+          </TwoThirdColumn>
+          <OneThirdColumn sm={6} md={6}>
+            <CircularWidget title="Activity" stretched />
+          </OneThirdColumn>
         </Row>
         {/*
         <Row>

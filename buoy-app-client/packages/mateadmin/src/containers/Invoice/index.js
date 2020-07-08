@@ -56,7 +56,7 @@ const EnhancedTableHead = ({ onSelectAllClick, numSelected, rowCount }) => (
         />
       </TableCell>*/}
       {columns.map(column => (
-        <TableCell key={column.rowKey}>{column.title}</TableCell>
+        <TableCell key={column.rowKey} style={{borderColor:"#000000"}}>{column.title}</TableCell>
       ))}
       <TableCell />
     </TableRow>
@@ -136,6 +136,13 @@ class Invoices extends Component {
                       />
                       <TableBody>
                         {invoices.map(invoice => {
+                          let backgroundColor = 'inherit';
+
+                          if (invoice.solved) {
+                            backgroundColor = '#C5F8D2';
+                          } else {
+                            backgroundColor = '#FFC8C8';
+                          }
                           //const isSelected = this.isSelected(invoice.id);
                           return (
                             <TableRow
@@ -153,7 +160,14 @@ class Invoices extends Component {
                                 />
                                 </TableCell> */}
                               {columns.map(column => (
-                                <TableCell
+                                column.title==="Solved status"?
+                                <TableCell style={{backgroundColor}}
+                                  key={`${invoice.id}${column.rowKey}`}
+                                >
+                                  {invoice[column.dataIndex]? "Solved" : "Unresolved" || ""}
+                                </TableCell>
+                                :
+                                <TableCell style={{color:"#000000"}}
                                   key={`${invoice.id}${column.rowKey}`}
                                 >
                                   {invoice[column.dataIndex] || ''}

@@ -31,7 +31,7 @@ const options = [
     key: 'fishes',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
-  },/*
+  },
   {
     label: 'sidebar.map',
     key: 'googlemap',
@@ -49,12 +49,17 @@ const options = [
       },
     ],
   },
-*/
+
   {
     label: 'sidebar.contact',
     key: 'contact',
     leftIcon: 'contacts',
     hideBreadCrumb: true,
+  },
+  {
+    label: 'sidebar.box',
+    key: 'box',
+    leftIcon: 'dashboard',
   },
   /*
   {
@@ -64,11 +69,7 @@ const options = [
     hideBreadCrumb: true,
   },
 
-  {
-    label: 'sidebar.box',
-    key: 'box',
-    leftIcon: 'dashboard',
-  },
+  
 
   // {
   //   label: 'sidebar.todos',
@@ -108,12 +109,6 @@ const options = [
         key: 'react-chart-2',
       },
     ],
-  },
-  /*
-  {
-    label: 'sidebar.tables',
-    leftIcon: 'view_headline',
-    key: 'material-ui-tables',
   },
   {
     label: 'sidebar.uiElements',
@@ -244,6 +239,13 @@ const options = [
       },
     ],
   },
+  /*
+  {
+    label: 'sidebar.tables',
+    leftIcon: 'view_headline',
+    key: 'material-ui-tables',
+  },
+  
   /*
   {
     label: 'sidebar.forms',

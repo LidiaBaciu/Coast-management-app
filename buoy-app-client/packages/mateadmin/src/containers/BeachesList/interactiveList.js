@@ -10,6 +10,7 @@ import Lists, {
 import {
   FormGroup,
   FormControlLabel,
+  FormControl,
 } from '../../components/uielements/form/';
 import Checkbox from '../../components/uielements/checkbox/';
 import Grids from '../../components/uielements/grid/';
@@ -17,7 +18,7 @@ import Typography from '../../components/uielements/typography/index.js';
 import { connect } from 'react-redux';
 import FormDialog from './formDialog';
 import Avatar from '@material-ui/core/Avatar';
-import { Root } from './lists.style';
+import { Root, Input, InputLabel} from './lists.style';
 
 class InteractiveList extends React.Component {
   state = {
@@ -89,7 +90,10 @@ class InteractiveList extends React.Component {
             label="Enable secondary text"
           />
         </FormGroup>
-
+        <FormControl fullWidth>
+          <InputLabel htmlFor="custom-color-input">Search a beach</InputLabel>
+          <Input id="custom-color-input" />
+        </FormControl>
             <Typography variant="h6" className={classes.title}>
               List
             </Typography>
