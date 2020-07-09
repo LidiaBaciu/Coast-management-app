@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import App from './containers/App';
 import AppUser from './containers/AppUser';
 import PageNotFound from './containers/Page/404';
@@ -33,7 +33,7 @@ const RestrictedRoute = ({
 
 const PublicRoutes = ({ history, isLoggedIn, role }) => (
   <BrowserRouter>
-    <>
+    <Switch>
       <Route
         exact
         path="/"
@@ -76,8 +76,8 @@ const PublicRoutes = ({ history, isLoggedIn, role }) => (
         path="/reset-password"
         component={lazy(() => import('./containers/Page/resetpassword'))}
       />
-    </>
-    <Route component={PageNotFound} />
+      <Route component={PageNotFound} />
+    </Switch>
   </BrowserRouter>
 );
 
