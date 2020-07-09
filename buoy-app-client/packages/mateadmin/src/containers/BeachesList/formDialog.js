@@ -34,8 +34,9 @@ class FormDialog extends React.Component {
       longitude : Number(longitude),
       photoUri : photoURI
     }
-    const { addBeach } = this.props;
+    const { addBeach, addedElement } = this.props;
     addBeach(request);
+    //addedElement();
   };
 
   render() {

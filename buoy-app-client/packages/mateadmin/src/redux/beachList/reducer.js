@@ -8,19 +8,17 @@ const initialState = {
 }
 
 const filterBeaches = (beaches, searchText) => {
-  console.log("in filter Beaches");
 	if (searchText.length === 0) {
 		return beaches;
 	}
 	searchText = searchText.toLowerCase();
-	const newContacts = [];
-	beaches.forEach(contact => {
-		if (contact.name && contact.name.toLowerCase().indexOf(searchText) > -1) {
-			console.log(contact);
-			newContacts.push(contact);
+	const newBeaches = [];
+	beaches.forEach(beach => {
+		if (beach.name && beach.name.toLowerCase().indexOf(searchText) > -1) {
+			newBeaches.push(beach);
 		}
 	});
-	return newContacts;
+	return newBeaches;
 };
 
 const reducer = (state = initialState, action) => {

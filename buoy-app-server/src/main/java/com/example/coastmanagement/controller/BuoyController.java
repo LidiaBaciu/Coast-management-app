@@ -47,6 +47,30 @@ public class BuoyController {
         return buoySummary;
     }
 
+    @GetMapping("/buoys/options")
+    public BeachAuxiliary getBuoysOptions() {
+        List<User> users = userRepository.findAll();
+        List<UserSummary> usersRoleAdmin = new ArrayList<>();
+        for (User user : users) {
+            RoleName roleName = user.getRoles().stream().findFirst().get().getName();
+            if(roleName.toString().contains("ADMIN")){
+                UserSummary userSummary = new UserSummary(user.getId(), user.getUsername(), user.getName(), roleName);
+                usersRoleAdmin.add(userSummary);
+            }
+        }
+        List<Beach> beaches = beachRepository.findAll();
+        List<BeachSummary> beachSummaries = new ArrayList<>();
+        for(Beach beach : beaches){
+            BeachSummary beachSummary = new BeachSummary(beach.getId(), beach.getName(),
+                    beach.getLongitude(), beach.getLatitude(),
+                    beach.getPhotoUri());
+            beachSummaries.add(beachSummary);
+        }
+
+        BeachAuxiliary response = new BeachAuxiliary(usersRoleAdmin, beachSummaries);
+        return response;
+    }
+
     @GetMapping("/buoys")
     public List<BuoySummary> getBuoys() {
         List<BuoySummary> buoySummaries = new ArrayList<>();
@@ -69,7 +93,7 @@ public class BuoyController {
     }
 
     @PostMapping("/buoy/create")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addBuoy(@RequestBody BuoyRequest buoyRequest){
         save(buoyRequest);
         return ResponseEntity.ok("Buoy has been created successfully!");
@@ -84,5 +108,31 @@ public class BuoyController {
         user.getBuoys().add(buoy);
         beach.getBuoys().add(buoy);
         return buoyRepository.save(buoy);
+    }
+
+    private class BeachAuxiliary{
+        List<UserSummary> userSummaryList;
+        List<BeachSummary> beachSummaryList;
+
+        public BeachAuxiliary(List<UserSummary> userSummaryList, List<BeachSummary> beachSummaryList) {
+            this.userSummaryList = userSummaryList;
+            this.beachSummaryList = beachSummaryList;
+        }
+
+        public List<UserSummary> getUserSummaryList() {
+            return userSummaryList;
+        }
+
+        public void setUserSummaryList(List<UserSummary> userSummaryList) {
+            this.userSummaryList = userSummaryList;
+        }
+
+        public List<BeachSummary> getBeachSummaryList() {
+            return beachSummaryList;
+        }
+
+        public void setBeachSummaryList(List<BeachSummary> beachSummaryList) {
+            this.beachSummaryList = beachSummaryList;
+        }
     }
 }

@@ -39,8 +39,8 @@ let dataGraph = {
   datasets: [
     {
       data: [0, 50],
-      backgroundColor: ["#D2AB99", "#5C2751" ],
-      hoverBackgroundColor: ["#FF6384", "#48A6F2"]
+      backgroundColor: ["#19647E", "#2F52E0" ],
+      hoverBackgroundColor: ["#6096BA", "#5F7AE7"]
     }
   ]
 };

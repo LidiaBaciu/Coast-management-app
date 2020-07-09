@@ -24,14 +24,21 @@ import actions from '../../redux/beachList/actions';
 const {getBeaches, setSearch } = actions;
 
 class InteractiveList extends React.Component {
-  state = {
-    dense: false,
-    secondary: false,
-    beaches : [],
-    buoys: [],
-    selectedBeach: null,
-  };
-  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dense: false,
+      secondary: false,
+      beaches : [],
+      buoys: [],
+      selectedBeach: null,
+      wasBeachAdded: false,
+    };
+
+    this.handleAddedElement = this.handleAddedElement.bind(this);
+}
+
   beachSelectedHandler = ( id ) => {
     this.props.history.push({pathname: '/dashboard/beaches-list/beach/' + id});
 }
@@ -39,7 +46,13 @@ class InteractiveList extends React.Component {
   componentDidMount() {
     const { getBeaches } = this.props;
     getBeaches();
+    this.setState({wasBeachAdded : false});
   }
+
+  handleAddedElement() {
+    this.setState({wasBeachAdded : true});
+    console.log("state was updated");
+ }
 
   render() {
     const { beaches, classes, searchText, filteredBeaches, setSearch } = this.props;
@@ -47,7 +60,7 @@ class InteractiveList extends React.Component {
     let button = null;
     let role = JSON.parse(localStorage.getItem('role'));
     if(role === 'ROLE_ADMIN'){
-      button = <FormDialog />;
+      button = <FormDialog addedElement={this.handleAddedElement} />;
     }
 
     let beachesList =
