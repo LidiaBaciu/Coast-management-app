@@ -5,7 +5,7 @@ import LayoutWrapper from "../../components/utility/layoutWrapper";
 import Papersheet from "../../components/utility/papersheet";
 import { FullColumn, HalfColumn, Row } from "../../components/utility/rowColumn";
 //import IntlMessages from "../../components/utility/intlMessages";
-//import Loader from '../../components/utility/Loader/';
+import Loader from '../../components/utility/Loader/';
 import FishesGrid from '../Fishes';
 import Statistics from './Statistics/index';
 
@@ -72,7 +72,12 @@ class BeachDetails extends Component {
                     this.setState( { loadedBeach: response.data } );
                     this.state.dataTemperature.datasets[0].data.unshift(this.state.loadedBeach.todaysAvgTemperature, this.state.loadedBeach.yesterdaysAvgTemperature);
                     this.state.datapH.datasets[0].data.unshift(this.state.loadedBeach.todaysAvgpH, this.state.loadedBeach.yesterdaysAvgpH);
-                } );
+                })
+                .catch((error) => {
+                  console.log(error) //Logs a string: Error: Request failed with status code 404
+                  this.props.history.push({pathname: '/404'});
+              });
+                
         }
     }
   }
@@ -80,7 +85,7 @@ class BeachDetails extends Component {
 
     let beach = <p style={{ textAlign: 'center' }}>Please select a beach!</p>;
     if ( this.props.match.params.id ) {
-        beach = <p style={{ textAlign: 'center' }}>Loading...</p>;
+        beach = <Loader/>
     }
     
     if ( this.state.loadedBeach ) {
