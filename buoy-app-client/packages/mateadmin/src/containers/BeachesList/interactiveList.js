@@ -18,7 +18,10 @@ import Typography from '../../components/uielements/typography/index.js';
 import { connect } from 'react-redux';
 import FormDialog from './formDialog';
 import Avatar from '@material-ui/core/Avatar';
-import { Root, Input, InputLabel} from './lists.style';
+import { Root, Input, InputLabel, InputSearch} from './lists.style';
+import actions from '../../redux/beachList/actions';
+
+const {getBeaches, setSearch } = actions;
 
 class InteractiveList extends React.Component {
   state = {
@@ -39,7 +42,7 @@ class InteractiveList extends React.Component {
   }
 
   render() {
-    const { beaches, classes } = this.props;
+    const { beaches, classes, searchText, filteredBeaches, setSearch } = this.props;
     const { dense, secondary } = this.state;
     let button = null;
     let role = JSON.parse(localStorage.getItem('role'));
@@ -48,8 +51,8 @@ class InteractiveList extends React.Component {
     }
 
     let beachesList =
-      beaches.length > 0 &&
-      beaches.map((beach, i) => {
+    filteredBeaches.length > 0 &&
+    filteredBeaches.map((beach, i) => {
         return (
           <ListItem key={i} button onClick={() => this.beachSelectedHandler( beach.id )}>
             <ListItemAvatar>
@@ -91,9 +94,14 @@ class InteractiveList extends React.Component {
           />
         </FormGroup>
         <FormControl fullWidth>
-          <InputLabel htmlFor="custom-color-input">Search a beach</InputLabel>
-          <Input id="custom-color-input" />
-        </FormControl>
+            <InputLabel htmlFor="beachesSearch">Search beaches</InputLabel>
+            <InputSearch
+              id="beachesSearch"
+              alwaysDefaultValue
+              onChange={setSearch}
+              defaultValue={searchText || ''}
+            />
+          </FormControl>
             <Typography variant="h6" className={classes.title}>
               List
             </Typography>
@@ -113,6 +121,7 @@ InteractiveList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+/*
 const mapStateToProps = state => {
   return {
     beaches: state.BeachList.beaches
@@ -126,3 +135,24 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InteractiveList);
+*/
+function mapStateToProps(state) {
+  const {
+    beaches,
+    filteredBeaches,
+    searchText,
+  } = state.BeachList;
+  return {
+    beaches,
+    searchText,
+    filteredBeaches,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    getBeaches,
+    setSearch,
+  }
+)(InteractiveList);

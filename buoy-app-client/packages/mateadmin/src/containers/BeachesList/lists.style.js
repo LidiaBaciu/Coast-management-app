@@ -10,6 +10,7 @@ import Inputs, {
   InputLabel as InputLabels,
   InputAdornment as InputAdornments,
 } from '../../components/uielements/input';
+import InputSearches from '../../components/uielements/inputSearch';
 
 const Icon = styled(Icons)`
   font-size: 23px;
@@ -31,6 +32,11 @@ const InputLabel = styled(InputLabels)`
     color: ${palette('purple', 5)};
     border-color: ${palette('purple', 5)};
   }
+`;
+
+const InputSearch = styled(InputSearches)`
+  width: 100%;
+  margin-bottom: 40px;
 `;
 
 const Input = styled(Inputs)`
@@ -55,4 +61,4 @@ const FormControlLabel = styled(FormControlLabels)``;
 
 const FormGroup = styled(FormGroups)`padding: 30px;`;
 
-export { Root, Icon, FormGroup, FormControlLabel, InputLabel, Input, FormControl };
+export { Root, Icon, FormGroup, FormControlLabel, InputLabel, Input, FormControl, InputSearch };

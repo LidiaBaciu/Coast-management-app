@@ -18,7 +18,7 @@ export default class extends Component {
         width={width}
         height={height}
         data={datas}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        margin={{ top: 5, right: 30, left: 5, bottom: 5 }}
       >
         <XAxis dataKey="time" stroke={colors[3]} />
         <YAxis stroke={colors[3]} />

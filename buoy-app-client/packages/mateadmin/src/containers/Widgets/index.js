@@ -38,8 +38,8 @@ let dataGraph = {
   labels: ["New users", "Total users"],
   datasets: [
     {
-      data: [5, 50],
-      backgroundColor: ["#ff6384", "#48A6F2" ],
+      data: [0, 50],
+      backgroundColor: ["#D2AB99", "#5C2751" ],
       hoverBackgroundColor: ["#FF6384", "#48A6F2"]
     }
   ]
@@ -49,12 +49,12 @@ let dataProblems = {
   labels: ["New problems", "Total problems"],
   datasets: [
     {
-      data: [5, 50],
+      data: [0, 50],
       borderWidth: 1,
       borderColor: ["#ffffff", "#ffffff", "#ffffff"],
       backgroundColor: [
-        "rgb(255, 99, 132)",
-        "rgb(54, 162, 235)",
+        "#7D4E57",
+        "#212D40",
       ],
       hoverBackgroundColor: [
         "rgb(255, 99, 132)",
@@ -87,8 +87,8 @@ class Widget extends Component {
 
   render() {
     
-    const width = 450;
-    const height = 400;
+    const width = 350;
+    const height = 350;
     const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
 
     return (
