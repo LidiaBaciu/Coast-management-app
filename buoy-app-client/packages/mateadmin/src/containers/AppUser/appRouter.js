@@ -1,7 +1,10 @@
 import React, { Component, lazy, Suspense } from 'react';
 import Route from '../../components/utility/customRoute';
+import { Switch } from 'react-router-dom';
 import customRoutes from '../../customApp/router';
 import Loader from '../../components/utility/Loader';
+import PageNotFound from '../Page/404';
+
 const routes = [
   {
     path: '',
@@ -241,17 +244,20 @@ class AppRouter extends Component {
     return (
       <Suspense fallback={<Loader />}>
         <div style={style}>
-          {routes.map(singleRoute => {
-            const { path, exact, ...otherProps } = singleRoute;
-            return (
-              <Route
-                exact={exact === false ? false : true}
-                key={singleRoute.path}
-                path={`${url}/${singleRoute.path}`}
-                {...otherProps}
-              />
-            );
-          })}
+          <Switch>
+            {routes.map(singleRoute => {
+              const { path, exact, ...otherProps } = singleRoute;
+              return (
+                  <Route
+                    exact//={exact === false ? false : true}
+                    key={singleRoute.path}
+                    path={`${url}/${singleRoute.path}`}
+                    {...otherProps}
+                  />
+              );
+            })}
+            <Route component={PageNotFound} />
+           </Switch>
         </div>
       </Suspense>
     );

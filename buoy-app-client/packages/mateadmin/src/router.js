@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './containers/App';
 import AppUser from './containers/AppUser';
+import PageNotFound from './containers/Page/404';
 
 const RestrictedRoute = ({ 
   component: Component,
@@ -76,6 +77,7 @@ const PublicRoutes = ({ history, isLoggedIn, role }) => (
         component={lazy(() => import('./containers/Page/resetpassword'))}
       />
     </>
+    <Route component={PageNotFound} />
   </BrowserRouter>
 );
 
