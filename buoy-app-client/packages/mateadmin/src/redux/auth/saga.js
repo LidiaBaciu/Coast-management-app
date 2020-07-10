@@ -39,6 +39,7 @@ export function* loginSuccess({ payload }) {
   //console.log(JSON.stringify(payload));
   //yield localStorage.setItem('id_token', payload.accessToken);
   yield call(stockUserInfo, payload);
+  window.location.href = '/dashboard/';
 }
 
 function stockUserInfo(payload) {

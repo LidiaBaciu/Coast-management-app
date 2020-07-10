@@ -9,6 +9,10 @@ public class AuxiliaryResponse {
     private int totalProblemsReported;
     private int newlyProblemsReported;
     private int problemsSolved;
+    private int numberOfBeaches;
+    private int numberOfBuoys;
+    private int numberOfSensorValuesToday;
+    private int numberOfSensors;
     private List<TopBuoysResponse> topBuoysResponse;
     private List<StatisticsResponse> statisticsResponse;
 
@@ -66,5 +70,37 @@ public class AuxiliaryResponse {
 
     public void setTopBuoysResponse(List<TopBuoysResponse> topBuoysResponse) {
         this.topBuoysResponse = topBuoysResponse;
+    }
+
+    public int getNumberOfBeaches() {
+        return numberOfBeaches;
+    }
+
+    public void setNumberOfBeaches(int numberOfBeaches) {
+        this.numberOfBeaches = numberOfBeaches;
+    }
+
+    public int getNumberOfBuoys() {
+        return numberOfBuoys;
+    }
+
+    public void setNumberOfBuoys(int numberOfBuoys) {
+        this.numberOfBuoys = numberOfBuoys;
+    }
+
+    public int getNumberOfSensorValuesToday() {
+        return numberOfSensorValuesToday;
+    }
+
+    public void setNumberOfSensorValuesToday(int numberOfSensorValuesToday) {
+        this.numberOfSensorValuesToday = numberOfSensorValuesToday;
+    }
+
+    public int getNumberOfSensors() {
+        return numberOfSensors;
+    }
+
+    public void setNumberOfSensors(int numberOfSensors) {
+        this.numberOfSensors = numberOfSensors;
     }
 }

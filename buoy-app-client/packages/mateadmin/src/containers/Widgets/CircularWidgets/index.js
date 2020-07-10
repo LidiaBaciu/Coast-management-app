@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import CircularProgress from '../../../components/uielements/circularProgress';
-import config from './config';
+//import config from './config';
 import Activity, {
   CircularProgressbarWrapper,
   ProgressbarText,
@@ -26,14 +26,14 @@ const theme = createMuiTheme({
 
 class CircularWidget extends Component {
   state = {
-    percentage: parseInt((config.value * 100) / (config.max - config.min), 10),
+    percentage: parseInt((this.props.config.value * 100) / (this.props.config.max - this.props.config.min), 10),
     currentValue: 0,
     currentPercentage: 0,
   };
   updatePerCentage = () => {
     const { percentage } = this.state;
     const currentPercentage = this.state.currentPercentage + 1;
-    const { min, max, value } = config;
+    const { min, max, value } = this.props.config;
 
     setTimeout(async () => {
       if (percentage >= currentPercentage) {
@@ -59,7 +59,7 @@ class CircularWidget extends Component {
 
   render() {
     const { currentValue, currentPercentage } = this.state;
-    const { min, max, title, text } = config;
+    const { min, max, title, text } = this.props.config;
     return (
       <WidgetBox title={this.props.title} stretched={this.props.stretched}>
         <Activity>

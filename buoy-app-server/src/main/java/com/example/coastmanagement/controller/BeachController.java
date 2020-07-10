@@ -39,17 +39,17 @@ public class BeachController {
         BeachSummary beachSummary = new BeachSummary(id, beach.getName(),
                                                 beach.getLongitude(), beach.getLatitude(),
                                                 beach.getPhotoUri());
-        if(getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
-            beachSummary.setTodaysAvgTemperature(getTodaysAvgStatistics(beach.getId()).get("temperature"));
+        if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
+            beachSummary.setTodaysAvgTemperature(beachService.getTodaysAvgStatistics(beach.getId()).get("temperature"));
         }
-        if(getTodaysAvgStatistics(beach.getId()).containsKey("ph")){
-            beachSummary.setTodaysAvgpH(getTodaysAvgStatistics(beach.getId()).get("ph"));
+        if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("ph")){
+            beachSummary.setTodaysAvgpH(beachService.getTodaysAvgStatistics(beach.getId()).get("ph"));
         }
-        if(getYesterdaysAvgStatistics(beach.getId()).containsKey("temperature")){
-            beachSummary.setYesterdaysAvgTemperature(getYesterdaysAvgStatistics(beach.getId()).get("temperature"));
+        if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("temperature")){
+            beachSummary.setYesterdaysAvgTemperature(beachService.getYesterdaysAvgStatistics(beach.getId()).get("temperature"));
         }
-        if(getYesterdaysAvgStatistics(beach.getId()).containsKey("ph")){
-            beachSummary.setYesterdaysAvgpH(getYesterdaysAvgStatistics(beach.getId()).get("ph"));
+        if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("ph")){
+            beachSummary.setYesterdaysAvgpH(beachService.getYesterdaysAvgStatistics(beach.getId()).get("ph"));
         }
         return beachSummary;
     }
@@ -72,77 +72,21 @@ public class BeachController {
             response.setLongitude(beach.getLongitude());
             response.setBuoys(beach.getBuoys());
             response.setPhotoUri(beach.getPhotoUri());
-            if(getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
-                response.setTodaysAvgTemperature(getTodaysAvgStatistics(beach.getId()).get("temperature"));
+            if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
+                response.setTodaysAvgTemperature(beachService.getTodaysAvgStatistics(beach.getId()).get("temperature"));
             }
-            if(getTodaysAvgStatistics(beach.getId()).containsKey("ph")){
-                response.setTodaysAvgpH(getTodaysAvgStatistics(beach.getId()).get("ph"));
+            if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("ph")){
+                response.setTodaysAvgpH(beachService.getTodaysAvgStatistics(beach.getId()).get("ph"));
             }
-            if(getYesterdaysAvgStatistics(beach.getId()).containsKey("temperature")){
-                response.setYesterdaysAvgTemperature(getYesterdaysAvgStatistics(beach.getId()).get("temperature"));
+            if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("temperature")){
+                response.setYesterdaysAvgTemperature(beachService.getYesterdaysAvgStatistics(beach.getId()).get("temperature"));
             }
-            if(getYesterdaysAvgStatistics(beach.getId()).containsKey("ph")){
-                response.setYesterdaysAvgpH(getYesterdaysAvgStatistics(beach.getId()).get("ph"));
+            if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("ph")){
+                response.setYesterdaysAvgpH(beachService.getYesterdaysAvgStatistics(beach.getId()).get("ph"));
             }
             beachResponseList.add(response);
         }
         return beachResponseList;
-    }
-
-    private HashMap<String, Float> getTodaysAvgStatistics(long beachId){
-        Beach beach = beachRepository.findById(beachId)
-                .orElseThrow(() -> new ResourceNotFoundException("Beach", "id", beachId));
-        Set<Buoy> buoys = beach.getBuoys();
-        HashMap<String, Float> stats = new HashMap<>();
-        for (Buoy buoy: buoys) {
-            for(Sensor sensor : buoy.getSensors()){
-                for(SensorValue sensorValue : sensor.getSensorValues()){
-                    String sensorDate = sensorValue.getTimestamp();
-                    String dateNow = LocalDate.now().toString();
-                    System.out.println("sensorDate: " + sensorDate);
-                    System.out.println("dateNow: " + dateNow);
-                    if(sensorDate.contains(dateNow)){
-                        if(stats.containsKey(sensor.getName())){
-                            stats.put(sensor.getName(), (stats.get(sensor.getName()) + sensorValue.getValue())/2);
-                        }else{
-                            stats.put(sensor.getName(), sensorValue.getValue());
-                        }
-                    }
-                }
-            }
-        }
-        return stats;
-    }
-
-    private HashMap<String, Float> getYesterdaysAvgStatistics(long beachId){
-        Beach beach = beachRepository.findById(beachId)
-                .orElseThrow(() -> new ResourceNotFoundException("Beach", "id", beachId));
-        Set<Buoy> buoys = beach.getBuoys();
-        HashMap<String, Float> stats = new HashMap<>();
-        for (Buoy buoy: buoys) {
-            for(Sensor sensor : buoy.getSensors()){
-                for(SensorValue sensorValue : sensor.getSensorValues()){
-                    String sensorDate = sensorValue.getTimestamp()
-                            .substring(0, sensorValue.getTimestamp()
-                                    .indexOf(" "));
-                    String[] sensorDateParts = sensorDate.split("-");
-                    String dateNow = LocalDate.now().toString();
-                    String[] actualDateParts = dateNow.split("-");
-
-                    if(sensorDateParts[0].equals(actualDateParts[0])
-                            && sensorDateParts[1].equals(actualDateParts[1])
-                            && Integer.parseInt(sensorDateParts[2]) ==
-                            (Integer.parseInt(actualDateParts[2]) - 1)){
-                        if(stats.containsKey(sensor.getName())){
-                            stats.put(sensor.getName(), (stats.get(sensor.getName()) + sensorValue.getValue())/2);
-                        }else{
-                            stats.put(sensor.getName(), sensorValue.getValue());
-                        }
-                    }
-                }
-            }
-        }
-        return stats;
     }
 
     @GetMapping("/beach/{id}/buoys")

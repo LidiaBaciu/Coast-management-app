@@ -4,10 +4,7 @@ import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.*;
 import com.example.coastmanagement.payload.BeachSummary;
 import com.example.coastmanagement.payload.BuoySummary;
-import com.example.coastmanagement.payload.responses.AuxiliaryResponse;
-import com.example.coastmanagement.payload.responses.MapResponse;
-import com.example.coastmanagement.payload.responses.StatisticsResponse;
-import com.example.coastmanagement.payload.responses.TopBuoysResponse;
+import com.example.coastmanagement.payload.responses.*;
 import com.example.coastmanagement.repository.*;
 import com.example.coastmanagement.service.BeachService;
 import com.example.coastmanagement.service.BuoyService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -51,6 +49,7 @@ public class AuxiliaryController {
         int newUsers = 0;
         int newProblems = 0;
         int problemsSolved = 0;
+
         HashMap<Long, Integer> topBuoys = new HashMap<>();
         HashMap<String, Float> temperatureStatistics = new HashMap<>();
         HashMap<String, Float> phStatistics = new HashMap<>();
@@ -132,14 +131,57 @@ public class AuxiliaryController {
             topBuoysResponseList.add(topBuoysResponse);
         }
 
-        //topBuoysResponse.setLabels(sortByValues(topBuoys).keySet());
-        //topBuoysResponse.setValues(sortByValues(topBuoys).values());
-//        statisticsResponse.setTemperatureLabels(temperatureStatistics.keySet());
-//        statisticsResponse.setPhLabels(phStatistics.keySet());
-//        statisticsResponse.setTemperatureValues(temperatureStatistics.values());
-//        statisticsResponse.setPhValues(phStatistics.values());
         auxiliaryResponse.setStatisticsResponse(statisticsResponseList);
         auxiliaryResponse.setTopBuoysResponse(topBuoysResponseList);
+        auxiliaryResponse.setNumberOfBeaches(beachService.getAllBeaches().size());
+        auxiliaryResponse.setNumberOfBuoys(buoyService.getAllBuoys().size());
+        auxiliaryResponse.setNumberOfSensors(sensorService.getAllSensors().size());
+        auxiliaryResponse.setNumberOfSensorValuesToday(sensorService.getTodaysSensors().size());
+        return auxiliaryResponse;
+    }
+
+    @GetMapping("/home/statistics/yearly/temperature")
+    public YearlyStatisticsResponse getYearlyStatisticsTemperature() {
+        YearlyStatisticsResponse auxiliaryResponse = new YearlyStatisticsResponse();
+        List<StatisticsResponse> statisticsResponseList = new ArrayList<>();
+
+        HashMap<String, Float> temperatureStatistics = new HashMap<>();
+        HashMap<String, Float> phStatistics = new HashMap<>();
+
+        for(Sensor sensor : sensorService.getAllSensors()){
+            for(SensorValue value : sensor.getSensorValues()){
+                int month = Integer.parseInt(value.getTimestamp().split("-")[1]);
+                String monthString = new DateFormatSymbols().getMonths()[month-1];
+                if(sensor.getName().equals("temperature")) {
+                    if (temperatureStatistics.containsKey(monthString)) {
+                        temperatureStatistics.put(monthString, (temperatureStatistics.get(monthString) + value.getValue()) / 2);
+                    } else {
+                        temperatureStatistics.put(monthString, value.getValue());
+                    }
+                }else{
+                    if (phStatistics.containsKey(monthString)) {
+                        phStatistics.put(monthString, (phStatistics.get(monthString) + value.getValue()) / 2);
+                    } else {
+                        phStatistics.put(monthString, value.getValue());
+                    }
+                }
+            }
+        }
+
+        for (Map.Entry<String, Float> entry : temperatureStatistics.entrySet()) {
+            StatisticsResponse statisticsResponse = new StatisticsResponse();
+            String key = entry.getKey();
+            Float value = entry.getValue();
+            statisticsResponse.setTime(key);
+            statisticsResponse.setTemperature(value);
+            if(phStatistics.containsKey(key)){
+                statisticsResponse.setPh(phStatistics.get(key));
+            }
+            statisticsResponseList.add(statisticsResponse);
+        }
+        auxiliaryResponse.setLabels(temperatureStatistics.keySet());
+        auxiliaryResponse.setTemperatureValues(temperatureStatistics.values());
+        auxiliaryResponse.setPhValues(phStatistics.values());
         return auxiliaryResponse;
     }
 

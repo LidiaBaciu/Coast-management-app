@@ -34,6 +34,74 @@ const LeafletMapWithMarkerCluster = props => (
   />
 );
 
+const Line = props => (
+  <Async
+    load={import(/* webpackChunkName: "ReactChart2-line" */ '../Charts/reactChart2/components/line/line')}
+    componentProps={props}
+  />
+);
+
+const Polar = props => (
+  <Async
+    load={import(/* webpackChunkName: "ReactChart2-polar" */ '../Charts/reactChart2/components/polar/polar')}
+    componentProps={props}
+  />
+);
+
+let data = {
+  labels: [],
+  datasets: [
+    {
+      label: "My First dataset",
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: "rgba(72,166,242,0.6)",
+      borderColor: "rgba(72,166,242,1)",
+      borderCapStyle: "butt",
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: "miter",
+      pointBorderColor: "rgba(72,166,242,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(72,166,242,1)",
+      pointHoverBorderColor: "rgba(72,166,242,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: []
+    }
+  ]
+};
+
+let dataPH = {
+  labels: [],
+  datasets: [
+    {
+      label: "My First dataset",
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: "rgba(72,166,242,0.6)",
+      borderColor: "rgba(72,166,242,1)",
+      borderCapStyle: "butt",
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: "miter",
+      pointBorderColor: "rgba(72,166,242,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(72,166,242,1)",
+      pointHoverBorderColor: "rgba(72,166,242,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: []
+    }
+  ]
+};
+
 let dataGraph = {
   labels: ["New users", "Total users"],
   datasets: [
@@ -65,10 +133,30 @@ let dataProblems = {
   ]
 };
 
+let polarData = {
+  datasets: [
+    {
+      data: [],
+      backgroundColor: ["#FF6384", "#48A6F2", "#511E78", "#E7E9ED", "#ffbf00"],
+      label: "My dataset" // for legend
+    }
+  ],
+  labels: ["Total", "New", "Solved", "Unresolved"]
+};
+
+let CircularWidgetData = {
+  value: 0,
+  min: 0,
+  max: 0,
+  title: 'Entries',
+  text: 'Today',
+};
+
 class Widget extends Component {
 
   state = {
     homeDetails: [],
+    yearlyStatistics: {},
   };
 
   componentDidMount(){
@@ -82,7 +170,25 @@ class Widget extends Component {
         const dataNewProblems = [];
         dataNewProblems.unshift(this.state.homeDetails.newlyProblemsReported, this.state.homeDetails.totalProblemsReported);
         dataProblems.datasets[0].data= dataNewProblems;
+        polarData.datasets[0].data.push(this.state.homeDetails.totalProblemsReported, this.state.homeDetails.newlyProblemsReported, 
+          this.state.homeDetails.problemsSolved, (this.state.homeDetails.totalProblemsReported-this.state.homeDetails.problemsSolved));
+        CircularWidgetData.value = this.state.homeDetails.numberOfSensorValuesToday;
+        CircularWidgetData.min = this.state.homeDetails.numberOfSensors*4; //each sensor sends minimum 4 entries a day
+        CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24; //each sensor sends maximum 24 entries a day
       });
+    axios.get( 'http://localhost:8080/api/home/statistics/yearly/temperature' )
+    .then( response => {
+      this.setState( {yearlyStatistics : response.data});
+      let dataNew = [];
+      dataNew = this.state.yearlyStatistics.temperatureValues.concat();
+      data.datasets[0].data = dataNew;
+      dataNew = [];
+      dataNew = this.state.yearlyStatistics.phValues.concat();
+      dataPH.datasets[0].data = dataNew;
+      dataPH.labels = this.state.yearlyStatistics.labels.concat();
+      data.labels = this.state.yearlyStatistics.labels.concat();
+      console.log(data);
+    });
   }
 
   render() {
@@ -90,14 +196,14 @@ class Widget extends Component {
     const width = 350;
     const height = 350;
     const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
-
+    console.log(this.state);
     return (
       <LayoutWrapper>
         <Row>
           <OneThirdColumn>
               <SalesProgress
                   title="Buoys installed"
-                  amount="18"
+                  amount={this.state.homeDetails.numberOfBuoys}
                   progress="49"
                   color="#533B4D"
                   upward
@@ -106,7 +212,7 @@ class Widget extends Component {
           <OneThirdColumn>
               <SalesProgress
                   title="Beaches monitorized"
-                  amount="9"
+                  amount={this.state.homeDetails.numberOfBeaches}
                   progress="15"
                   color="#C1ABA6"
                   upward
@@ -124,6 +230,18 @@ class Widget extends Component {
         </Row>
         <Row>
           <HalfColumn>
+            <Box title="Temperature this year">
+              <Line data={data}/>
+            </Box>
+          </HalfColumn>
+          <HalfColumn>
+            <Box title="pH this year">
+              <Line data={dataPH}/>
+            </Box>
+          </HalfColumn>
+        </Row>
+        <Row>
+          <HalfColumn>
             <SalesStats title="User registered statistics" stretched data={dataGraph}/>
           </HalfColumn>
 
@@ -131,6 +249,13 @@ class Widget extends Component {
             <SalesStats title="Problems Reported statistics" stretched data={dataProblems}/>
           </HalfColumn>
 
+        </Row>
+        <Row>
+          <HalfColumn>
+            <Box title="Problems reported statistics">
+              <Polar data={polarData}/>
+            </Box>
+          </HalfColumn>
         </Row>
         <Row>
           <FullColumn>
@@ -260,7 +385,7 @@ class Widget extends Component {
             </Box>
           </TwoThirdColumn>
           <OneThirdColumn sm={6} md={6}>
-            <CircularWidget title="Activity" stretched />
+            <CircularWidget title="Activity" stretched config={CircularWidgetData}/>
           </OneThirdColumn>
         </Row>
         {/*

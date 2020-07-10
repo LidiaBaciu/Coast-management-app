@@ -37,7 +37,7 @@ class SignIn extends Component {
       .then(response => {
         console.log('response ' + JSON.stringify(response));
         login({ usernameOrEmail, password });
-        this.props.history.push('/dashboard');
+        //this.props.history.push('/dashboard');
         errors['WrongCredentials'] = null;
       })
       .catch(error => {
