@@ -4,6 +4,7 @@ import actions from './actions';
 const initialState = {
   beaches: [],
   searchText: '',
+  addedBeach: {},
   filteredBeaches: [],
 }
 
@@ -29,11 +30,11 @@ const reducer = (state = initialState, action) => {
           filteredBeaches: action.payload.beaches,
          }
       case actions.SEARCH_BEACH:
-      return {
-        ...state,
-        searchText: action.searchText,
-        filteredBeaches: filterBeaches(state.beaches, action.searchText),
-      };
+        return {
+          ...state,
+          searchText: action.searchText,
+          filteredBeaches: filterBeaches(state.beaches, action.searchText),
+        };
       default:
         return state;
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../../components/uielements/button';
+import { Button } from './button.style';
 import TextField from '../../components/uielements/textfield';
 import Dialog, {
   DialogActions,
@@ -96,7 +96,7 @@ class FormDialog extends React.Component {
 
     return (
       <div style={{ display: "flex" }}> 
-        <Button size = 'small' color="primary" aria-label="add" onClick={this.handleClickOpen} style={{ marginLeft: "auto", marginTop: '10px' }}> 
+        <Button color="primary" aria-label="add" onClick={this.handleClickOpen} style={{ marginLeft: "auto", marginTop: '10px' }}> 
           <Icon>add</Icon>
         </Button>
         <Dialog open={this.state.open} onClose={this.handleRequestClose}>

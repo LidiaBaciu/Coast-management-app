@@ -9,6 +9,7 @@ import {
 } from '../../components/utility/rowColumn';
 import InteractiveList from './interactiveList';
 import Async from '../../helpers/asyncComponent';
+import ImageWithTitleBar from '../AdvanceUI/GridList/imageWithTitleBarAdjusted';
 
 const styles = theme => ({
   root: {
@@ -49,24 +50,26 @@ class ListExamples extends Component {
       <LayoutWrapper>
         <Row>
           <FullColumn>
-            <Papersheet
-              title="Beaches list"
-            >
-                <Row>
+            <Papersheet title="Beaches list">
+              <Row>
                 <HalfColumn>
-            <Papersheet
-              codeBlock="BeachesList/interactiveList.js"
-            >
-              <InteractiveList {...props} />
-            </Papersheet>
-          </HalfColumn>
-          <HalfColumn>
-              <LeafletMapWithMarkerCluster/>
-          </HalfColumn>
-                </Row>
+                  <Papersheet
+                    codeBlock="BeachesList/interactiveList.js"
+                  >
+                    <InteractiveList {...props} />
+                  </Papersheet>
+                </HalfColumn>
+                <HalfColumn>
+                  <ImageWithTitleBar {...props}/>
+                </HalfColumn>
+              </Row>
+              <Row>
+                <FullColumn>
+                  <LeafletMapWithMarkerCluster/>
+                </FullColumn>
+              </Row>
             </Papersheet>
           </FullColumn>
-          
         </Row>
       </LayoutWrapper>
     );

@@ -29,6 +29,11 @@ class SignIn extends Component {
     }
   }
 
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      this.handleLogin();
+    }
+  }
   handleLogin = () => {
     const { login } = this.props;
     const { usernameOrEmail, password } = this.state;
@@ -110,12 +115,13 @@ class SignIn extends Component {
                   placeholder="Password"
                   margin="normal"
                   type="Password"
+                  onKeyPress={this.handleKeyPress}
                   value={password}
                   onChange={this.onChangePassword}
                 />
               </div>
               <div className="mateLoginSubmit">
-                <Button type="button" onClick={this.handleLogin}>
+                <Button type="button" onClick={this.handleLogin} >
                   Login
                 </Button>
               </div>

@@ -34,7 +34,15 @@ function* addBeachRequest( {payload} ){
   console.log('response from addBeachRequest: ', response);
   if (response) {
     console.log('Beach added succesfully ', response.data);
-
+    const responseGetBeaches = yield call(getBeaches);
+    if(responseGetBeaches){
+      yield put({ 
+        type: actions.BEACHES_RECEIVED, 
+        payload: {beaches : responseGetBeaches.data},
+      });
+    } else {
+      console.log("error");
+    }
   } 
 
 }

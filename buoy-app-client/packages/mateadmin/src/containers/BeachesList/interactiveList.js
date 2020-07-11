@@ -20,8 +20,9 @@ import FormDialog from './formDialog';
 import Avatar from '@material-ui/core/Avatar';
 import { Root, Input, InputLabel, InputSearch} from './lists.style';
 import actions from '../../redux/beachList/actions';
+import Divider from '../../components/uielements/dividers';
 
-const {getBeaches, setSearch } = actions;
+const {getBeaches, setSearch, addBeach } = actions;
 
 class InteractiveList extends React.Component {
   constructor(props) {
@@ -30,10 +31,8 @@ class InteractiveList extends React.Component {
     this.state = {
       dense: false,
       secondary: false,
-      beaches : [],
       buoys: [],
       selectedBeach: null,
-      wasBeachAdded: false,
     };
 
     this.handleAddedElement = this.handleAddedElement.bind(this);
@@ -46,12 +45,12 @@ class InteractiveList extends React.Component {
   componentDidMount() {
     const { getBeaches } = this.props;
     getBeaches();
-    this.setState({wasBeachAdded : false});
   }
 
-  handleAddedElement() {
-    this.setState({wasBeachAdded : true});
-    console.log("state was updated");
+  handleAddedElement(request) {
+    const { addBeach } = this.props;
+    console.log("state was updated" + JSON.stringify(request));
+    addBeach(request);
  }
 
   render() {
@@ -67,21 +66,24 @@ class InteractiveList extends React.Component {
     filteredBeaches.length > 0 &&
     filteredBeaches.map((beach, i) => {
         return (
-          <ListItem key={i} button onClick={() => this.beachSelectedHandler( beach.id )}>
-            <ListItemAvatar>
-              <Avatar src={beach.photoUri} alt="Beach"/>
-            </ListItemAvatar>
-            <ListItemText
-              primary={beach.name}
-              secondary={secondary ? 
-                beach.id : null}
-            />
-          </ListItem>
+          <div>
+            <ListItem key={i} button onClick={() => this.beachSelectedHandler( beach.id )}>
+              <ListItemAvatar>
+                <Avatar src={beach.photoUri} alt="Beach"/>
+              </ListItemAvatar>
+              <ListItemText
+                primary={beach.name}
+                secondary={secondary ? 
+                  beach.id : null}
+              />
+            </ListItem>
+            <Divider variant="inset" />
+          </div>
         );
       }, this);
       
     return (
-      <div>
+      <div style={{height:'500px'}}>
         <FormGroup row>
           <FormControlLabel
             control={
@@ -124,7 +126,9 @@ class InteractiveList extends React.Component {
               </Lists>
             </Root>
             
-        {button}
+        <div style={{paddingTop:'25px'}}>
+          <center>{button}</center>
+        </div>
       </div>
     );
   }
@@ -134,21 +138,6 @@ InteractiveList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-/*
-const mapStateToProps = state => {
-  return {
-    beaches: state.BeachList.beaches
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getBeaches: () => dispatch({type: 'GET_BEACHES'})
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InteractiveList);
-*/
 function mapStateToProps(state) {
   const {
     beaches,
@@ -167,5 +156,6 @@ export default connect(
   {
     getBeaches,
     setSearch,
+    addBeach,
   }
 )(InteractiveList);

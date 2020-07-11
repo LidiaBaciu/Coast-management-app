@@ -8,9 +8,6 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from '../../components/uielements/dialogs';
-import beachesAction from '../../redux/beachList/actions';
-
-const {addBeach} = beachesAction;
 
 class FormDialog extends React.Component {
   state = {
@@ -34,15 +31,14 @@ class FormDialog extends React.Component {
       longitude : Number(longitude),
       photoUri : photoURI
     }
-    const { addBeach, addedElement } = this.props;
-    addBeach(request);
-    //addedElement();
+    const { addedElement } = this.props;
+    addedElement(request);
   };
 
   render() {
     return (
       <div>
-        <Button size = 'small' onClick={this.handleClickOpen}>Add a new beach</Button>
+        <Button variant="contained" color="primary" size = 'small' onClick={this.handleClickOpen}>Add a new beach</Button>
         <Dialog open={this.state.open} onClose={this.handleRequestClose}>
           <DialogTitle>Add beach</DialogTitle>
           <DialogContent>
@@ -102,4 +98,4 @@ class FormDialog extends React.Component {
 }
 
 
-export default connect(null, { addBeach } )(FormDialog);
+export default FormDialog;

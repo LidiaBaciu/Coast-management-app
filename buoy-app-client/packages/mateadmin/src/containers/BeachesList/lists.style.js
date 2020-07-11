@@ -36,7 +36,7 @@ const InputLabel = styled(InputLabels)`
 
 const InputSearch = styled(InputSearches)`
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 `;
 
 const Input = styled(Inputs)`
@@ -59,6 +59,6 @@ const FormControl = styled(FormControls)`
 
 const FormControlLabel = styled(FormControlLabels)``;
 
-const FormGroup = styled(FormGroups)`padding: 30px;`;
+const FormGroup = styled(FormGroups)`padding: 20px;`;
 
 export { Root, Icon, FormGroup, FormControlLabel, InputLabel, Input, FormControl, InputSearch };

@@ -14,8 +14,8 @@ const Root = styled.div`
 `;
 
 const GridList = styled(GridLists)`
-  width: 500px;
-  height: 450px;
+  width: auto;
+  height: 550px;
 
   ${Icon} {
     color: ${palette("primary", 2)};
