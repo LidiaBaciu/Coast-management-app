@@ -2,7 +2,11 @@ import React from 'react';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import Papersheet from '../../components/utility/papersheet';
 import Async from '../../helpers/asyncComponent';
-import { FullColumn } from '../../components/utility/rowColumn';
+import {
+  Row,
+  HalfColumn,
+  FullColumn,
+}  from '../../components/utility/rowColumn';
 import IntlMessages from '../../components/utility/intlMessages';
 import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
@@ -68,24 +72,30 @@ export default class SimpleSelect extends React.Component {
       user: { id: Number(userId) },
     };
 
-    axios({
-      method: 'post',
-      url: 'http://localhost:8080/api/problem/create',
-      data: jsonData,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenStr}`,
-        'Access-Control-Allow-Origin': '*',
-      },
-    })
-      .then(function(response) {
-        //handle success
-        console.log(response);
+    if(description.length === 0){
+      alert('Please send us a description');
+    }else{
+      axios({
+        method: 'post',
+        url: 'http://localhost:8080/api/problem/create',
+        data: jsonData,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tokenStr}`,
+          'Access-Control-Allow-Origin': '*',
+        },
       })
-      .catch(function(response) {
-        //handle error
-        console.log(response.response);
-      });
+        .then(function(response) {
+          //handle success
+          console.log(response);
+          alert('You have successfully reported the problem. Thank you!');
+        })
+        .catch(function(response) {
+          //handle error
+          console.log(response.response);
+          alert('Something went wrong. We are sorry, try again later!');
+        });
+    }
   };
 
   onChangeDescription = event =>
@@ -115,53 +125,61 @@ export default class SimpleSelect extends React.Component {
 
     return (
       <LayoutWrapper>
+        
         <FullColumn>
           <Papersheet title={<IntlMessages id="sidebar.reportProblem" />}>
             <p>We are sorry that you experienced something unpleasant. </p>
             <p>
               Please tell us in detail what has happened so we can solve it!
             </p>
-            <TextField
-              id="outlined-multiline-static"
-              label="Description"
-              multiline
-              fullWidth
-              rows={3}
-              variant="outlined"
-              onChange={this.onChangeDescription}
-            />
-            <Box>
-              <InputLabel htmlFor="age-simple">
-                Please select the beach you are at
-              </InputLabel>
-              <Select
-                value={this.state.name}
-                onChange={this.handleChange('name')}
-                input={<Input id="age-simple" />}
-                fullWidth
-              >
-                {beachesList}
-              </Select>
-            </Box>
-            <Box>
-              <LeafletMapWithMarkerCluster />
-            </Box>
-            <Box>
-              <InputLabel htmlFor="buoy">
-                Please select one of the following buoys id:
-              </InputLabel>
-              <Select
-                value={this.state.buoyId}
-                onChange={this.handleChange('buoyId')}
-                input={<Input id="buoy" />}
-                fullWidth
-              >
-                {buoysList}
-              </Select>
-            </Box>
-            <center>
-              <Button onClick={this.handleSend}>Send</Button>
-            </center>
+            
+            <Row>
+              <HalfColumn>
+                  <TextField
+                  id="outlined-multiline-static"
+                  label="Description"
+                  multiline
+                  fullWidth
+                  rows={3}
+                  variant="outlined"
+                  onChange={this.onChangeDescription}
+                />
+                <Box>
+                  <InputLabel htmlFor="age-simple">
+                    Please select the beach you are at
+                  </InputLabel>
+                  <Select
+                    value={this.state.name}
+                    onChange={this.handleChange('name')}
+                    input={<Input id="age-simple" />}
+                    fullWidth
+                  >
+                    {beachesList}
+                  </Select>
+                </Box>
+                <Box>
+                  <InputLabel htmlFor="buoy">
+                    Please select one of the following buoys id:
+                  </InputLabel>
+                  <Select
+                    value={this.state.buoyId}
+                    onChange={this.handleChange('buoyId')}
+                    input={<Input id="buoy" />}
+                    fullWidth
+                  >
+                    {buoysList}
+                  </Select>
+                </Box>
+                <center>
+                  <Button onClick={this.handleSend}>Send</Button>
+                </center>
+              </HalfColumn>
+              <HalfColumn>
+                <Box>
+                  <LeafletMapWithMarkerCluster />
+                </Box>
+              </HalfColumn>
+            </Row>
           </Papersheet>
         </FullColumn>
       </LayoutWrapper>

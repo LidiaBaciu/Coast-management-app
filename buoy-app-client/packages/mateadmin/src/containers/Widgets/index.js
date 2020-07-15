@@ -164,17 +164,9 @@ class Widget extends Component {
 		axios.get( 'http://localhost:8080/api/home/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
 			.then( response => {
         this.setState( {homeDetails : response.data});
-        const dataNew = [];
-        dataNew.unshift(this.state.homeDetails.newlyRegisteredUsers, this.state.homeDetails.totalRegisteredUsers);
-        dataGraph.datasets[0].data = dataNew;
-        const dataNewProblems = [];
-        dataNewProblems.unshift(this.state.homeDetails.newlyProblemsReported, this.state.homeDetails.totalProblemsReported);
-        dataProblems.datasets[0].data= dataNewProblems;
         polarData.datasets[0].data.push(this.state.homeDetails.totalProblemsReported, this.state.homeDetails.newlyProblemsReported, 
           this.state.homeDetails.problemsSolved, (this.state.homeDetails.totalProblemsReported-this.state.homeDetails.problemsSolved));
-        CircularWidgetData.value = this.state.homeDetails.numberOfSensorValuesToday;
-        CircularWidgetData.min = this.state.homeDetails.numberOfSensors*4; //each sensor sends minimum 4 entries a day
-        CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24; //each sensor sends maximum 24 entries a day
+       
       });
     axios.get( 'http://localhost:8080/api/home/statistics/yearly/temperature' )
     .then( response => {
@@ -197,6 +189,16 @@ class Widget extends Component {
     const height = 350;
     const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
     console.log(this.state);
+    CircularWidgetData.value = this.state.homeDetails.numberOfSensorValuesToday;
+    CircularWidgetData.min = this.state.homeDetails.numberOfSensors*4; //each sensor sends minimum 4 entries a day
+    CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24; //each sensor sends maximum 24 entries a 
+    let dataNew = [];
+    dataNew.unshift(this.state.homeDetails.newlyRegisteredUsers, this.state.homeDetails.totalRegisteredUsers);
+    dataGraph.datasets[0].data = dataNew;
+    let dataNewProblems = [];
+    dataNewProblems.unshift(this.state.homeDetails.newlyProblemsReported, this.state.homeDetails.totalProblemsReported);
+    dataProblems.datasets[0].data= dataNewProblems;
+       
     return (
       <LayoutWrapper>
         <Row>
