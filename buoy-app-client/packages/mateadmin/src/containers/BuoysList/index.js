@@ -10,6 +10,10 @@ import { Fab } from '../../components/uielements/button';
 import NestedList from './nestedList';
 import Async from '../../helpers/asyncComponent';
 import FormDialog from './formDialog';
+import SimplePanel from '../UiElements/ExpansionPanel/simplePanel';
+import SimpleBarChart from '../Charts/recharts/charts/simpleBarChart';
+import axios from 'axios';
+import Box from '../../components/utility/papersheet';
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
@@ -20,9 +24,22 @@ const LeafletMapWithMarkerCluster = props => (
 );
 
 
-
 class ListExamples extends Component {
+  state = {
+    homeDetails: [],
+  };
+
+  componentDidMount(){
+    let tokenStr = JSON.parse(localStorage.getItem('token'));
+		axios.get( 'http://localhost:8080/api/home/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
+			.then( response => {
+        this.setState( {homeDetails : response.data});
+      });
+  }
   render() {
+    const width = 350;
+    const height = 300;
+    const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
     let button = null;
     let role = JSON.parse(localStorage.getItem('role'));
     if(role === 'ROLE_ADMIN'){
@@ -35,16 +52,25 @@ class ListExamples extends Component {
             <Papersheet
               title="Buoys list"
             >
+              <Row>
+                <SimplePanel />
+              </Row>
                 <Row>
-                <HalfColumn>
-                    <Papersheet>
-                        <NestedList />
-                        {button}
-                    </Papersheet>
-                </HalfColumn>
-                <HalfColumn>
-                    <LeafletMapWithMarkerCluster/>
-                </HalfColumn>
+                  <HalfColumn>
+                      <Box>
+                          <NestedList />
+                          {button}
+                      </Box>
+                  </HalfColumn>
+                  <HalfColumn>
+                  <Box title="Buoys with problems" stretched>
+                  <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
+                </Box>
+                     
+                  </HalfColumn>
+                </Row>
+                <Row>
+                <LeafletMapWithMarkerCluster/>
                 </Row>
             </Papersheet>
           </FullColumn>

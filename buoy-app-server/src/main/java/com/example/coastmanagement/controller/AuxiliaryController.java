@@ -1,22 +1,15 @@
 package com.example.coastmanagement.controller;
 
-import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.*;
 import com.example.coastmanagement.payload.BeachSummary;
 import com.example.coastmanagement.payload.BuoySummary;
 import com.example.coastmanagement.payload.responses.*;
-import com.example.coastmanagement.repository.*;
 import com.example.coastmanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.DateFormatSymbols;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,6 +35,7 @@ public class AuxiliaryController {
 
     @GetMapping("/home")
     public AuxiliaryResponse getDetails() {
+        
         AuxiliaryResponse auxiliaryResponse = new AuxiliaryResponse();
 
         auxiliaryResponse.setTotalRegisteredUsers(userService.getAllUsers().size());

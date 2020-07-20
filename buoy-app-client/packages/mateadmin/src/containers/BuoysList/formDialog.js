@@ -106,7 +106,7 @@ class FormDialog extends React.Component {
               To add a new beach, please fill in the following fields:
             </DialogContentText>
             <FormControls>
-              <InputLabel htmlFor="age-simple">Age</InputLabel>
+              <InputLabel htmlFor="age-simple">Name of the administrator</InputLabel>
               <Select
                 value={this.state.userId}
                 onChange={this.handleChange('userId')}

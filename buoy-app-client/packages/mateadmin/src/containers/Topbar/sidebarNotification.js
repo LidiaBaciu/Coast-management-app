@@ -11,6 +11,7 @@ import TopbarMessage from './topbarMessage';
 import { SidebarContent, Icon, CloseButton } from './sidebarNotification.style';
 import themeActions from '../../redux/themeSwitcher/actions';
 import axios from 'axios';
+import invoiceActions from '../../redux/invoice/actions';
 
 const { switchActivation } = themeActions;
 
@@ -44,7 +45,6 @@ class TopbarNotification extends Component {
     visible: false,
     anchorEl: null,
     tabValue: 0,
-    problemsReported: [],
   };
   hide = () => {
     this.setState({ visible: false });
@@ -62,7 +62,7 @@ class TopbarNotification extends Component {
     >
       <div className="dropdownBody">
         <Scrollbars style={{ height: '100%' }}>
-          {this.state.problemsReported.slice(0,5).map(notification =>
+          {this.props.invoices.slice(0,5).map(notification =>
             !notification.solved ? (
               <a href={"/dashboard/invoice/" + notification.id}className="dropdownListItem" key={notification.id}>
                 <h5>{notification.username}</h5>
@@ -91,19 +91,6 @@ class TopbarNotification extends Component {
   handleChangeIndex = tabValue => {
     this.setState({ tabValue });
   };
-
-  componentDidMount() {
-    const role = this.props.auth.role;
-    if (role === 'ROLE_ADMIN') {
-      let webApiUrl = 'http://localhost:8080/api/problems';
-      axios
-        .get(webApiUrl, { headers: { Authorization: `Bearer ${this.props.auth.token}` } })
-        .then(res => {
-          var notifs = res.data;
-          this.setState({ problemsReported: notifs });
-        });
-    }
-  }
 
   render() {
     const { locale, url, switchActivation, height, auth } = this.props;
@@ -145,11 +132,32 @@ class TopbarNotification extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    ...state.App,
+    ...state.Invoices,
+    customizedTheme: state.ThemeSwitcher.topbarTheme,
+    height: state.App.height,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    switchActivation,
+    invoiceActions,
+  }
+)(TopbarNotification);
+
+
+/*
 export default connect(
   state => ({
     ...state.App,
+    ...state.Invoices,
     customizedTheme: state.ThemeSwitcher.topbarTheme,
     height: state.App.height,
   }),
   { switchActivation }
 )(TopbarNotification);
+*/

@@ -74,8 +74,8 @@ class BuoyItem extends React.Component {
             <Lists disablePadding>
                 {buoy.sensors.map(sensor => (
                     <ListItem key={sensor.id} button onClick={() => this.handleSensorClick( buoy.id )} style={{paddingLeft: '35px'}}>
-                    <ListItemText primary={sensor.name} />
-                    <FullScreenDialog sensor = {sensor} {...props}/>
+                      <ListItemText primary={sensor.name} />
+                      <FullScreenDialog sensor = {sensor} {...props}/>
                     </ListItem>
                 ))
                 }
