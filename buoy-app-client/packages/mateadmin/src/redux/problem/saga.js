@@ -1,5 +1,5 @@
 import { all, takeEvery, put, call} from 'redux-saga/effects';
-import { localDataName } from '../../containers/Invoice/config';
+import { localDataName } from '../../containers/Problems/config';
 import actions from './actions';
 import axios from 'axios';
 
@@ -19,24 +19,23 @@ export function* getInvoice() {
   const response = yield call(getProblemsReported);
   if (response) {
     yield put({
-      type: actions.UPDATE_INVOICE,
-      invoices: response.data
+      type: actions.UPDATE_PROBLEM,
+      problems: response.data
     });
   } 
 }
-export function* updateInvoiceSaga({ invoices, invoice }) {
-  yield localStorage.setItem(localDataName, JSON.stringify(invoices));
-  console.log("in updateInvoiceSaga " + JSON.stringify(invoice));
+export function* updateInvoiceSaga({ problems, problem }) {
+  yield localStorage.setItem(localDataName, JSON.stringify(problems));
 
   yield put({
-    type: actions.UPDATE_INVOICE,
-    invoices,
-    invoice
+    type: actions.UPDATE_PROBLEM,
+    problems,
+    problem
   });
 }
 export default function* rootSaga() {
   yield all([
-    yield takeEvery(actions.GET_INVOICE, getInvoice),
-    yield takeEvery(actions.UPDATE_INVOICE_SAGA, updateInvoiceSaga)
+    yield takeEvery(actions.GET_PROBLEM, getInvoice),
+    yield takeEvery(actions.UPDATE_PROBLEM_SAGA, updateInvoiceSaga)
   ]);
 }

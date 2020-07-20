@@ -11,7 +11,7 @@ import TopbarMessage from './topbarMessage';
 import { SidebarContent, Icon, CloseButton } from './sidebarNotification.style';
 import themeActions from '../../redux/themeSwitcher/actions';
 import axios from 'axios';
-import invoiceActions from '../../redux/invoice/actions';
+import invoiceActions from '../../redux/problem/actions';
 
 const { switchActivation } = themeActions;
 
@@ -62,9 +62,9 @@ class TopbarNotification extends Component {
     >
       <div className="dropdownBody">
         <Scrollbars style={{ height: '100%' }}>
-          {this.props.invoices.slice(0,5).map(notification =>
+          {this.props.problems.slice(0,5).map(notification =>
             !notification.solved ? (
-              <a href={"/dashboard/invoice/" + notification.id}className="dropdownListItem" key={notification.id}>
+              <a href={"/dashboard/problems/" + notification.id}className="dropdownListItem" key={notification.id}>
                 <h5>{notification.username}</h5>
                 <p>
                   Has reported a problem for the buoy with the id{' '}
@@ -80,7 +80,7 @@ class TopbarNotification extends Component {
         </Scrollbars>
       </div>
 
-      <a href="/dashboard/invoice" className="viewAllBtn">
+      <a href="/dashboard/problems" className="viewAllBtn">
         <IntlMessages id="topbar.viewAll" />
       </a>
     </SidebarContent>
@@ -135,7 +135,7 @@ class TopbarNotification extends Component {
 function mapStateToProps(state) {
   return {
     ...state.App,
-    ...state.Invoices,
+    ...state.Problems,
     customizedTheme: state.ThemeSwitcher.topbarTheme,
     height: state.App.height,
   };

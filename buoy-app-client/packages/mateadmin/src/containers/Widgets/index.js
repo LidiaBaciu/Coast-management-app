@@ -8,7 +8,6 @@ import {
   FullColumn,
   HalfColumn,
 } from '../../components/utility/rowColumn';
-import InstagramFeed from './InstagramFeed';
 import Contacts from '../Contact/contactBox';
 import Statistics from './Statistics';
 import Transaction from './Transactions';

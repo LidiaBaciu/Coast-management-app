@@ -12,7 +12,7 @@ import HelperText from '../../components/utility/helper-text';
 import Scrollbars from '../../components/utility/customScrollBar';
 import { Row, FullColumn } from '../../components/utility/rowColumn';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
-import invoiceActions from '../../redux/invoice/actions';
+import invoiceActions from '../../redux/problem/actions';
 import Button from '../../components/uielements/button';
 import CardWrapper, { Table } from './invoice.style';
 import { columns } from './config';
@@ -112,13 +112,13 @@ class Invoices extends Component {
   render() {
     //const { selected } = this.state;
     //const { match, deleteInvoice, classes, invoices } = this.props;
-    const { match, classes, invoices } = this.props;
+    const { match, classes, problems } = this.props;
     return (
       <LayoutWrapper>
         <Row>
           <FullColumn>
             <CardWrapper title="Problems reported">
-              {invoices.length === 0 ? (
+              {problems.length === 0 ? (
                 <HelperText text="No Invoices" />
               ) : (
                 <div className={classes.root}>
@@ -132,10 +132,10 @@ class Invoices extends Component {
                       <EnhancedTableHead
                         //numSelected={selected.length}
                         //onSelectAllClick={this.handleSelectAllClick}
-                        rowCount={invoices.length}
+                        rowCount={problems.length}
                       />
                       <TableBody>
-                        {invoices.map(invoice => {
+                        {problems.map(invoice => {
                           let backgroundColor = 'inherit';
 
                           if (invoice.solved) {
@@ -221,7 +221,7 @@ class Invoices extends Component {
 
 function mapStateToProps(state) {
   return {
-    ...state.Invoices,
+    ...state.Problems,
   };
 }
 const Connect = connect(

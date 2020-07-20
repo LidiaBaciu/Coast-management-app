@@ -63,7 +63,7 @@ class SingleInvoiceEdit extends Component {
 
   render() {
     const {
-      isNewInvoice,
+      isNewProblem,
       redirectPath,
       toggleView,
     } = this.props;
@@ -73,7 +73,7 @@ class SingleInvoiceEdit extends Component {
           <FullColumn>
             <InvoicePageWrapper className="InvoicePageWrapper">
               <div className="PageHeader">
-                {isNewInvoice ? (
+                {isNewProblem ? (
                   <Link to={redirectPath}>
                     <Button color="primary">
                       <PrintIcon>undo</PrintIcon>

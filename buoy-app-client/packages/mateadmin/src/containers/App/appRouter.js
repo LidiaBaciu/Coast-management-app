@@ -183,12 +183,12 @@ const routes = [
     component: lazy(() => import('../AdvancedModules/MaterialUIPicker')),
   },
   {
-    path: 'invoice/:invoiceId',
-    component: lazy(() => import('../Invoice/singleInvoice')),
+    path: 'problems/:problemId',
+    component: lazy(() => import('../Problems/singleInvoice')),
   },
   {
-    path: 'invoice',
-    component: lazy(() => import('../Invoice')),
+    path: 'problems',
+    component: lazy(() => import('../Problems')),
   },
   {
     path: 'react-color',

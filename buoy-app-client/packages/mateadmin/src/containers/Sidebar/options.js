@@ -3,7 +3,7 @@ import { getDefaultPath } from '../../helpers/urlSync';
 const options = [
   {
     label: 'sidebar.problemsReported',
-    key: 'invoice',
+    key: 'problems',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
   },
