@@ -20,11 +20,34 @@ const options = [
     hideBreadCrumb: true,
   },
   {
+    label: 'sidebar.buoysList',
+    key: 'buoys-list',
+    leftIcon: 'select_all',
+    hideBreadCrumb: true,
+  },
+  {
     label: 'sidebar.fishes',
     key: 'fishes',
     leftIcon: 'select_all',
     hideBreadCrumb: true,
   },
+  {
+    label: 'sidebar.map',
+    key: 'beachesmap',
+    isNavTab: true,
+    leftIcon: 'map',
+    children: [
+        {
+          label: 'sidebar.beachesmap',
+          key: 'beachesmap',
+          default: true,
+        },
+        {
+          label: 'sidebar.buoysmap',
+          key: 'buoysmap',
+        },
+      ],
+    },
   /*
   {
     label: 'sidebar.map',

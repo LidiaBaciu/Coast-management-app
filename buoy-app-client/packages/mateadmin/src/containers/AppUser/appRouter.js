@@ -14,6 +14,10 @@ const routes = [
     component: lazy(() => import('../BeachesList/beachDetails')),
   },
   {
+    path: 'buoys-list',
+    component: lazy(() => import('../BuoysList')),
+  },
+  {
     path: 'fishes',
     component: lazy(() => import('../Fishes')),
   },
@@ -114,12 +118,12 @@ const routes = [
     component: lazy(() => import('../Tables/MaterialUiTables')),
   },
   {
-    path: 'googlemap',
-    component: lazy(() => import('../Map/Google')),
+    path: 'beachesmap',
+    component: lazy(() => import('../Map/Beach')),
   },
   {
-    path: 'leafletmap',
-    component: lazy(() => import('../Map/Leaflet')),
+    path: 'buoysmap',
+    component: lazy(() => import('../Map/Buoy')),
   },
   {
     path: 'google-chart',

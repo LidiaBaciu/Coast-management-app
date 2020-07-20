@@ -31,6 +31,7 @@ const options = [
     leftIcon: 'select_all',
     hideBreadCrumb: true,
   },
+  /*
   {
     label: 'sidebar.map',
     key: 'googlemap',
@@ -48,7 +49,24 @@ const options = [
       },
     ],
   },
-
+*/
+{
+  label: 'sidebar.map',
+  key: 'beachesmap',
+  isNavTab: true,
+  leftIcon: 'map',
+  children: [
+      {
+        label: 'sidebar.beachesmap',
+        key: 'beachesmap',
+        default: true,
+      },
+      {
+        label: 'sidebar.buoysmap',
+        key: 'buoysmap',
+      },
+    ],
+  },
   {
     label: 'sidebar.contact',
     key: 'contact',

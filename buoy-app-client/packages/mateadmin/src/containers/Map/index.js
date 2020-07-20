@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import LayoutWrapper from '../../components/utility/layoutWrapper';
 import { Row, FullColumn } from '../../components/utility/rowColumn';
 import Papersheet from '../../components/utility/papersheet';
-import GoogleMap from './Google/';
-import LeafletMap from './leaflet/';
+import BeachesMap from './Beach';
+import BuoysMap from './Buoy';
 
 const NavContainer = props => {
   return (
@@ -20,18 +20,18 @@ export default class index extends Component {
           <Row>
             <FullColumn>
               <NavLink
-                to="googlemap"
-                className={url !== '/dashboard/leafletmap' ? 'active' : ''}
+                to="beachesmap"
+                className={url !== '/dashboard/buoysmap' ? 'active' : ''}
                 style={{ display: 'block' }}
               >
-                Google Map
+                Beach Map
               </NavLink>
               <NavLink
-                to="leafletmap"
-                className={url === '/dashboard/leafletmap' ? 'active' : ''}
+                to="buoysmap"
+                className={url === '/dashboard/buoysmap' ? 'active' : ''}
                 style={{ display: 'block' }}
               >
-                Leaflet Map
+                Buoy Map
               </NavLink>
             </FullColumn>
           </Row>
@@ -40,7 +40,7 @@ export default class index extends Component {
         <NavContainer>
           <Row>
             <FullColumn>
-              {url !== '/dashboard/leafletmap' ? <GoogleMap /> : <LeafletMap />}
+              {url !== '/dashboard/beachesmap' ? <BeachesMap /> : <BuoysMap />}
             </FullColumn>
           </Row>
         </NavContainer>
