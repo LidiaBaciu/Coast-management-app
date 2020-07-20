@@ -1,5 +1,4 @@
 import { getDefaultPath } from '../../helpers/urlSync';
-import getDevSidebar from '../../customApp/sidebar';
 
 const options = [
   {
@@ -45,7 +44,6 @@ const options = [
     ],
   },
   */
- // ...getDevSidebar,
 ];
 const getBreadcrumbOption = () => {
   const preKeys = getDefaultPath();

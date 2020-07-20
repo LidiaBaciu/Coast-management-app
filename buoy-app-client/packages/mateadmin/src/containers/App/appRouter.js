@@ -1,6 +1,5 @@
 import React, { Component, lazy, Suspense } from 'react';
 import Route from '../../components/utility/customRoute';
-import customRoutes from '../../customApp/router';
 import Loader from '../../components/utility/Loader/';
 const routes = [
   {
@@ -46,14 +45,6 @@ const routes = [
   {
     path: 'input',
     component: lazy(() => import('../UiElements/Input')),
-  },
-  {
-    path: 'calendar',
-    component: lazy(() => import('../Calendar')),
-  },
-  {
-    path: 'shuffle',
-    component: lazy(() => import('../Shuffle')),
   },
   {
     path: 'popover',
@@ -116,10 +107,6 @@ const routes = [
     component: lazy(() => import('../AdvancedModules/Dropzone')),
   },
   {
-    path: 'code-mirror',
-    component: lazy(() => import('../AdvancedModules/CodeMirror')),
-  },
-  {
     path: 'material-ui-tables',
     component: lazy(() => import('../Tables/MaterialUiTables')),
   },
@@ -138,10 +125,6 @@ const routes = [
   {
     path: 'rechart',
     component: lazy(() => import('../Charts/recharts/')),
-  },
-  {
-    path: 'notes',
-    component: lazy(() => import('../Notes/index')),
   },
   {
     path: 'react-trend',
@@ -227,12 +210,6 @@ const routes = [
     path: 'box',
     component: lazy(() => import('../Box')),
   },
-  {
-    path: 'scrum-board',
-    component: lazy(() => import('../ScrumBoard')),
-    exact: false,
-  },
-  ...customRoutes,
 ];
 
 class AppRouter extends Component {
