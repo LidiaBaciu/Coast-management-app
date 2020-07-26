@@ -7,24 +7,25 @@ import ExpansionPanel, {
   ExpansionPanelDetails,
 } from '../../../components/uielements/expansionPanel';
 import BuoyImage from '../../../images/buoy.jpg'
+import IntlMessages from '../../../components/utility/intlMessages';
 
 function SimpleExpansionPanel() {
   return (
     <div style={{ width: '100%' }}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
-          <Typography>What is a buoy</Typography>
+          <Typography>{<IntlMessages id="simplePanel.whatIsABuoy" />}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            A buoy is a floating device that can have many purposes. It can be anchored or allowed to drift with ocean currents. They can be of multiple types, of which:
+          {<IntlMessages id="simplePanel.buoyDefinition" />}
             <ul>
-              <li>Navigational</li>
-              <li>Marker: are often used to mark the position of an underwater object. They may be temporary or permanent.</li>
-              <li>Diving: for example, taken on dives by scuba divers to mark their position underwater</li>
-              <li>Rescue: used as a life saving buoy designed to be thrown to a person in the water to provide buoyancy. Usually has a connecting line allowing the casualty to be pulled to the rescuer</li>
-              <li><b>Research</b></li>
-              <li>Military</li>
+              <li>{<IntlMessages id="buoy.navigational" />}</li>
+              <li>{<IntlMessages id="buoy.marker" />}</li>
+              <li>{<IntlMessages id="buoy.diving" />}</li>
+              <li>{<IntlMessages id="buoy.rescued" />}</li>
+              <li><b>{<IntlMessages id="buoy.research" />}</b></li>
+              <li>{<IntlMessages id="buoy.military" />}</li>
             </ul>
           </Typography>
           <center><img src={BuoyImage}/></center>
@@ -32,23 +33,21 @@ function SimpleExpansionPanel() {
       </ExpansionPanel>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
-          <Typography>How we decided to use them</Typography>
+          <Typography>{<IntlMessages id="simplePanel.usage" />}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-          We have though about using a buoy as emmiters to find out more details about the quality of the water near the beaches 
-            or where fisher men usually spend their time.
+          {<IntlMessages id="usage.description" />}
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
-          <Typography>How they work</Typography>
+          <Typography>{<IntlMessages id="simplePanel.functionality" />}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-          We equiped each buoy with some sensors (e.g.: temperature, pH, conductivity, speed) and GPS emmiter. Once per hour they send their sensors value to our database and 
-          we share the data with you, hoping to be helpful.
+          {<IntlMessages id="functionality.description" />}
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>

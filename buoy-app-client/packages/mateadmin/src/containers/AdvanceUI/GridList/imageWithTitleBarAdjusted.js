@@ -8,13 +8,14 @@ import ListSubheaders from "../../../components/uielements/lists";
 import IconButton from "../../../components/uielements/iconbutton";
 import { Container, GridList, Icon } from "./grid.style";
 import tileData from "./config";
+import IntlMessages from '../../../components/utility/intlMessages';
 
 function TitlebarGridList(props) {
   return (
     <Container>
       <GridList cellHeight={250}>
         <GridListTile key="ListSubheaders" cols={2} style={{ height: "auto" }}>
-          <ListSubheaders component="div">Some photos taken by our admins</ListSubheaders>
+          <ListSubheaders component="div">{<IntlMessages id="beaches.titleGridPhotos" />}</ListSubheaders>
         </GridListTile>
         {tileData.map(tile => (
           <GridListTile key={tile.img}>

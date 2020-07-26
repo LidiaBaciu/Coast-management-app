@@ -10,6 +10,7 @@ import {
 import InteractiveList from './interactiveList';
 import Async from '../../helpers/asyncComponent';
 import ImageWithTitleBar from '../AdvanceUI/GridList/imageWithTitleBarAdjusted';
+import IntlMessages from '../../components/utility/intlMessages';
 
 const styles = theme => ({
   root: {
@@ -50,7 +51,7 @@ class ListExamples extends Component {
       <LayoutWrapper>
         <Row>
           <FullColumn>
-            <Papersheet title="Beaches list">
+            <Papersheet title={<IntlMessages id="sidebar.beachesList" />}>
               <Row>
                 <HalfColumn>
                   <Papersheet

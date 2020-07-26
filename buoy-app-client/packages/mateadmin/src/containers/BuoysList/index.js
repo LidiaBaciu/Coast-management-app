@@ -6,7 +6,7 @@ import {
   HalfColumn,
   FullColumn,
 } from '../../components/utility/rowColumn';
-import { Fab } from '../../components/uielements/button';
+import IntlMessages from '../../components/utility/intlMessages';
 import NestedList from './nestedList';
 import Async from '../../helpers/asyncComponent';
 import FormDialog from './formDialog';
@@ -49,32 +49,28 @@ class ListExamples extends Component {
       <LayoutWrapper>
         <Row>
           <FullColumn>
-            <Papersheet
-              title="Buoys list"
-            >
+            <Papersheet title={<IntlMessages id="sidebar.buoysList" />} >
               <Row>
                 <SimplePanel />
               </Row>
-                <Row>
-                  <HalfColumn>
-                      <Box>
-                          <NestedList />
-                          {button}
-                      </Box>
-                  </HalfColumn>
-                  <HalfColumn>
-                  <Box title="Buoys with problems" stretched>
-                  <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
-                </Box>
-                     
-                  </HalfColumn>
-                </Row>
-                <Row>
+              <Row>
+                <HalfColumn>
+                  <Box>
+                    <NestedList />
+                    {button}
+                  </Box>
+                </HalfColumn>
+                <HalfColumn>
+                  <Box title={<IntlMessages id="home.buoysProblems" />} stretched>
+                    <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
+                  </Box> 
+                </HalfColumn>
+              </Row>
+              <Row>
                 <LeafletMapWithMarkerCluster/>
-                </Row>
+              </Row>
             </Papersheet>
           </FullColumn>
-          
         </Row>
       </LayoutWrapper>
     );

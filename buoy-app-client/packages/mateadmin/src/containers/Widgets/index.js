@@ -24,6 +24,7 @@ import axios from 'axios';
 import SiteAdminImage from '../../images/avatars/lidia.jpg'
 import SiteAdminImage2 from '../../images/avatars/lidia2.jpg'
 import SiteAdminImage3 from '../../images/avatars/organization.jpg'
+import IntlMessages from '../../components/utility/intlMessages';
 
 const LeafletMapWithMarkerCluster = props => (
   <Async
@@ -203,7 +204,7 @@ class Widget extends Component {
         <Row>
           <OneThirdColumn>
               <SalesProgress
-                  title="Buoys installed"
+                  title={<IntlMessages id="home.buoysInstalled" />}
                   amount={this.state.homeDetails.numberOfBuoys}
                   progress="49"
                   color="#533B4D"
@@ -212,7 +213,7 @@ class Widget extends Component {
           </OneThirdColumn>
           <OneThirdColumn>
               <SalesProgress
-                  title="Beaches monitorized"
+                  title={<IntlMessages id="home.beachesMonitorized" />}
                   amount={this.state.homeDetails.numberOfBeaches}
                   progress="15"
                   color="#C1ABA6"
@@ -221,7 +222,7 @@ class Widget extends Component {
           </OneThirdColumn>
           <OneThirdColumn>
               <SalesProgress
-                  title="Seas coverage"
+                  title={<IntlMessages id="home.seasCoverage" />}
                   amount="4"
                   progress="25"
                   color="#388697"
@@ -231,48 +232,48 @@ class Widget extends Component {
         </Row>
         <Row>
           <HalfColumn>
-            <Box title="Temperature this year">
+            <Box title={<IntlMessages id="home.temperatureCurrentYear" />}>
               <Line data={data}/>
             </Box>
           </HalfColumn>
           <HalfColumn>
-            <Box title="pH this year">
+            <Box title={<IntlMessages id="home.phCurrentYear" />}>
               <Line data={dataPH}/>
             </Box>
           </HalfColumn>
         </Row>
         <Row>
           <HalfColumn>
-            <SalesStats title="User registered statistics" stretched data={dataGraph}/>
+            <SalesStats title={<IntlMessages id="home.usersRegistered" />} stretched data={dataGraph}/>
           </HalfColumn>
 
           <HalfColumn>
-            <SalesStats title="Problems Reported statistics" stretched data={dataProblems}/>
+            <SalesStats title={<IntlMessages id="home.problemsReported" />} stretched data={dataProblems}/>
           </HalfColumn>
 
         </Row>
         <Row>
           <HalfColumn>
-            <Box title="Problems reported statistics">
+            <Box title={<IntlMessages id="home.polarProblemsReported" />}>
               <Polar data={polarData}/>
             </Box>
           </HalfColumn>
         </Row>
         <Row>
           <FullColumn>
-            <TableWidget title="Which coasts are watched by us" />
+            <TableWidget title={<IntlMessages id="home.coasts" />}/>
           </FullColumn>
         </Row>
         <Row>
           <HalfColumn>
            {/*<GoogleChart {...configs.BarChart} chartEvents={chartEvents} />*/}
-           <Box title="Buoys with problems" stretched>
+           <Box title={<IntlMessages id="home.buoysProblems" />} stretched>
               <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
             </Box>
           </HalfColumn>
           <HalfColumn>
            {/*<GoogleChart {...configs.lineChart} />*/}
-           <Box title="Statistics" >
+           <Box title={<IntlMessages id="home.todaysStatistics" />} >
              <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.homeDetails.statisticsResponse} />
             </Box>
            
@@ -378,15 +379,15 @@ class Widget extends Component {
         </Row>
         <Row>
           <TwoThirdColumn>
-            <Box title="About us">
-                <p>Hello and welcome back!</p>
-                <p>We are an organization that takes care of your health and confort when it comes to swimming and fishing.</p>
+            <Box title={<IntlMessages id="home.aboutUs" />}>
+                <p>{<IntlMessages id="home.aboutUsWelcome" />}</p>
+                <p>{<IntlMessages id="home.aboutUsIntro" />}</p>
                 <center><img src={SiteAdminImage2}/>
                 <img src={SiteAdminImage3}/></center>
             </Box>
           </TwoThirdColumn>
           <OneThirdColumn sm={6} md={6}>
-            <CircularWidget title="Activity" stretched config={CircularWidgetData}/>
+            <CircularWidget title={<IntlMessages id="home.activity" />} stretched config={CircularWidgetData}/>
           </OneThirdColumn>
         </Row>
         {/*

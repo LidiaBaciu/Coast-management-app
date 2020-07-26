@@ -16,6 +16,7 @@ import invoiceActions from '../../redux/problem/actions';
 import Button from '../../components/uielements/button';
 import CardWrapper, { Table } from './invoice.style';
 import { columns } from './config';
+import IntlMessages from '../../components/utility/intlMessages';
 
 const styles = theme => ({
   root: {
@@ -117,7 +118,7 @@ class Invoices extends Component {
       <LayoutWrapper>
         <Row>
           <FullColumn>
-            <CardWrapper title="Problems reported">
+            <CardWrapper title={<IntlMessages id="problems.problemsReported" />}>
               {problems.length === 0 ? (
                 <HelperText text="No Invoices" />
               ) : (
