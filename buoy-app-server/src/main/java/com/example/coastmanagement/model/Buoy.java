@@ -65,6 +65,17 @@ public class Buoy {
         return sensors;
     }
 
+    public Set<Sensor> getSensorsBasedOnBuoy(Long id){
+        Set<Sensor> sensorSet = new HashSet<>();
+        for(Sensor sensor: sensors){
+            Sensor copySensor = new Sensor();
+            copySensor.setId(sensor.getId());
+            copySensor.setName(sensor.getName());
+            copySensor.setSensorValues(sensor.getSensorValuesFromBuoy(id));
+            sensorSet.add(copySensor);
+        }
+        return sensorSet;
+    }
     public void setSensors(Set<Sensor> sensors) {
         this.sensors = sensors;
     }

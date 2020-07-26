@@ -120,7 +120,7 @@ class Invoices extends Component {
           <FullColumn>
             <CardWrapper title={<IntlMessages id="problems.problemsReported" />}>
               {problems.length === 0 ? (
-                <HelperText text="No Invoices" />
+                <HelperText text="No problems reported" />
               ) : (
                 <div className={classes.root}>
                   {/*<EnhancedTableToolbar

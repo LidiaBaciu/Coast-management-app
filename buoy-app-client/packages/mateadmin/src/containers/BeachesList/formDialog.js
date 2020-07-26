@@ -15,6 +15,7 @@ class FormDialog extends React.Component {
     latitude: 0,
     longitude: 0,
     photoURI: '',
+    city: '',
     open: false,
   };
 
@@ -24,12 +25,13 @@ class FormDialog extends React.Component {
 
   handleRequestClose = () => {
     this.setState({ open: false });
-    const {name, latitude, longitude, photoURI} = this.state;
+    const {name, latitude, longitude, photoURI, city} = this.state;
     const request = {
       name: name,
       latitude : Number(latitude),
       longitude : Number(longitude),
-      photoUri : photoURI
+      photoUri : photoURI,
+      cityName: city,
     }
     const { addedElement } = this.props;
     addedElement(request);
@@ -52,6 +54,15 @@ class FormDialog extends React.Component {
               margin="dense"
               id="name"
               label="Name"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              value={this.state.city} 
+              onChange={( event ) => this.setState( { city: event.target.value } )}
+              margin="dense"
+              id="city"
+              label="City"
               type="text"
               fullWidth
             />

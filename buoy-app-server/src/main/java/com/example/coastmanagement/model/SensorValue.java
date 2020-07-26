@@ -13,6 +13,10 @@ public class SensorValue {
     @NotBlank
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "buoy_id", nullable = false)
+    private Buoy buoy;
+
     @NotBlank
     private float value;
 
@@ -51,6 +55,14 @@ public class SensorValue {
 
     public void setEntryId(Long entryId) {
         this.entryId = entryId;
+    }
+
+    public Long getBuoy() {
+        return buoy.getId();
+    }
+
+    public void setBuoy(Buoy buoy) {
+        this.buoy = buoy;
     }
 
     @Override

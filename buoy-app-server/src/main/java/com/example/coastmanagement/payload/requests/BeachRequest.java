@@ -5,6 +5,7 @@ public class BeachRequest {
     private float longitude;
     private float latitude;
     private String photoUri;
+    private String cityName;
 
     public String getName() {
         return name;
@@ -36,5 +37,13 @@ public class BeachRequest {
 
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 }

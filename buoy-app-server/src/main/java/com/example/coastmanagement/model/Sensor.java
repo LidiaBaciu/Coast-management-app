@@ -2,6 +2,7 @@ package com.example.coastmanagement.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -46,5 +47,15 @@ public class Sensor {
 
     public void setSensorValues(Set<SensorValue> sensorValues) {
         this.sensorValues = sensorValues;
+    }
+
+    public Set<SensorValue> getSensorValuesFromBuoy(Long id){
+        Set<SensorValue> sensorValueSet = new HashSet<>();
+        for(SensorValue sensorValue : sensorValues){
+            if(sensorValue.getBuoy() == id){
+                sensorValueSet.add(sensorValue);
+            }
+        }
+        return sensorValueSet;
     }
 }

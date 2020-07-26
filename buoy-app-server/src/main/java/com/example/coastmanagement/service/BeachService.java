@@ -5,16 +5,13 @@ import com.example.coastmanagement.model.Beach;
 import com.example.coastmanagement.model.Buoy;
 import com.example.coastmanagement.model.Sensor;
 import com.example.coastmanagement.model.SensorValue;
+import com.example.coastmanagement.payload.BuoySummary;
 import com.example.coastmanagement.repository.BeachRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class BeachService {
@@ -80,5 +77,20 @@ public class BeachService {
             }
         }
         return stats;
+    }
+
+    public Set<BuoySummary> getBuoysSummariesFromBeach(long beachId){
+        Beach beach = beachRepository.findById(beachId)
+                .orElseThrow(() -> new ResourceNotFoundException("Beach", "id", beachId));
+        Set<Buoy> buoys = beach.getBuoys();
+        Set<BuoySummary> buoySummarySet = new HashSet<>();
+
+        for (Buoy buoy: buoys) {
+            Set<Sensor> buoySensors = new HashSet<>();
+
+            BuoySummary buoySummary = new BuoySummary(buoy.getId(), buoy.getLongitude(), buoy.getLatitude(), buoy.getSensorsBasedOnBuoy(buoy.getId()));
+            buoySummarySet.add(buoySummary);
+        }
+       return buoySummarySet;
     }
 }

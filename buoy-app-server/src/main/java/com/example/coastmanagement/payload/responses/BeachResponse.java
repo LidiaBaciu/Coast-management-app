@@ -3,6 +3,7 @@ package com.example.coastmanagement.payload.responses;
 import com.example.coastmanagement.model.Beach;
 import com.example.coastmanagement.model.Buoy;
 import com.example.coastmanagement.model.User;
+import com.example.coastmanagement.payload.BuoySummary;
 
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public class BeachResponse {
     private float latitude;
     private float longitude;
     private String photoUri;
-    private Set<Buoy> buoys;
+    private Set<BuoySummary> buoys;
     private float todaysAvgTemperature;
     private float yesterdaysAvgTemperature;
     private float todaysAvgpH;
@@ -90,11 +91,11 @@ public class BeachResponse {
         this.yesterdaysAvgpH = yesterdaysAvgpH;
     }
 
-    public Set<Buoy> getBuoys() {
+    public Set<BuoySummary> getBuoys() {
         return buoys;
     }
 
-    public void setBuoys(Set<Buoy> buoys) {
+    public void setBuoys(Set<BuoySummary> buoys) {
         this.buoys = buoys;
     }
 }

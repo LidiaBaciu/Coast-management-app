@@ -70,7 +70,7 @@ public class BeachController {
             response.setName(beach.getName());
             response.setLatitude(beach.getLatitude());
             response.setLongitude(beach.getLongitude());
-            response.setBuoys(beach.getBuoys());
+            response.setBuoys(beachService.getBuoysSummariesFromBeach(beach.getId()));
             response.setPhotoUri(beach.getPhotoUri());
             if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
                 response.setTodaysAvgTemperature(beachService.getTodaysAvgStatistics(beach.getId()).get("temperature"));
@@ -118,6 +118,7 @@ public class BeachController {
         beach.setLatitude(beachRequest.getLatitude());
         beach.setLongitude(beachRequest.getLongitude());
         beach.setPhotoUri(beachRequest.getPhotoUri());
+        beach.setCityName(beachRequest.getCityName());
         return beachRepository.save(beach);
     }
 
