@@ -14,8 +14,6 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(PollService.class);
-
     public List<Project> getAllProject() {
         return projectRepository.findAll();
     }

@@ -11,19 +11,15 @@ public class UserProfile {
     private String username;
     private String name;
     private Instant joinedAt;
-    private Long pollCount;
-    private Long voteCount;
     private RoleName role;
     private List<Buoy> buoys;
 
     public UserProfile(Long id, String username, String name, Instant joinedAt,
-                       Long pollCount, Long voteCount, RoleName role, List<Buoy> buoys) {
+                       RoleName role, List<Buoy> buoys) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.joinedAt = joinedAt;
-        this.pollCount = pollCount;
-        this.voteCount = voteCount;
         this.role = role;
         this.buoys = buoys;
     }
@@ -58,22 +54,6 @@ public class UserProfile {
 
     public void setJoinedAt(Instant joinedAt) {
         this.joinedAt = joinedAt;
-    }
-
-    public Long getPollCount() {
-        return pollCount;
-    }
-
-    public void setPollCount(Long pollCount) {
-        this.pollCount = pollCount;
-    }
-
-    public Long getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(Long voteCount) {
-        this.voteCount = voteCount;
     }
 
     public RoleName getRole() { return role; }

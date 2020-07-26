@@ -31,6 +31,7 @@ public class Beach {
     private float longitude;
 
     private String photoUri;
+    private String cityName;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -87,4 +88,11 @@ public class Beach {
         this.buoys = buoys;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 }

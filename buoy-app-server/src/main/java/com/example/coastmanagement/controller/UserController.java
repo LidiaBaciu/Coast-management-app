@@ -5,12 +5,8 @@ import com.example.coastmanagement.model.RoleName;
 import com.example.coastmanagement.model.User;
 import com.example.coastmanagement.payload.*;
 import com.example.coastmanagement.payload.responses.PagedResponse;
-import com.example.coastmanagement.payload.responses.PollResponse;
-import com.example.coastmanagement.repository.PollRepository;
 import com.example.coastmanagement.repository.UserRepository;
-import com.example.coastmanagement.repository.VoteRepository;
 import com.example.coastmanagement.security.UserPrincipal;
-import com.example.coastmanagement.service.PollService;
 import com.example.coastmanagement.security.CurrentUser;
 import com.example.coastmanagement.service.UserService;
 import com.example.coastmanagement.util.AppConstants;
@@ -33,15 +29,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PollRepository pollRepository;
-
-    @Autowired
-    private VoteRepository voteRepository;
-
-    @Autowired
-    private PollService pollService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -86,29 +73,10 @@ public class UserController {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
-        long pollCount = pollRepository.countByCreatedBy(user.getId());
-        long voteCount = voteRepository.countByUserId(user.getId());
         RoleName role = user.getRoles().stream().findFirst().get().getName();
-        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(), pollCount, voteCount, role, user.getBuoys());
+        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(), role, user.getBuoys());
 
         return userProfile;
-    }
-
-    @GetMapping("/users/{username}/polls")
-    public PagedResponse<PollResponse> getPollsCreatedBy(@PathVariable(value = "username") String username,
-                                                         @CurrentUser UserPrincipal currentUser,
-                                                         @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-                                                         @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return pollService.getPollsCreatedBy(username, currentUser, page, size);
-    }
-
-
-    @GetMapping("/users/{username}/votes")
-    public PagedResponse<PollResponse> getPollsVotedBy(@PathVariable(value = "username") String username,
-                                                       @CurrentUser UserPrincipal currentUser,
-                                                       @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-                                                       @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return pollService.getPollsVotedBy(username, currentUser, page, size);
     }
 
 }

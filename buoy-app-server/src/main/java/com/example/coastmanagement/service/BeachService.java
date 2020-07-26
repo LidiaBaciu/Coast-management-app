@@ -22,8 +22,6 @@ public class BeachService {
     @Autowired
     private BeachRepository beachRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(PollService.class);
-
     public List<Beach> getAllBeaches(){
         return beachRepository.findAll();
     }

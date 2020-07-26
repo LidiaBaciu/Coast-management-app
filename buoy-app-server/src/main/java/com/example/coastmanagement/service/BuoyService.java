@@ -14,8 +14,6 @@ public class BuoyService {
     @Autowired
     private BuoyRepository buoyRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(PollService.class);
-
     public List<Buoy> getAllBuoys() {
         return buoyRepository.findAll();
     }
