@@ -73,12 +73,13 @@ const options = [
     leftIcon: 'contacts',
     hideBreadCrumb: true,
   },
+  /*
   {
     label: 'sidebar.box',
     key: 'box',
     leftIcon: 'dashboard',
   },
-  /*
+  
   {
     label: 'sidebar.calendar',
     key: 'calendar',
@@ -99,7 +100,7 @@ const options = [
     leftIcon: 'shuffle',
     hideBreadCrumb: true,
   },
-  */
+  
   {
     label: 'sidebar.chart',
     leftIcon: 'pie_chart',
@@ -127,6 +128,7 @@ const options = [
       },
     ],
   },
+  */
   {
     label: 'sidebar.uiElements',
     key: 'uiElements',
@@ -286,7 +288,7 @@ const options = [
     key: 'notes',
     leftIcon: 'note',
   },
-*/
+
   {
     label: 'sidebar.pages',
     leftIcon: 'public',
@@ -324,6 +326,7 @@ const options = [
       },
     ],
   },
+  */
 ];
 const getBreadcrumbOption = () => {
   const preKeys = getDefaultPath();

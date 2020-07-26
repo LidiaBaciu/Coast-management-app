@@ -26,16 +26,19 @@ public class SensorService {
         return sensorRepository.findAll();
     }
 
-    public List<SensorValue> getTodaysSensors(){
+    public List<SensorValue> getTodaysSensors(boolean all, boolean temperature){
+        String type = (temperature) ? "temperature" : "ph";
         List<SensorValue> todaysSensors = new ArrayList<>();
         for(Sensor sensor: sensorRepository.findAll()){
-            for(SensorValue sensorValue : sensor.getSensorValues()){
-                String sensorDate = sensorValue.getTimestamp();
-                String dateNow = LocalDate.now().toString();
-                System.out.println("sensorDate: " + sensorDate);
-                System.out.println("dateNow: " + dateNow);
-                if(sensorDate.contains(dateNow)){
-                    todaysSensors.add(sensorValue);
+            if(all || sensor.getName().equalsIgnoreCase(type)) {
+                for (SensorValue sensorValue : sensor.getSensorValues()) {
+                    String sensorDate = sensorValue.getTimestamp();
+                    String dateNow = LocalDate.now().toString();
+                    System.out.println("sensorDate: " + sensorDate);
+                    System.out.println("dateNow: " + dateNow);
+                    if (sensorDate.contains(dateNow)) {
+                        todaysSensors.add(sensorValue);
+                    }
                 }
             }
         }
@@ -80,6 +83,30 @@ public class SensorService {
         return thisYearsSensors;
     }
 
+    public List<StatisticsResponse> getTodaysStatistics(){
+        HashMap<String, Float> temperatureStatistics = new HashMap<>();
+        HashMap<String, Float> phStatistics = new HashMap<>();
+
+        for(SensorValue value : getTodaysSensors(false, true)) {
+            String before = value.getTimestamp().split(" ")[1]; // "Before"
+            if (temperatureStatistics.containsKey(before)) {
+                temperatureStatistics.put(before, (temperatureStatistics.get(before) + value.getValue()) / 2);
+            } else {
+                temperatureStatistics.put(before, value.getValue());
+            }
+        }
+
+        for(SensorValue value : getTodaysSensors(false, false)) {
+            String before = value.getTimestamp().split(" ")[1]; // "Before"
+            if (phStatistics.containsKey(before)) {
+                phStatistics.put(before, (phStatistics.get(before) + value.getValue()) / 2);
+            } else {
+                phStatistics.put(before, value.getValue());
+            }
+        }
+
+        return retrieveStatistics(temperatureStatistics, phStatistics);
+    }
     public List<StatisticsResponse> getAverageThisYear(){
         HashMap<String, Float> temperatureStatistics = new HashMap<>();
         HashMap<String, Float> phStatistics = new HashMap<>();

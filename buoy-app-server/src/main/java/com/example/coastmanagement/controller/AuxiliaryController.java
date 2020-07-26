@@ -46,9 +46,9 @@ public class AuxiliaryController {
         auxiliaryResponse.setNumberOfBeaches(beachService.getAllBeaches().size());
         auxiliaryResponse.setNumberOfBuoys(buoyService.getAllBuoys().size());
         auxiliaryResponse.setNumberOfSensors(sensorService.getAllSensors().size());
-        auxiliaryResponse.setNumberOfSensorValuesToday(sensorService.getTodaysSensors().size());
+        auxiliaryResponse.setNumberOfSensorValuesToday(sensorService.getTodaysSensors(true, false).size());
         auxiliaryResponse.setTopBuoysResponse(problemsReportedService.getNumberOfProblemsPerBuoy());
-        auxiliaryResponse.setStatisticsResponse(sensorService.getAverageThisYear());
+        auxiliaryResponse.setStatisticsResponse(sensorService.getTodaysStatistics());
 
         return auxiliaryResponse;
     }

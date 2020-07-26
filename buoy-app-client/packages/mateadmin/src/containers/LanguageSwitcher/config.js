@@ -1,7 +1,6 @@
 import { language } from '../../settings';
 
 import englishLang from '../../images/flag/uk.svg';
-import chineseLang from '../../images/flag/china.svg';
 import spanishLang from '../../images/flag/spain.svg';
 import frenchLang from '../../images/flag/france.svg';
 import italianLang from '../../images/flag/italy.svg';
@@ -14,12 +13,6 @@ const config = {
       locale: 'en',
       text: 'English',
       icon: englishLang
-    },
-    {
-      languageId: 'chinese',
-      locale: 'zh',
-      text: 'Chinese',
-      icon: chineseLang
     },
     {
       languageId: 'spanish',
