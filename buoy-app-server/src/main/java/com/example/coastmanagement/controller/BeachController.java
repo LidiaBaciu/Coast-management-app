@@ -1,24 +1,17 @@
 package com.example.coastmanagement.controller;
 
-import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.Beach;
-import com.example.coastmanagement.model.Buoy;
-import com.example.coastmanagement.model.Sensor;
-import com.example.coastmanagement.model.SensorValue;
 import com.example.coastmanagement.payload.requests.BeachRequest;
 import com.example.coastmanagement.payload.BeachSummary;
 import com.example.coastmanagement.payload.responses.BeachResponse;
 import com.example.coastmanagement.payload.responses.BuoyResponse;
 import com.example.coastmanagement.repository.BeachRepository;
 import com.example.coastmanagement.service.BeachService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -30,79 +23,19 @@ public class BeachController {
     @Autowired
     private BeachService beachService;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @GetMapping("/beaches/{id}")
     public BeachSummary getBeach(@PathVariable(value = "id") Long id) {
-        Beach beach = beachRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Beach", "id", id));
-        BeachSummary beachSummary = new BeachSummary(id, beach.getName(),
-                                                beach.getLongitude(), beach.getLatitude(),
-                                                beach.getPhotoUri());
-        if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
-            beachSummary.setTodaysAvgTemperature(beachService.getTodaysAvgStatistics(beach.getId()).get("temperature"));
-        }
-        if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("ph")){
-            beachSummary.setTodaysAvgpH(beachService.getTodaysAvgStatistics(beach.getId()).get("ph"));
-        }
-        if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("temperature")){
-            beachSummary.setYesterdaysAvgTemperature(beachService.getYesterdaysAvgStatistics(beach.getId()).get("temperature"));
-        }
-        if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("ph")){
-            beachSummary.setYesterdaysAvgpH(beachService.getYesterdaysAvgStatistics(beach.getId()).get("ph"));
-        }
-        return beachSummary;
+        return beachService.getBeachSummary(id);
     }
-
-    /*
-    @GetMapping("/beaches")
-    public List<Beach> getBeaches() {
-        return beachService.getAllBeaches();
-    }
-     */
 
     @GetMapping("/beaches")
     public List<BeachResponse> getBeaches() {
-        List<BeachResponse> beachResponseList = new ArrayList<>();
-        for(Beach beach : beachService.getAllBeaches()){
-            BeachResponse response = new BeachResponse();
-            response.setId(beach.getId());
-            response.setName(beach.getName());
-            response.setLatitude(beach.getLatitude());
-            response.setLongitude(beach.getLongitude());
-            response.setBuoys(beachService.getBuoysSummariesFromBeach(beach.getId()));
-            response.setPhotoUri(beach.getPhotoUri());
-            if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("temperature")){
-                response.setTodaysAvgTemperature(beachService.getTodaysAvgStatistics(beach.getId()).get("temperature"));
-            }
-            if(beachService.getTodaysAvgStatistics(beach.getId()).containsKey("ph")){
-                response.setTodaysAvgpH(beachService.getTodaysAvgStatistics(beach.getId()).get("ph"));
-            }
-            if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("temperature")){
-                response.setYesterdaysAvgTemperature(beachService.getYesterdaysAvgStatistics(beach.getId()).get("temperature"));
-            }
-            if(beachService.getYesterdaysAvgStatistics(beach.getId()).containsKey("ph")){
-                response.setYesterdaysAvgpH(beachService.getYesterdaysAvgStatistics(beach.getId()).get("ph"));
-            }
-            beachResponseList.add(response);
-        }
-        return beachResponseList;
+        return beachService.getBeaches();
     }
 
     @GetMapping("/beach/{id}/buoys")
     public List<BuoyResponse> getBuoysFromBeach(@PathVariable(value = "id") Long id){
-        Beach beach = beachRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Beach", "id", id));
-        Set<Buoy> buoys = beach.getBuoys();
-        List<BuoyResponse> buoyResponses = new ArrayList<>();
-        for (Buoy buoy: buoys) {
-            BuoyResponse buoyResponse = new BuoyResponse();
-            buoyResponse.setId(buoy.getId());
-            buoyResponse.setLatitude(buoy.getLatitude());
-            buoyResponse.setLongitude(buoy.getLongitude());
-            buoyResponses.add(buoyResponse);
-        }
-        return buoyResponses;
+        return beachService.getBuoysOnBeach(id);
     }
 
     @PostMapping("/beach/create")

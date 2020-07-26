@@ -4,7 +4,6 @@ import com.example.coastmanagement.exception.ResourceNotFoundException;
 import com.example.coastmanagement.model.*;
 import com.example.coastmanagement.payload.*;
 import com.example.coastmanagement.payload.requests.BuoyRequest;
-import com.example.coastmanagement.payload.responses.ProblemResponse;
 import com.example.coastmanagement.repository.BeachRepository;
 import com.example.coastmanagement.repository.BuoyRepository;
 import com.example.coastmanagement.repository.UserRepository;

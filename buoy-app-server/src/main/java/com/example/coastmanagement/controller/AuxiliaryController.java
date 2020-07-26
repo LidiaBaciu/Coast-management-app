@@ -74,14 +74,16 @@ public class AuxiliaryController {
             buoySummary.setId(buoy.getId());
             buoySummary.setLatitude(buoy.getLatitude());
             buoySummary.setLongitude(buoy.getLongitude());
-            for(Sensor sensor : buoy.getSensors()){
+            for(Sensor sensor : buoy.getSensorsBasedOnBuoy(buoy.getId())){
                 if(sensor.getName().equals("temperature")){
                     List<SensorValue> sortedValues = sensor.getSensorValues().stream()
                             .sorted(Comparator.comparing(SensorValue::getTimestamp).reversed())
                             .collect(Collectors.toList());
                     System.out.println(sortedValues.toString());
-                    buoySummary.setLatestTemperature(sortedValues.get(0).getValue());
-                    break;
+                    if(sortedValues.size() > 0){
+                        buoySummary.setLatestTemperature(sortedValues.get(0).getValue());
+                        break;
+                    }
                 }
             }
             buoySummaries.add(buoySummary);

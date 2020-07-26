@@ -1,9 +1,14 @@
 package com.example.coastmanagement.model;
 
+import com.example.coastmanagement.payload.BuoySummary;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "buoys", uniqueConstraints = {
@@ -78,5 +83,19 @@ public class Buoy {
     }
     public void setSensors(Set<Sensor> sensors) {
         this.sensors = sensors;
+    }
+
+    public float getLatestTemperatureForBuoy(Long id){
+        for(Sensor sensor: getSensorsBasedOnBuoy(id)){
+            if(sensor.getName().equals("temperature")){
+                List<SensorValue> sortedValues = sensor.getSensorValues().stream()
+                        .sorted(Comparator.comparing(SensorValue::getTimestamp).reversed())
+                        .collect(Collectors.toList());
+                if(sortedValues.size() > 0){
+                    return sortedValues.get(0).getValue();
+                }
+            }
+        }
+        return 0;
     }
 }
