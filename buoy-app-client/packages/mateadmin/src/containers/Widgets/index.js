@@ -52,7 +52,7 @@ let data = {
   labels: [],
   datasets: [
     {
-      label: "My First dataset",
+      label: "Temperature values registered this year",
       fill: false,
       lineTension: 0.1,
       backgroundColor: "rgba(72,166,242,0.6)",
@@ -79,7 +79,7 @@ let dataPH = {
   labels: [],
   datasets: [
     {
-      label: "My First dataset",
+      label: "pH values recorted this year",
       fill: false,
       lineTension: 0.1,
       backgroundColor: "rgba(72,166,242,0.6)",
@@ -159,18 +159,22 @@ class Widget extends Component {
     yearlyStatistics: {},
   };
 
-  componentDidMount(){
-    let tokenStr = JSON.parse(localStorage.getItem('token'));
-		axios.get( 'http://localhost:8080/api/home/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
-			.then( response => {
-        this.setState( {homeDetails : response.data});
-        polarData.datasets[0].data.push(this.state.homeDetails.totalProblemsReported, this.state.homeDetails.newlyProblemsReported, 
-          this.state.homeDetails.problemsSolved, (this.state.homeDetails.totalProblemsReported-this.state.homeDetails.problemsSolved));
-       
-      });
-    axios.get( 'http://localhost:8080/api/home/statistics/yearly/temperature' )
-    .then( response => {
-      this.setState( {yearlyStatistics : response.data});
+  initializeGraphs(){
+    polarData.datasets[0].data.push(this.state.homeDetails.totalProblemsReported, this.state.homeDetails.newlyProblemsReported, 
+      this.state.homeDetails.problemsSolved, (this.state.homeDetails.totalProblemsReported-this.state.homeDetails.problemsSolved));
+   
+    CircularWidgetData.value = this.state.homeDetails.numberOfSensorValuesToday;
+    CircularWidgetData.min = this.state.homeDetails.numberOfSensors*4; //each sensor sends minimum 4 entries a day
+    CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24; //each sensor sends maximum 24 entries a 
+    
+    let dataNewUsers = [];
+    dataNewUsers.unshift(this.state.homeDetails.newlyRegisteredUsers, this.state.homeDetails.totalRegisteredUsers);
+    dataGraph.datasets[0].data = dataNewUsers;
+    let dataNewProblems = [];
+    dataNewProblems.unshift(this.state.homeDetails.newlyProblemsReported, this.state.homeDetails.totalProblemsReported);
+    dataProblems.datasets[0].data= dataNewProblems;
+    
+    if(this.state.yearlyStatistics.temperatureValues && this.state.yearlyStatistics.phValues){
       let dataNew = [];
       dataNew = this.state.yearlyStatistics.temperatureValues.concat();
       data.datasets[0].data = dataNew;
@@ -180,7 +184,21 @@ class Widget extends Component {
       dataPH.labels = this.state.yearlyStatistics.labels.concat();
       data.labels = this.state.yearlyStatistics.labels.concat();
       console.log(data);
+    }
+  }
+
+  componentDidMount(){
+    let tokenStr = JSON.parse(localStorage.getItem('token'));
+		axios.get( 'http://localhost:8080/api/home/' , { headers: { Authorization: `Bearer ${tokenStr}` } }  )
+			.then( response => {
+        this.setState( {homeDetails : response.data});
+        
+      });
+    axios.get( 'http://localhost:8080/api/home/statistics/yearly/temperature' )
+    .then( response => {
+      this.setState( {yearlyStatistics : response.data});
     });
+    
   }
 
   render() {
@@ -188,17 +206,9 @@ class Widget extends Component {
     const width = 350;
     const height = 350;
     const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
-    console.log(this.state);
-    CircularWidgetData.value = this.state.homeDetails.numberOfSensorValuesToday;
-    CircularWidgetData.min = this.state.homeDetails.numberOfSensors*4; //each sensor sends minimum 4 entries a day
-    CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24; //each sensor sends maximum 24 entries a 
-    let dataNew = [];
-    dataNew.unshift(this.state.homeDetails.newlyRegisteredUsers, this.state.homeDetails.totalRegisteredUsers);
-    dataGraph.datasets[0].data = dataNew;
-    let dataNewProblems = [];
-    dataNewProblems.unshift(this.state.homeDetails.newlyProblemsReported, this.state.homeDetails.totalProblemsReported);
-    dataProblems.datasets[0].data= dataNewProblems;
-       
+
+    this.initializeGraphs();
+    
     return (
       <LayoutWrapper>
         <Row>

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.util.*;
 
 @Service
 public class SensorService {
@@ -132,23 +132,31 @@ public class SensorService {
         return retrieveStatistics(temperatureStatistics, phStatistics);
     }
 
-    public HashMap<String, Float> getSensorValuesCurrentYear(boolean temperature, boolean ph){
-        HashMap<String, Float> temperatureStatistics = new HashMap<>();
-        HashMap<String, Float> phStatistics = new HashMap<>();
+    public TreeMap<String, Float> getSensorValuesCurrentYear(boolean temperature, boolean ph){
+        TreeMap<String, Float> temperatureStatistics = new TreeMap<>();
+        TreeMap<String, Float> phStatistics = new TreeMap<>();
 
         for(SensorValue value : getThisYearsSensors(false, true)) {
             int month = Integer.parseInt(value.getTimestamp().split("-")[1]);
-            String monthString = new DateFormatSymbols().getMonths()[month-1];
+            String stringValueOfMonth = String.valueOf(month);
+            if (temperatureStatistics.containsKey(stringValueOfMonth)) {
+                temperatureStatistics.put(stringValueOfMonth, (temperatureStatistics.get(stringValueOfMonth) + value.getValue()) / 2);
+            } else {
+                temperatureStatistics.put(stringValueOfMonth, value.getValue());
+            }
+            /*String monthString = new DateFormatSymbols().getMonths()[month-1];
             if (temperatureStatistics.containsKey(monthString)) {
                 temperatureStatistics.put(monthString, (temperatureStatistics.get(monthString) + value.getValue()) / 2);
             } else {
                 temperatureStatistics.put(monthString, value.getValue());
             }
+             */
         }
 
         for(SensorValue value : getThisYearsSensors(false, false)) {
             int month = Integer.parseInt(value.getTimestamp().split("-")[1]);
-            String monthString = new DateFormatSymbols().getMonths()[month-1];
+            //String monthString = new DateFormatSymbols().getMonths()[month-1];
+            String monthString = String.valueOf(month);
             if (phStatistics.containsKey(monthString)) {
                 phStatistics.put(monthString, (phStatistics.get(monthString) + value.getValue()) / 2);
             } else {
@@ -160,6 +168,24 @@ public class SensorService {
             return temperatureStatistics;
         }
         return phStatistics;
+    }
+
+    public static void sortbyMonth(HashMap<String, Float> unsortedMap)
+    {
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("MMM")
+                .withLocale(Locale.ENGLISH);
+        TemporalAccessor accessor = parser.parse("Feb");
+        System.out.println(accessor.get(ChronoField.MONTH_OF_YEAR));  // prints 2
+        // TreeMap to store values of HashMap
+        TreeMap<String, Float> sorted = new TreeMap<>();
+
+        // Copy all data from hashMap into TreeMap
+        sorted.putAll(unsortedMap);
+
+        // Display the TreeMap which is naturally sorted
+        for (Map.Entry<String, Float> entry : sorted.entrySet())
+            System.out.println("Key = " + entry.getKey() +
+                    ", Value = " + entry.getValue());
     }
 
     public List<StatisticsResponse> retrieveStatistics(HashMap<String, Float> temperatureStatistics, HashMap<String, Float> phStatistics) {
