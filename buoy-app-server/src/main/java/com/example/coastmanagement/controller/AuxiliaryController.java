@@ -57,7 +57,7 @@ public class AuxiliaryController {
     public YearlyStatisticsResponse getYearlyStatistics() {
         YearlyStatisticsResponse auxiliaryResponse = new YearlyStatisticsResponse();
 
-        auxiliaryResponse.setLabels(sensorService.getSensorValuesCurrentYear(true, false).keySet());
+        auxiliaryResponse.setLabels(sensorService.getLabels());
         auxiliaryResponse.setTemperatureValues(sensorService.getSensorValuesCurrentYear(true, false).values());
         auxiliaryResponse.setPhValues(sensorService.getSensorValuesCurrentYear(false, true).values());
         return auxiliaryResponse;

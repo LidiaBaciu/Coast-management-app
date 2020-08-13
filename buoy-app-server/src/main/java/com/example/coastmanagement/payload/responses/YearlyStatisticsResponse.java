@@ -1,19 +1,20 @@
 package com.example.coastmanagement.payload.responses;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 public class YearlyStatisticsResponse {
-    private Set<String> labels;
+    private ArrayList<String> labels;
     private Collection temperatureValues;
     private Collection phValues;
 
-    public Set<String> getLabels() {
+    public ArrayList<String> getLabels() {
         return labels;
     }
 
-    public void setLabels(Set<String> labels) {
+    public void setLabels(ArrayList<String> labels) {
         this.labels = labels;
     }
 

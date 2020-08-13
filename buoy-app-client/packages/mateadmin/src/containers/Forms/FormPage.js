@@ -91,6 +91,7 @@ export default class extends Component {
               </HalfColumn>
             </Row>
           </Row>
+          {/** 
           <Row>
             <FullColumn>
               <Papersheet title="Do you want to change some profile details?" style={{backgroundColor: '#E5ECF1'}}>
@@ -105,6 +106,7 @@ export default class extends Component {
               </Papersheet>
             </FullColumn>
           </Row>
+          */}
         </LayoutWrapper>
       </Provider>
     );

@@ -112,7 +112,7 @@ class TopbarNotification extends Component {
             style={{ backgroundColor: '#145DA0' }}
           >
             <Tab label={<IntlMessages id="sidebar.notification" />} />
-            <Tab label={<IntlMessages id="sidebar.message" />} />
+            {/*<Tab label={<IntlMessages id="sidebar.message" />} />*/}
           </Tabs>
         </ThemeProvider>
 
@@ -122,10 +122,11 @@ class TopbarNotification extends Component {
           onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer>{this.notificationContent(height)}</TabContainer>
-          
+          {/* 
           <TabContainer>
             <TopbarMessage {...propsTopbar} />
           </TabContainer>
+          */}
         </SwipeableViews>
       </div>
     );

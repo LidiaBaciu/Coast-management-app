@@ -4,7 +4,7 @@ import { data } from "./polarConfig";
 
 class PolarChart extends React.Component {
   render() {
-    return <Polar data={this.props.data} height={230} />;
+    return <Polar data={this.props.data} height={this.props.height} />;
   }
 }
 

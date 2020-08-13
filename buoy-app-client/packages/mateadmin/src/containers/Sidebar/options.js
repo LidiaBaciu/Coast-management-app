@@ -128,7 +128,6 @@ const options = [
       },
     ],
   },
-  */
   {
     label: 'sidebar.uiElements',
     key: 'uiElements',

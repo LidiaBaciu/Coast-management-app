@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import LayoutWrapper from "../../components/utility/layoutWrapper";
 import Papersheet from "../../components/utility/papersheet";
-import { FullColumn, HalfColumn, Row } from "../../components/utility/rowColumn";
+import { FullColumn, HalfColumn, Row, OneThirdColumn } from "../../components/utility/rowColumn";
 //import IntlMessages from "../../components/utility/intlMessages";
 import Loader from '../../components/utility/Loader/';
 import FishesGrid from '../Fishes';
@@ -104,9 +104,12 @@ class BeachDetails extends Component {
             <LayoutWrapper>
               <FullColumn>
                 <Papersheet title={this.state.loadedBeach.name}>
-                    <center><img width = '80%' src={this.state.loadedBeach.photoUri} alt="Beach"/></center>
+                    
                     <Row>
-                    <HalfColumn>
+                      <OneThirdColumn>
+                        <center><img width = '80%' src={this.state.loadedBeach.photoUri} alt="Beach"/></center>
+                      </OneThirdColumn>
+                    <OneThirdColumn>
                       <Statistics
                         title="Temperature"
                         duration="Today-Yesterday"
@@ -116,8 +119,8 @@ class BeachDetails extends Component {
                         direction = {temperatureDirection}
                         style={{ marginBottom: 20 }}
                       />
-                    </HalfColumn>
-                    <HalfColumn>
+                    </OneThirdColumn>
+                    <OneThirdColumn>
                       <Statistics
                         title="pH"
                         duration="Today-Yesterday"
@@ -127,7 +130,7 @@ class BeachDetails extends Component {
                         direction = {phDirection}
                         style={{ marginBottom: 20 }}
                       />
-                    </HalfColumn>
+                    </OneThirdColumn>
                     </Row>
                     <h3>There is a high chance you catch the following:</h3>
                     <FishesGrid beachId={this.state.loadedBeach.id}/>

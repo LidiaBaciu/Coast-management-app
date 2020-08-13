@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SensorService {
@@ -105,7 +106,11 @@ public class SensorService {
             }
         }
 
-        return retrieveStatistics(temperatureStatistics, phStatistics);
+        List<StatisticsResponse> statisticsResponseList = retrieveStatistics(temperatureStatistics, phStatistics);
+        List<StatisticsResponse> sortedList = statisticsResponseList.stream().sorted(Comparator.comparing(StatisticsResponse::getTime)).collect(Collectors.toList());
+        return sortedList;
+
+        //return retrieveStatistics(temperatureStatistics, phStatistics);
     }
     public List<StatisticsResponse> getAverageThisYear(){
         HashMap<String, Float> temperatureStatistics = new HashMap<>();
@@ -168,6 +173,20 @@ public class SensorService {
             return temperatureStatistics;
         }
         return phStatistics;
+    }
+
+    public ArrayList<String> getLabels(){
+        TreeMap<String, Float> temperatureStatistics = new TreeMap<>();
+        TreeMap<String, Float> phStatistics = new TreeMap<>();
+        TreeMap<String, Float> statistics = getSensorValuesCurrentYear(true, false);
+
+        ArrayList<String> labels = new ArrayList<>();
+        for(Map.Entry<String,Float> entry : statistics.entrySet()) {
+            String key = entry.getKey();
+            String monthName = new DateFormatSymbols().getMonths()[Integer.parseInt(key) -1];
+            labels.add(monthName);
+        }
+       return labels;
     }
 
     public static void sortbyMonth(HashMap<String, Float> unsortedMap)

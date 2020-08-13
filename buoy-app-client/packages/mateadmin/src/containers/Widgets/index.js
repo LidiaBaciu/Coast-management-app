@@ -160,6 +160,7 @@ class Widget extends Component {
   };
 
   initializeGraphs(){
+    polarData.datasets[0].data = [];
     polarData.datasets[0].data.push(this.state.homeDetails.totalProblemsReported, this.state.homeDetails.newlyProblemsReported, 
       this.state.homeDetails.problemsSolved, (this.state.homeDetails.totalProblemsReported-this.state.homeDetails.problemsSolved));
    
@@ -198,13 +199,13 @@ class Widget extends Component {
     .then( response => {
       this.setState( {yearlyStatistics : response.data});
     });
-    
+    this.initializeGraphs();
   }
 
   render() {
     
     const width = 350;
-    const height = 350;
+    const height = 400;
     const colors = ['#BAA6CA', '#B7DCFA', '#FFE69A', '#788195'];
 
     this.initializeGraphs();
@@ -212,7 +213,7 @@ class Widget extends Component {
     return (
       <LayoutWrapper>
         <Row>
-          <OneThirdColumn>
+          <HalfColumn>
               <SalesProgress
                   title={<IntlMessages id="home.buoysInstalled" />}
                   amount={this.state.homeDetails.numberOfBuoys}
@@ -220,8 +221,8 @@ class Widget extends Component {
                   color="#533B4D"
                   upward
                 />
-          </OneThirdColumn>
-          <OneThirdColumn>
+          </HalfColumn>
+          <HalfColumn>
               <SalesProgress
                   title={<IntlMessages id="home.beachesMonitorized" />}
                   amount={this.state.homeDetails.numberOfBeaches}
@@ -229,7 +230,8 @@ class Widget extends Component {
                   color="#C1ABA6"
                   upward
                 />
-          </OneThirdColumn>
+          </HalfColumn>
+          {/*
           <OneThirdColumn>
               <SalesProgress
                   title={<IntlMessages id="home.seasCoverage" />}
@@ -239,6 +241,7 @@ class Widget extends Component {
                   upward
                 />
           </OneThirdColumn>
+          */}
         </Row>
         <Row>
           <HalfColumn>
@@ -263,31 +266,45 @@ class Widget extends Component {
 
         </Row>
         <Row>
+          <OneThirdColumn>
+            <Box title={<IntlMessages id="home.polarProblemsReported" />}>
+              <Polar data={polarData} height={height}/>
+            </Box>
+          </OneThirdColumn>
+          <OneThirdColumn>
+            <Box title={<IntlMessages id="home.buoysProblems" />} stretched>
+              <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
+            </Box>
+          </OneThirdColumn>
+          <OneThirdColumn>
+            <Box title={<IntlMessages id="home.todaysStatistics" />} >
+              <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.homeDetails.statisticsResponse} />
+            </Box>
+          </OneThirdColumn>
+        </Row>
+        {/*
+        <Row>
           <HalfColumn>
             <Box title={<IntlMessages id="home.polarProblemsReported" />}>
-              <Polar data={polarData}/>
+              <Polar data={polarData} height={height}/>
             </Box>
           </HalfColumn>
+          <HalfColumn>
+              <Row>
+                <Box title={<IntlMessages id="home.buoysProblems" />} stretched>
+                  <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
+                </Box>
+                <Box title={<IntlMessages id="home.todaysStatistics" />} >
+                  <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.homeDetails.statisticsResponse} />
+                </Box>
+              </Row>
+            </HalfColumn>
         </Row>
+        */}
         <Row>
           <FullColumn>
             <TableWidget title={<IntlMessages id="home.coasts" />}/>
           </FullColumn>
-        </Row>
-        <Row>
-          <HalfColumn>
-           {/*<GoogleChart {...configs.BarChart} chartEvents={chartEvents} />*/}
-           <Box title={<IntlMessages id="home.buoysProblems" />} stretched>
-              <SimpleBarChart width={width} height={height} colors={colors} datas = {this.state.homeDetails.topBuoysResponse} />
-            </Box>
-          </HalfColumn>
-          <HalfColumn>
-           {/*<GoogleChart {...configs.lineChart} />*/}
-           <Box title={<IntlMessages id="home.todaysStatistics" />} >
-             <SimpleLineCharts width={width} height={height} colors={colors} datas={this.state.homeDetails.statisticsResponse} />
-            </Box>
-           
-          </HalfColumn>
         </Row>
         <Row>
           <FullColumn>
