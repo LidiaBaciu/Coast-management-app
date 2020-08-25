@@ -14,6 +14,7 @@ import axios from 'axios';
 import invoiceActions from '../../redux/problem/actions';
 
 const { switchActivation } = themeActions;
+const {initData } = invoiceActions;
 
 const theme = createMuiTheme({
   overrides: {
@@ -55,14 +56,14 @@ class TopbarNotification extends Component {
       anchorEl: findDOMNode(this.button),
     });
   };
-  notificationContent = height => (
+  notificationContent = (height, problems) => (
     <SidebarContent
       className="topbarNotification"
       style={{ height: height - 65 }}
     >
       <div className="dropdownBody">
         <Scrollbars style={{ height: '100%' }}>
-          {this.props.problems.slice(0,5).map(notification =>
+          {problems.slice(0,5).map(notification =>
             !notification.solved ? (
               <a href={"/dashboard/problems/" + notification.id}className="dropdownListItem" key={notification.id}>
                 <h5>{notification.username}</h5>
@@ -92,10 +93,16 @@ class TopbarNotification extends Component {
     this.setState({ tabValue });
   };
 
+  componentDidMount() {
+    const { initData } = this.props;
+    initData();
+  }
+
   render() {
-    const { locale, url, switchActivation, height, auth } = this.props;
+    const { locale, url, switchActivation, height, auth, problems } = this.props;
     const propsTopbar = { locale, url };
     console.log(auth);
+    console.log(problems);
     return (
       <div>
         <CloseButton onClick={() => switchActivation(false)}>
@@ -121,7 +128,7 @@ class TopbarNotification extends Component {
           index={this.state.tabValue}
           onChangeIndex={this.handleChangeIndex}
         >
-          <TabContainer>{this.notificationContent(height)}</TabContainer>
+          <TabContainer>{this.notificationContent(height, problems)}</TabContainer>
           {/* 
           <TabContainer>
             <TopbarMessage {...propsTopbar} />
@@ -146,7 +153,7 @@ export default connect(
   mapStateToProps,
   {
     switchActivation,
-    invoiceActions,
+    initData,
   }
 )(TopbarNotification);
 
