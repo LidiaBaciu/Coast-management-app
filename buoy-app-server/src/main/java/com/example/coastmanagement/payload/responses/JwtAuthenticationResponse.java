@@ -2,9 +2,7 @@ package com.example.coastmanagement.payload.responses;
 
 import java.time.Instant;
 
-/**
- * Created by rajeevkumarsingh on 19/08/17.
- */
+
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
