@@ -48,16 +48,8 @@ class TopbarUser extends Component {
 
         <SettingsList>
           <a href="dashboard/user-details" className="dropdownLink">
-            <Icon>details</Icon>
+            <Icon>person</Icon>
             <IntlMessages id="themeSwitcher.settings" />
-          </a>
-          <a href="#!" className="dropdownLink">
-            <Icon>help</Icon>
-            <IntlMessages id="sidebar.feedback" />
-          </a>
-          <a href="#!" className="dropdownLink">
-            <Icon>feedback</Icon>
-            <IntlMessages id="topbar.help" />
           </a>
           <Link to="/" onClick={this.props.logout} className="dropdownLink">
             <Icon>input</Icon>

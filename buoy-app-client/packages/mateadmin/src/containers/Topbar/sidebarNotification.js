@@ -101,8 +101,6 @@ class TopbarNotification extends Component {
   render() {
     const { locale, url, switchActivation, height, auth, problems } = this.props;
     const propsTopbar = { locale, url };
-    console.log(auth);
-    console.log(problems);
     return (
       <div>
         <CloseButton onClick={() => switchActivation(false)}>

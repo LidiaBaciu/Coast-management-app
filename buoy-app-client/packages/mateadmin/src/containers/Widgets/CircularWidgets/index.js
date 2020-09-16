@@ -59,7 +59,7 @@ class CircularWidget extends Component {
 
   render() {
     const { currentValue, currentPercentage } = this.state;
-    const { min, max, title, text } = this.props.config;
+    const { min, max, title, text, value } = this.props.config;
     return (
       <WidgetBox title={this.props.title} stretched={this.props.stretched}>
         <Activity>
@@ -75,7 +75,7 @@ class CircularWidget extends Component {
 
             <ProgressbarText>
               <span className="text">{text}</span>
-              <h3>{currentValue}</h3>
+              <h3>{value}</h3>
               <span>{title}</span>
             </ProgressbarText>
           </CircularProgressbarWrapper>

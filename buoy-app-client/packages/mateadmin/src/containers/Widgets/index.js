@@ -166,7 +166,7 @@ class Widget extends Component {
    
     CircularWidgetData.value = this.state.homeDetails.numberOfSensorValuesToday;
     CircularWidgetData.min = this.state.homeDetails.numberOfSensors*4; //each sensor sends minimum 4 entries a day
-    CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24; //each sensor sends maximum 24 entries a 
+    CircularWidgetData.max = this.state.homeDetails.numberOfSensors*24*30; //each sensor sends maximum 24 entries a 
     
     let dataNewUsers = [];
     dataNewUsers.unshift(this.state.homeDetails.newlyRegisteredUsers, this.state.homeDetails.totalRegisteredUsers);
