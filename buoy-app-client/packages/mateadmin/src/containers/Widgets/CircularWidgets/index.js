@@ -61,6 +61,7 @@ class CircularWidget extends Component {
     //const { currentValue, currentPercentage } = this.state;
     const { currentPercentage } = this.state;
     const { min, max, title, text, value } = this.props.config;
+    
     return (
       <WidgetBox title={this.props.title} stretched={this.props.stretched}>
         <Activity>
@@ -84,13 +85,13 @@ class CircularWidget extends Component {
           <MinMaxValueWrapper>
             <ProgressbarText>
               <span className="text">Min</span>
-              <h3>{min}</h3>
+              <h3>{Number.isNaN(min)? 0 : min}</h3>
               <span>{title}</span>
             </ProgressbarText>
 
             <ProgressbarText>
               <span className="text">Max</span>
-              <h3>{max}</h3>
+              <h3>{Number.isNaN(max)? 0 : max}</h3>
               <span>{title}</span>
             </ProgressbarText>
           </MinMaxValueWrapper>
