@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Lists, { ListSubheader } from '../../components/uielements/lists';
 import { Root } from './lists.style';
 import BuoyItem from './buoyItem';
-import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 

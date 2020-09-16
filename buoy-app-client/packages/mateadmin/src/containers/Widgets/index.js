@@ -8,20 +8,14 @@ import {
   FullColumn,
   HalfColumn,
 } from '../../components/utility/rowColumn';
-import Contacts from '../Contact/contactBox';
-import Statistics from './Statistics';
-import Transaction from './Transactions';
 import SalesProgress from './SaleProgress';
 import SalesStats from './Sales';
-import SaleChart from './SaleCharts';
 import TableWidget from './TableWidget';
 import CircularWidget from './CircularWidgets';
-import Visitors from './Visitors';
 import Async from '../../helpers/asyncComponent';
 import SimpleLineCharts from '../Charts/recharts/charts/simpleLineCharts'
 import SimpleBarChart from '../Charts/recharts/charts/simpleBarChart';
 import axios from 'axios';
-import SiteAdminImage from '../../images/avatars/lidia.jpg'
 import SiteAdminImage2 from '../../images/avatars/lidia2.jpg'
 import SiteAdminImage3 from '../../images/avatars/organization.jpg'
 import IntlMessages from '../../components/utility/intlMessages';
@@ -409,8 +403,8 @@ class Widget extends Component {
             <Box title={<IntlMessages id="home.aboutUs" />}>
                 <p>{<IntlMessages id="home.aboutUsWelcome" />}</p>
                 <p>{<IntlMessages id="home.aboutUsIntro" />}</p>
-                <center><img src={SiteAdminImage2}/>
-                <img src={SiteAdminImage3}/></center>
+                <center><img src={SiteAdminImage2} alt=""/>
+                <img src={SiteAdminImage3} alt=""/></center>
             </Box>
           </TwoThirdColumn>
           <OneThirdColumn sm={6} md={6}>

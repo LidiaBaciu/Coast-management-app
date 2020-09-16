@@ -8,7 +8,6 @@ import {
 } from '../../components/uielements/form/';
 import Inputs, {
   InputLabel as InputLabels,
-  InputAdornment as InputAdornments,
 } from '../../components/uielements/input';
 import InputSearches from '../../components/uielements/inputSearch';
 

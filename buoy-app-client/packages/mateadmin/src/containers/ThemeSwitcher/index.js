@@ -13,7 +13,6 @@ import {
   BreadCrumbSwitch,
   ThemeSwitcherHeader,
   SwitcherBlock,
-  PurchaseActionBtn,
   SidebarInner,
 } from './themeSwitcher.style';
 

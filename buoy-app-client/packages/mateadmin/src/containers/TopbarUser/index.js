@@ -5,7 +5,6 @@ import Icon from '../../components/uielements/icon';
 import appActions from '../../redux/app/actions';
 import themeActions from '../../redux/themeSwitcher/actions';
 import { AppHolder, Toolbar, IconButtons, TopbarComponents } from './style';
-import TopbarSearch from './topbarSearch';
 import TopbarUser from './topbarUser';
 const { toggleCollapsed } = appActions;
 const { switchActivation } = themeActions;

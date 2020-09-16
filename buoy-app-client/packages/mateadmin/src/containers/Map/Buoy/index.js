@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Async from "../../../helpers/asyncComponent";
 import LayoutWrapper from "../../../components/utility/layoutWrapper";
-import { Row, HalfColumn, FullColumn } from "../../../components/utility/rowColumn";
+import { FullColumn } from "../../../components/utility/rowColumn";
 import Box from "../../../components/utility/papersheet";
 
 const BasicLeafletMap = props => (

@@ -6,16 +6,10 @@ import LayoutWrapper from '../../components/utility/layoutWrapper';
 import Papersheet from '../../components/utility/papersheet';
 import {
   Row,
-  FullColumn,
   HalfColumn,
 } from '../../components/utility/rowColumn';
-import PageTitle from '../../components/utility/paperTitle';
-import Button from '../../components/uielements/button';
-import TextField from '../../components/uielements/textfield';
 import { Chip } from './chips.style';
-//import Avatar from '../../components/uielements/avatars';
 import Avatar from '../UiElements/Avatars/avatars.style'
-import Image from '../../images/cover.jpg';
 
 const reducer = combineReducers({ form: reduxFormReducer });
 const store = createStore(reducer);

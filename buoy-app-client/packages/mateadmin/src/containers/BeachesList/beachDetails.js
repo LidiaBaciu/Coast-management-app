@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import LayoutWrapper from "../../components/utility/layoutWrapper";
 import Papersheet from "../../components/utility/papersheet";
-import { FullColumn, HalfColumn, Row, OneThirdColumn } from "../../components/utility/rowColumn";
+import { FullColumn, Row, OneThirdColumn } from "../../components/utility/rowColumn";
 //import IntlMessages from "../../components/utility/intlMessages";
 import Loader from '../../components/utility/Loader/';
 import FishesGrid from '../Fishes';

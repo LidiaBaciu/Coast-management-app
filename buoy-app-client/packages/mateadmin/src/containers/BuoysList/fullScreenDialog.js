@@ -23,7 +23,7 @@ class FullScreenDialog extends React.Component {
   };
 
   render() {
-    const { classes, sensor } = this.props;
+    const { classes } = this.props;
     return (
       <div>
         <Button onClick={this.handleClickOpen}>View details</Button>

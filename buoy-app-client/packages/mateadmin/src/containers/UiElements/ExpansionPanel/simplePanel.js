@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '../../../components/uielements/typography/index.js';
 import Icon from '../../../components/uielements/icon/index.js';
 import ExpansionPanel, {
@@ -28,7 +27,7 @@ function SimpleExpansionPanel() {
               <li>{<IntlMessages id="buoy.military" />}</li>
             </ul>
           </Typography>
-          <center><img src={BuoyImage}/></center>
+          <center><img src={BuoyImage} alt=""/></center>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel>

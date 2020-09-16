@@ -4,7 +4,6 @@ import Lists, {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  ListItemIcon,
 } from '../../components/uielements/lists';
 //import Avatar from '../../components/uielements/avatars/';
 import {
@@ -13,12 +12,11 @@ import {
   FormControl,
 } from '../../components/uielements/form/';
 import Checkbox from '../../components/uielements/checkbox/';
-import Grids from '../../components/uielements/grid/';
 import Typography from '../../components/uielements/typography/index.js';
 import { connect } from 'react-redux';
 import FormDialog from './formDialog';
 import Avatar from '@material-ui/core/Avatar';
-import { Root, Input, InputLabel, InputSearch} from './lists.style';
+import { Root, InputLabel, InputSearch} from './lists.style';
 import actions from '../../redux/beachList/actions';
 import Divider from '../../components/uielements/dividers';
 
@@ -54,7 +52,7 @@ class InteractiveList extends React.Component {
  }
 
   render() {
-    const { beaches, classes, searchText, filteredBeaches, setSearch } = this.props;
+    const { classes, searchText, filteredBeaches, setSearch } = this.props;
     const { dense, secondary } = this.state;
     let button = null;
     let role = JSON.parse(localStorage.getItem('role'));

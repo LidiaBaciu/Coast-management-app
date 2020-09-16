@@ -2,8 +2,6 @@ import React from 'react';
 import Lists, {
     ListItem,
     ListItemText,
-    ListItemIcon,
-    ListSubheader,
   } from '../../components/uielements/lists';
   import Icon from '../../components/uielements/icon/index.js';
   import Collapse from '@material-ui/core/Collapse';

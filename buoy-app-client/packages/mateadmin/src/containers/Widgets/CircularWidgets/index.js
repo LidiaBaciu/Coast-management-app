@@ -58,7 +58,8 @@ class CircularWidget extends Component {
   }
 
   render() {
-    const { currentValue, currentPercentage } = this.state;
+    //const { currentValue, currentPercentage } = this.state;
+    const { currentPercentage } = this.state;
     const { min, max, title, text, value } = this.props.config;
     return (
       <WidgetBox title={this.props.title} stretched={this.props.stretched}>

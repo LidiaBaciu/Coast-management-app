@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from './button.style';
 import TextField from '../../components/uielements/textfield';
@@ -9,10 +8,9 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from '../../components/uielements/dialogs';
-import beachesAction from '../../redux/beachList/actions';
 import Icons from '../../components/uielements/icon/index.js';
 import axios from 'axios';
-import { Form, Select, FormControls } from './select.style';
+import { Select, FormControls } from './select.style';
 import { MenuItem } from '../../components/uielements/menus';
 import Input, { InputLabel } from '../../components/uielements/input';
 const Icon = styled(Icons)``;

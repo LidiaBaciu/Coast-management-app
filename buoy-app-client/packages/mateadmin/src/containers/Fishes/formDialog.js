@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Button from '../../components/uielements/button';
 import TextField from '../../components/uielements/textfield';
 import Dialog, {

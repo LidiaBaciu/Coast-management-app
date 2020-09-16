@@ -7,10 +7,8 @@ import SwipeableViews from 'react-swipeable-views';
 import Scrollbars from '../../components/utility/customScrollBar';
 import Tabs, { Tab } from '../../components/uielements/tabs';
 import IntlMessages from '../../components/utility/intlMessages';
-import TopbarMessage from './topbarMessage';
 import { SidebarContent, Icon, CloseButton } from './sidebarNotification.style';
 import themeActions from '../../redux/themeSwitcher/actions';
-import axios from 'axios';
 import invoiceActions from '../../redux/problem/actions';
 
 const { switchActivation } = themeActions;
@@ -99,8 +97,8 @@ class TopbarNotification extends Component {
   }
 
   render() {
-    const { locale, url, switchActivation, height, auth, problems } = this.props;
-    const propsTopbar = { locale, url };
+    const {switchActivation, height, problems } = this.props;
+
     return (
       <div>
         <CloseButton onClick={() => switchActivation(false)}>
